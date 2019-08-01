@@ -34,9 +34,9 @@ class Products extends Component {
                                     <div className="filter-content">
                                         <div className="card-body">
                                             <div className="form-row">
-                                            <form className="input-group"><input placeholder="Minimum" ref={input => this.min = input} className="form-control mb-2" type="text" /></form>
-                                            <form className="input-group"><input placeholder="Maximum" ref={input => this.max = input} className="form-control" type="text" /></form>
-                                            <button onClick={this.onBtnSearch} className="btn btn-outline-danger btn-block mt-5">Search</button>
+                                                <form className="input-group"><input placeholder="Minimum" ref={input => this.min = input} className="form-control mb-2" type="text" /></form>
+                                                <form className="input-group"><input placeholder="Maximum" ref={input => this.max = input} className="form-control" type="text" /></form>
+                                                <button onClick={this.onBtnSearch} className="btn btn-outline-danger btn-block mt-5">Search</button>
                                         
                                             </div>
                                         </div>

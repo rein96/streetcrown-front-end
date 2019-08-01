@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Route, BrowserRouter, Switch } from 'react-router-dom'
-// import { connect } from 'react-redux' 
-// import cookies from 'universal-cookie';
+import { connect } from 'react-redux' 
+import cookies from 'universal-cookie';
 
 import Header from './components/Header'
 import Home from './components/home/Home'
@@ -13,13 +13,30 @@ import Admin from './components/admin/Admin'
 import Checkout from './components/Checkout'
 import Profile from './components/Profile'
 
+import { keepLogin } from './actions/index'
+
 // New object cookies()
+const cookie = new cookies()
 
 class App extends Component {
 
-    componentDidMount() {
+    // fires immediately before the initial render -> cookie
+    componentWillMount() {
         window.scrollTo(0, 0);
+        var user = cookie.get('streetcrownUser')
+
+        console.log('user (streetcrownUser cookie):')
+        console.log(user)
+
+        // if cookie successfully get, it will become a object { ... }
+        if(user) {
+            this.props.keepLogin(user)
+        }
     }
+
+    // componentDidMount() {
+    //     window.scrollTo(0, 0);
+    // }
 
 
     // Initialize cookie componentDidMount() {}  
@@ -52,4 +69,4 @@ class App extends Component {
 
 }
 
-export default App;
+export default connect(null, {keepLogin} )(App);

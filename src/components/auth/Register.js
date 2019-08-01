@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { Link, Redirect } from 'react-router-dom'
 import axios from '../../config/axios'
-// import {connect} from 'react-redux'
+import {connect} from 'react-redux'
 
 import '../../css/auth.css'
 
@@ -57,7 +57,17 @@ class Register extends Component {
     render() {
         console.log(this.state.register)
 
-        if(this.state.register === false) {
+        // if user has already logged in, cannot access register form
+        if (this.props.objectUser.username !== '') {
+            return <Redirect to='/' />
+        }
+
+        // if user has registered, then redirect to login form
+        if (this.state.register === true) {
+            return <Redirect to='/login' />
+        }
+
+        if(this.state.register === false || this.props.objectUser.username === '') {
 
             return (
                 <div class="container py-5">
@@ -74,7 +84,7 @@ class Register extends Component {
                                     </div>
                                     <div class="card-body" >
     
-                                    <form onSubmit={this.pressEnter}>
+                                        <form onSubmit={this.pressEnter}>
     
                                             <div class="form-group">
                                                 <label for="uname1">Name</label>
@@ -118,7 +128,7 @@ class Register extends Component {
                                                 </form>
                                             </div>
     
-                                    </form>
+                                        </form>
                                             <button className="btn btn-success btn-block" onClick={this.onButtonClick}>Register</button>
     
                                             <p className="lead">Do you have an account ? <Link to="/login">Login Now!</Link></p>
@@ -127,22 +137,19 @@ class Register extends Component {
                             </div>
                         </div>
                     </div>
+                    </div>
                 </div>
-            </div>
 
             )
-
-        } else if (this.state.register === true ) {
-            // if register === true (when someone register successfully)
-            return(
-                <Redirect to='/login'  />
-            )
-
-        }
-
-
+        } 
+        
     }
-
 }
 
-export default Register;
+const mapStateToProps = state => {
+    return {
+        objectUser: state.auth  // { id, name, username, email, phone_number, is_admin, avatar }
+    }
+}
+
+export default connect(mapStateToProps)(Register);
