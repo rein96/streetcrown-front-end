@@ -1,13 +1,64 @@
 import React, { Component } from 'react'
+import { connect } from 'react-redux'
+import { Link } from 'react-router-dom'
+
+import { getProducts } from '../actions/index'
 
 import '../css/products.css'
 
+const imageStyle = {
+    width : '300px',
+    borderRadius: '10px'
+}
 
 class Products extends Component {
 
-    componentDidMount() {
-        window.scrollTo(0, 0);
+    state = {
+        categorySelected : 'All'
     }
+
+    async componentWillMount() {
+        window.scrollTo(0, 0);
+
+        await this.props.getProducts()
+    }
+
+     
+
+    renderListProduct = () => {
+        let render = this.props.productsSTATE.map( product => {
+            return (
+                <div className="card col-11 col-sm-5 col-md-3 col-lg-3 m-3 shadow" key={product.id}>
+                    <center>
+                    <img src={`http://localhost:2019/products/${product.image}`} className="card-img-top shadow-lg mt-2" alt="products" style={imageStyle} />
+                    </center>
+                    
+                    <div className='card-body'>
+                        <h5 className='card-title'> {product.name} </h5>
+                        <span 
+                        className={'badge badge-pill ' + ( product.category === 'Exterior' ? 'badge-primary' : ( product.category === 'Interior' ? 'badge-success' : 'badge-danger' ) ) }> {product.category} </span>
+                        <p className='card-text'> Rp. {product.price.toLocaleString()} </p>
+                        
+                        <Link to={`/productdetail/${product.id}`} >
+                            <button className="btn btn-danger btn-block" > Detail </button>
+                        </Link>
+                    </div>
+                </div>
+            )
+        })
+
+        return render;
+    }
+
+    renderCategory = () => {
+        // let render = this.props.productsSTATE.map( product => {
+        //     return (
+        //         <a href="#" className="list-group-item">Exterior <span className="float-right badge badge-light round">10</span> </a>
+        //     )
+        // })
+    }
+
+
 
 
     render() {
@@ -21,6 +72,9 @@ class Products extends Component {
                                 <header className="card-header bg-danger"><h6 className="title text-white"> Category </h6></header>
                                 <div className="filter-content">
                                     <div className="list-group list-group-flush">
+                                        {/* {this.renderCategory()} */}
+
+                                        {/*  */}
                                     <a href="#" className="list-group-item">Exterior <span className="float-right badge badge-light round">10</span> </a>
                                     <a href="#" className="list-group-item">Interior  <span className="float-right badge badge-light round">5</span>  </a>
                                     <a href="#" className="list-group-item">Engine <span className="float-right badge badge-light round">4</span>  </a>
@@ -48,106 +102,8 @@ class Products extends Component {
                     {/* render getProducts() */}
                     <div className="row col-10">
 
+                        {this.renderListProduct()}
 
-
-
-                        {/*  HARD CODE */}
-                        <div className="card col-11 col-sm-5 col-md-3 col-lg-3 m-3" key={this.props.key}>
-                            <img src="https://www.myborosil.com/media/catalog/product/cache/image/890x660/949a03ce40949dc22ecdcbf899e10376/1/0/109_borosil_drinking_water_glass_bottle_freezer_proof_flame_fridge_.jpg" className="card-img-top" alt="Gambar"/>
-                            <div className='card-body'>
-                                <h5 className='card-title'> Product Title </h5>
-                                <p className='card-text'> Glass Cleaner </p>
-                                {/* <p className='card-text'> {this.props.product.desc} </p> */}
-                                <p className='card-text'> Rp. 150.000 </p>
-                                
-                                <button className="btn btn-danger btn-block" >Detail</button>
-                            </div>
-                        </div>
-
-
-                        <div className="card col-11 col-sm-5 col-md-3 col-lg-3 m-3" key={this.props.key}>
-                            <img src="https://www.myborosil.com/media/catalog/product/cache/image/890x660/949a03ce40949dc22ecdcbf899e10376/1/0/109_borosil_drinking_water_glass_bottle_freezer_proof_flame_fridge_.jpg" className="card-img-top" alt="Gambar"/>
-                            <div className='card-body'>
-                                <h5 className='card-title'> Product Title </h5>
-                                <p className='card-text'> Glass Cleaner </p>
-                                {/* <p className='card-text'> {this.props.product.desc} </p> */}
-                                <p className='card-text'> Rp. 150.000 </p>
-                                
-                                <button className="btn btn-danger btn-block" >Detail</button>
-                            </div>
-                        </div>
-
-
-
-                        <div className="card col-11 col-sm-5 col-md-3 col-lg-3 m-3" key={this.props.key}>
-                            <img src="https://www.myborosil.com/media/catalog/product/cache/image/890x660/949a03ce40949dc22ecdcbf899e10376/1/0/109_borosil_drinking_water_glass_bottle_freezer_proof_flame_fridge_.jpg" className="card-img-top" alt="Gambar"/>
-                            <div className='card-body'>
-                                <h5 className='card-title'> Product Title </h5>
-                                <p className='card-text'> Glass Cleaner </p>
-                                {/* <p className='card-text'> {this.props.product.desc} </p> */}
-                                <p className='card-text'> Rp. 150.000 </p>
-                                
-                                <button className="btn btn-danger btn-block" >Detail</button>
-                            </div>
-                        </div>
-
-
-                        <div className="card col-11 col-sm-5 col-md-3 col-lg-3 m-3" key={this.props.key}>
-                            <img src="https://www.myborosil.com/media/catalog/product/cache/image/890x660/949a03ce40949dc22ecdcbf899e10376/1/0/109_borosil_drinking_water_glass_bottle_freezer_proof_flame_fridge_.jpg" className="card-img-top" alt="Gambar"/>
-                            <div className='card-body'>
-                                <h5 className='card-title'> Product Title </h5>
-                                <p className='card-text'> Glass Cleaner </p>
-                                {/* <p className='card-text'> {this.props.product.desc} </p> */}
-                                <p className='card-text'> Rp. 150.000 </p>
-                                
-                                <button className="btn btn-danger btn-block" >Detail</button>
-                            </div>
-                        </div>
-
-
-                        <div className="card col-11 col-sm-5 col-md-3 col-lg-3 m-3" key={this.props.key}>
-                            <img src="https://www.myborosil.com/media/catalog/product/cache/image/890x660/949a03ce40949dc22ecdcbf899e10376/1/0/109_borosil_drinking_water_glass_bottle_freezer_proof_flame_fridge_.jpg" className="card-img-top" alt="Gambar"/>
-                            <div className='card-body'>
-                                <h5 className='card-title'> Product Title </h5>
-                                <p className='card-text'> Glass Cleaner </p>
-                                {/* <p className='card-text'> {this.props.product.desc} </p> */}
-                                <p className='card-text'> Rp. 150.000 </p>
-                                
-                                <button className="btn btn-danger btn-block" >Detail</button>
-                            </div>
-                        </div>
-
-
-                        <div className="card col-11 col-sm-5 col-md-3 col-lg-3 m-3" key={this.props.key}>
-                            <img src="https://www.myborosil.com/media/catalog/product/cache/image/890x660/949a03ce40949dc22ecdcbf899e10376/1/0/109_borosil_drinking_water_glass_bottle_freezer_proof_flame_fridge_.jpg" className="card-img-top" alt="Gambar"/>
-                            <div className='card-body'>
-                                <h5 className='card-title'> Product Title </h5>
-                                <p className='card-text'> Glass Cleaner </p>
-                                {/* <p className='card-text'> {this.props.product.desc} </p> */}
-                                <p className='card-text'> Rp. 150.000 </p>
-                                
-                                <button className="btn btn-danger btn-block" >Detail</button>
-                            </div>
-                        </div>
-
-
-                        <div className="card col-11 col-sm-5 col-md-3 col-lg-3 m-3" key={this.props.key}>
-                            <img src="https://www.myborosil.com/media/catalog/product/cache/image/890x660/949a03ce40949dc22ecdcbf899e10376/1/0/109_borosil_drinking_water_glass_bottle_freezer_proof_flame_fridge_.jpg" className="card-img-top" alt="Gambar"/>
-                            <div className='card-body'>
-                                <h5 className='card-title'> Product Title </h5>
-                                <p className='card-text'> Glass Cleaner </p>
-                                {/* <p className='card-text'> {this.props.product.desc} </p> */}
-                                <p className='card-text'> Rp. 150.000 </p>
-                                
-                                <button className="btn btn-danger btn-block" >Detail</button>
-                            </div>
-                        </div>
-                        {/* HARD CODE */}
-                        
-        
-
-
-                        
                     </div>
 
                 </div>    
@@ -156,4 +112,10 @@ class Products extends Component {
     }
 }
 
-export default Products
+const mapStateToProps = state => {
+    return{
+        productsSTATE : state.product.products
+    }
+}
+
+export default connect(mapStateToProps, { getProducts })(Products);

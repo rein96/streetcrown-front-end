@@ -1,14 +1,22 @@
 import React, { Component } from 'react'
+import { connect } from 'react-redux'
+
+import { addProduct, getProducts, deleteProduct, editProduct } from '../../actions/index'
+
 
 class ManageProducts extends Component {
 
-    // state = {
-    //     categorySelected : ''
-    // }
+    state = {
+        edit : false
+    }
+
+    async componentDidMount() {
+        await this.props.getProducts()
+    }
 
     categoryOptions = () => {
         const categories = ['Exterior','Interior','Engine']
-        let result = categories.map( category => {
+        let result = categories.map( (category) => {
             return (
                 <option value={category}>{category}</option>
             )
@@ -17,20 +25,59 @@ class ManageProducts extends Component {
         return result
     };
 
-    // handleChange = (event) => {
-    //     this.setState({ [event.target.name] : event.target.value })
-    //     console.log(this.state.categorySelected);
-    // }
-
-    addProduct = () => {
+    addProduct = async () => {
         const productName = this.productName.value
         const productCategory = this.selectedCategory.value
         const productPrice = this.productPrice.value
         const productDescription = this.productDescription.value
         const productPicture = this.productPicture.files[0]
 
+        const formData = new FormData()
+
+        formData.append('name', productName)
+        formData.append('category', productCategory)
+        formData.append('price', productPrice)
+        formData.append('description', productDescription)
+        formData.append('productImage', productPicture)     //multerProductConfiguration.single('productImage') productRouter.js
+        // console.log(productName, productCategory, productPrice, productDescription, productPicture )
+
+        await this.props.addProduct(formData)
+        await this.props.getProducts()
+
+        // window.location.reload()
+    }
+
+    // deleteProductButton = async (productID) => {
+    //    await this.props.deleteProduct(productID)
+    //    await this.props.getProducts()
+    // }
+
+    editProductButton = async (productID) => {
+        await this.props.editProduct(productID)
         
-        console.log(productName, productCategory, productPrice, productDescription, productPicture )
+    }
+
+    renderProductList = () => {
+        let render = this.props.productsSTATE.map(product => {
+            return (
+                <tr key={product.id}>
+                    {/* <th scope="col">{product.id}</th> */}
+                    <th scope="col">{product.name}</th>
+                    <th scope="col">{product.category}</th>
+                    <th scope="col">{product.description}</th>
+                    <th scope="col">{product.price}</th>
+                    <th scope="col">
+                        <img src={`http://localhost:2019/products/${product.image}`} style={{ width: "150px" }} />
+                    </th>
+                    <th scope="col">
+                        <button className="btn btn-warning" onClick={ () => this.editProductButton(product.id)}>Edit</button>
+                        <button className="btn btn-danger"  onClick={ () => this.deleteProductButton(product.id, product.name, product.category, product.description, product.price )}>Delete</button>
+                    </th>
+                </tr>
+            )
+        })
+
+        return render
     }
 
 
@@ -53,7 +100,7 @@ class ManageProducts extends Component {
                                             <div className="form-row">
                                                 Name :
                                                 <form className="input-group">
-                                                    <input placeholder="Product Name" ref={input => this.productName = input} className="form-control mb-2" type="text" />
+                                                    <input placeholder="Product Name" ref={input => this.productName = input} className="form-control mb-2" type="text" required/>
                                                 </form>
 
                                                 Category : 
@@ -69,16 +116,16 @@ class ManageProducts extends Component {
 
                                                 Price :
                                                 <form className="input-group">
-                                                    <input placeholder="Product Name" ref={input => this.productPrice = input} className="form-control mb-2" type="number" />
+                                                    <input placeholder="Product Price" ref={input => this.productPrice = input} className="form-control mb-2" type="number" required />
                                                 </form>
 
                                                 Description :
                                                 <form className="input-group">
-                                                    <textarea placeholder="Product Description" ref={input => this.productDescription = input} className="form-control mb-2" type="text" style={{ height: "200px" }} />
+                                                    <textarea placeholder="Product Description" ref={input => this.productDescription = input} className="form-control mb-2" type="text" style={{ height: "200px" }} required/>
                                                 </form>
 
                                                 Picture :
-                                                <input type='file' className="custom-file" ref={input => this.productPicture = input}  /> 
+                                                <input type='file' className="custom-file" ref={input => this.productPicture = input} required /> 
 
                                                 <button onClick={this.addProduct} className="btn btn-outline-danger btn-block mt-5">Add</button>
                                         
@@ -107,28 +154,25 @@ class ManageProducts extends Component {
                             </thead>
 
                             <tbody>
-                                    
-                                {/* {this.renderList()} */}
+                                {/* render all products */}
+                                {this.renderProductList()}
 
                             </tbody>
                         </table>
 
                     </div>      {/* end div col */}
                     
-
                 </div>  {/* end div row */}
-
-
-
-
-
-                    
-
-
 
             </div>  // end div container
         )
     }
 }
 
-export default ManageProducts
+const mapStateToProps = state => {
+    return {
+        productsSTATE: state.product.products
+    }
+}
+
+export default connect(mapStateToProps, { addProduct, getProducts, deleteProduct, editProduct })(ManageProducts);

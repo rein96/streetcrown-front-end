@@ -12,7 +12,7 @@ import Cart from './components/Cart'
 import Admin from './components/admin/Admin'
 import Checkout from './components/Checkout'
 import Profile from './components/Profile'
-
+import ProductDetail from './components/ProductDetail'
 import { keepLogin } from './actions/index'
 
 // New object cookies()
@@ -51,11 +51,14 @@ class App extends Component {
                     <Route path='/login' component={Login}  />
                     <Route path='/register' component={Register} />
                     <Route path='/products' component={Products} />
+                    <Route path='/profile' component={Profile} />
+                    <Route path='/admin' component={Admin} />
+                    <Route path='/productdetail/:productID' component={ProductDetail} />
+
                     {/* Belom dikerjakan */}
                     <Route path='/cart' component={Cart} />
-                    <Route path='/admin' component={Admin} />
                     <Route path='/checkout' component={Checkout} />
-                    <Route path='/profile' component={Profile} />
+                    
 
 
                 </Switch>

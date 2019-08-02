@@ -99,6 +99,7 @@ export const deleteAvatar = ( objectUser ) => {
     }
 }
 
+// EDIT PROFILE 
 export const editProfile = (newName, newEmail, newPhonenumber, objectUser) => {
 
     const { id, name, username, email, phone_number, is_admin, avatar } = objectUser
@@ -132,8 +133,75 @@ export const editProfile = (newName, newEmail, newPhonenumber, objectUser) => {
                 newPhonenumber
             }
         })
+    }
+}
 
 
+// INPUT PRODUCT
+export const addProduct = (formData) => {
+    return async () => {
+
+        try {
+            const res = await axios.post('/addproduct', formData )
+            console.log(res.data)
+            
+        } catch (err) {
+            console.error(err)
+        }
+    }
+}
+
+// GET ALL PRODUCTS
+export const getProducts = () => {
+
+    return async (dispatch) => {
+        try {
+            const res = await axios.get('/getproducts')
+
+            console.log(res.data)   // array of objects
+
+
+            dispatch({
+                type: 'GET_PRODUCTS',
+                payload: res.data
+            })
+            
+        } catch (err) {
+            console.error(err)
+        }
 
     }
 }
+
+// DELETE PRODUCT
+export const deleteProduct = (productID) => {
+    return async () => {
+        try {
+            const res = await axios.delete(`/deleteproduct/${productID}`)
+
+            console.log(res.data)
+
+            alert(res.data)
+        } catch (err) {
+            console.error(err)
+        }
+    }
+}
+
+// EDIT PRODUCT
+export const editProduct = (productID) => {
+    return async () => {
+        try {
+            
+        } catch (err) {
+            console.error(err)
+        }
+    }
+}
+
+// READ A PRODUCT
+// export const getSingleProduct = (productID) => {
+//     return async () =>{ 
+
+//     }
+// }
