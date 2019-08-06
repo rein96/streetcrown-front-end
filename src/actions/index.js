@@ -3,6 +3,9 @@ import cookies from 'universal-cookie'
 
 const cookie = new cookies()
 
+///////////////////////////////////////////////////////////////////////////////////
+// USER ROUTER
+
 // LOGIN USER
 export const onLogin = (inputEmail, inputPassword) => {
     // redux-thunk dispatch
@@ -13,23 +16,29 @@ export const onLogin = (inputEmail, inputPassword) => {
         })
 
         try {
-        // If email or password is incorrect , res = 'string' error
-        if(typeof(res.data) === 'string' ){
-            alert(res.data)
-        } else {
+            // If email or password is incorrect , res = 'string' error
+            if(typeof(res.data) === 'string' ){
+                alert(res.data)
+            } else {
 
-            const { id, name, username, email, phone_number, is_admin, avatar } = res.data
-            
-            // set cookie
-            cookie.set('streetcrownUser', { id, name, username, email, phone_number, is_admin, avatar } )
+                const { id, name, username, email, phone_number, is_admin, avatar } = res.data
+
+                // Get addresses
+                const resAddress = await axios.get(`/getaddress/${id}`)
+
+                // console.log(resAddress.data)    // Array [ {}, {} ]
+                const addresses = resAddress.data
+                
+                // set cookie
+                cookie.set('streetcrownUser', { id, name, username, email, phone_number, is_admin, avatar, addresses } )
 
 
-            // kirim data_user Object{} untuk 
-            dispatch({
-                type: 'LOGIN_SUCCESS',
-                payload: {
-                    id, name, username, email, phone_number, is_admin, avatar
-                }
+                // kirim data_user Object{} untuk 
+                dispatch({
+                    type: 'LOGIN_SUCCESS',
+                    payload: {
+                        id, name, username, email, phone_number, is_admin, avatar, addresses
+                    }
             });
         }
             
@@ -39,14 +48,15 @@ export const onLogin = (inputEmail, inputPassword) => {
     }
 }
 
+// KEEP LOGIN COOKIE
 export const keepLogin = (objectUser) => {
 
-    const { id, name, username, email, phone_number, is_admin, avatar } = objectUser
+    const { id, name, username, email, phone_number, is_admin, avatar, addresses } = objectUser
 
     return{
         type: 'LOGIN_SUCCESS',
         payload: {
-            id, name, username, email, phone_number, is_admin, avatar
+            id, name, username, email, phone_number, is_admin, avatar, addresses
         }
     }
 }
@@ -69,9 +79,9 @@ export const updateAvatar = (formData, objectUser) => {
 
         cookie.remove('streetcrownUser')
 
-        const { id, name, username, email, phone_number, is_admin, avatar } = objectUser
+        const { id, name, username, email, phone_number, is_admin, avatar, addresses } = objectUser
 
-        cookie.set('streetcrownUser', {id, name, username, email, phone_number, is_admin, avatar: res.data.filename} )
+        cookie.set('streetcrownUser', {id, name, username, email, phone_number, is_admin, addresses, avatar: res.data.filename} )
 
 
         alert(res.data.message)       
@@ -86,12 +96,12 @@ export const updateAvatar = (formData, objectUser) => {
 // DELETE AVATAR (avatar on database change to null, and delete .jpg on userAvatar folder)
 export const deleteAvatar = ( objectUser ) => {
     return async dispatch => {
-        const { id, name, username, email, phone_number, is_admin, avatar } = objectUser
+        const { id, name, username, email, phone_number, is_admin, avatar, addresses } = objectUser
         const res = await axios.delete('/users/avatar', { username } )
 
         cookie.remove('streetcrownUser')
 
-        cookie.set('streetcrownUser', { id, name, username, email, phone_number, is_admin, avatar: null } )
+        cookie.set('streetcrownUser', { id, name, username, email, phone_number, is_admin, addresses, avatar: null } )
 
         dispatch({
             type: 'DELETE_AVATAR',
@@ -102,7 +112,7 @@ export const deleteAvatar = ( objectUser ) => {
 // EDIT PROFILE 
 export const editProfile = (newName, newEmail, newPhonenumber, objectUser) => {
 
-    const { id, name, username, email, phone_number, is_admin, avatar } = objectUser
+    const { id, name, username, email, phone_number, is_admin, avatar, addresses } = objectUser
 
     return async dispatch => {
         const res = await axios.patch(`/users/profile/${objectUser.username}`, {
@@ -120,7 +130,8 @@ export const editProfile = (newName, newEmail, newPhonenumber, objectUser) => {
             email : newEmail, 
             phone_number : newPhonenumber,
             is_admin,
-            avatar 
+            avatar,
+            addresses
         })
 
         alert('Profile has been updated !')
@@ -136,6 +147,99 @@ export const editProfile = (newName, newEmail, newPhonenumber, objectUser) => {
     }
 }
 
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// ADDRESS ROUTE
+
+
+// Get All Addresses
+export const getAddresses = (objectUser) => {
+    const { id, name, username, email, phone_number, is_admin, avatar, addresses } = objectUser
+
+    return async (dispatch) => {
+        const res = await axios.get(`/getaddress/${objectUser.id}`)
+
+        // cookie.set('streetcrownUser', { id, name, username, email, phone_number, is_admin, avatar, addresses } )
+
+        // console.log(res.data)
+
+        dispatch({
+            type: 'GET_ADDRESSES',
+            payload: res.data
+        })
+    }
+}
+
+// Add Address
+export const addAddress = (newAddress, objectUser) => {
+
+    const { id, name, username, email, phone_number, is_admin, avatar, addresses } = objectUser
+
+    return async dispatch => {
+
+        try {
+            await axios.post(`/addaddress/${objectUser.id}`, { address: newAddress } )
+
+            // Select addresses to get user_id and id of address column
+            const resSelectAddreses = await axios.get(`/getaddress/${objectUser.id}`)
+
+            console.log(resSelectAddreses.data);    // updated
+
+
+            cookie.remove('streetcrownUser')
+
+            cookie.set('streetcrownUser', { id, name, username, email, phone_number, is_admin, addresses : resSelectAddreses.data, avatar } )
+
+
+            dispatch({
+                type: 'ADD_ADDRESS',
+                payload: resSelectAddreses.data
+            })
+            
+            
+        } catch (err) {
+            console.error(err)
+        }
+    }
+}
+
+// DELETE ADDRESS
+export const deleteAddress = (addressId, objectUser) => {
+
+    return async dispatch => {
+
+        try {
+
+            const { id, name, username, email, phone_number, is_admin, avatar, addresses } = objectUser
+
+            await axios.delete(`/deleteaddress/${addressId}`)
+
+            // Select addresses to get user_id and id of address column
+            const resSelectAddreses = await axios.get(`/getaddress/${objectUser.id}`)
+
+            console.log(resSelectAddreses.data);    // updated
+
+
+            cookie.remove('streetcrownUser')
+
+            cookie.set('streetcrownUser', { id, name, username, email, phone_number, is_admin, addresses : resSelectAddreses.data, avatar } )
+
+            dispatch({
+                type: 'DELETE_ADDRESS',
+                payload: resSelectAddreses.data
+            })
+            
+            
+        } catch (err) {
+            console.error(err)
+        }
+    }
+}
+
+
+
+
+///////////////////////////////////////////////////////////////////////////////////////////////////////
+// PRODUCT ROUTER
 
 // INPUT PRODUCT
 export const addProduct = (formData) => {
@@ -169,7 +273,6 @@ export const getProducts = () => {
         } catch (err) {
             console.error(err)
         }
-
     }
 }
 
@@ -205,3 +308,75 @@ export const editProduct = (productID) => {
 
 //     }
 // }
+
+
+
+/////////////////////////////////////////////////////////////////////////////////////////////////
+// CART ROUTER
+
+// GET USER CART
+export const getCarts = (objectUser) => {
+
+    return async dispatch => {
+        const { id, name, username, email, phone_number, is_admin, avatar, addresses } = objectUser
+
+        const res = await axios.get(`/getcarts/${id}`)
+
+        // console.log(res.data)
+        // cookie.set('streetCrownUserCart')
+
+        dispatch({
+            type: 'GET_CARTS',
+            payload: res.data
+        })
+    }
+}
+
+
+// ADD CART
+export const addCart = (productID, userID, quantity) => {
+
+    return async () => {
+        const res = await axios.post('/addcart', {
+            product_id : productID,
+            user_id : userID,
+            quantity: quantity
+        })
+
+        console.log(res.data)
+
+        if(res.data.insertId) {
+            alert('Product has been added to your cart :)')
+        }
+    }
+}
+
+
+// PATCH QUANTITY CART
+export const updateQuantity = (quantity, product_id, user_id) => {
+
+    return async () => {
+        const res = await axios.patch('/updatequantity', {
+            quantity,
+            product_id,
+            user_id
+        })
+
+        console.log(res.data)
+
+        if(res.data.insertId === 0) {
+            alert('The product on your cart has been updated ! :) ')
+        }
+    }
+}
+
+// DELETE CART
+export const deleteCart = (id) => {
+
+    return async () => {
+        const res = await axios.delete( `/deletecart/${id}` )
+        console.log(res.data)
+
+    }
+
+}

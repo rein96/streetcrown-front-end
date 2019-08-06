@@ -7,16 +7,17 @@ const init = {
     email:'',
     phone_number:'',
     is_admin:'',
-    avatar: ''
+    avatar: '',
+    addresses: []
 }
 
 export default (state = init, action) => {
     switch (action.type) {
         case 'LOGIN_SUCCESS':
-            const { id, name, username, email, phone_number, is_admin, avatar } = action.payload
+            const { id, name, username, email, phone_number, is_admin, avatar, addresses } = action.payload
             return {
                 ...state,
-                id, name, username, email, phone_number, is_admin, avatar
+                id, name, username, email, phone_number, is_admin, avatar, addresses
             }
 
         case 'LOGOUT' :
@@ -27,7 +28,8 @@ export default (state = init, action) => {
                 email:'',
                 phone_number:'',
                 is_admin:'',
-                avatar:''
+                avatar:'',
+                addresses:[]
             }
 
         case 'UPLOAD_AVATAR' :
@@ -48,6 +50,14 @@ export default (state = init, action) => {
                 name: action.payload.newName,
                 email : action.payload.newEmail,
                 phone_number : action.payload.newPhonenumber
+            }
+
+        case 'GET_ADDRESSES' :
+        case 'ADD_ADDRESS' :
+        case 'DELETE_ADDRESS' :
+            return {
+                ...state,
+                addresses : action.payload
             }
 
         default:

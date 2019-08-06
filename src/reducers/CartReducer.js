@@ -1,14 +1,13 @@
 const init = {
-    products : []
+    carts : []
 }
 
 export default (state = init , action) => {
     switch(action.type) {
 
-        case 'GET_PRODUCTS' :
+        case 'GET_CARTS' :
             return{
-                ...state,
-                products : action.payload
+                carts : action.payload
             }
 
         default:

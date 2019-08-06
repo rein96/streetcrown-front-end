@@ -3,14 +3,14 @@ import { connect } from 'react-redux'
 import axios from '../config/axios';
 import { Link } from 'react-router-dom'
 
-// import { getSingleProduct } from '../actions/index'
+import { addCart, getCarts, updateQuantity } from '../actions/index'
 
 const imageStyle = {
-    width: '500px'
+    width: '300px'
 }
 
 const verticalCenter = {
-    minHeight: '100%',  
+    // minHeight: '100%',  
     minHeight: '100vh',
   
     display: 'flex',
@@ -40,7 +40,13 @@ class ProductDetail extends Component {
             const res = await axios.get(`/singleproduct/${productID}`)
 
             this.setState( { selectedProduct : res.data } )
+            console.log('%c this.state.selectedProduct', 'color:orange; font-weight:bold;');
             console.log(this.state.selectedProduct)
+
+            // get Cart app level state to validate a product which had bought more than one
+            await this.props.getCarts(this.props.objectUser)
+            console.log('%c this.props.cartsSTATE', 'color:orange; font-weight:bold;');
+            console.log(this.props.cartsSTATE)
 
         } catch(err) {
             console.error(err)
@@ -48,10 +54,33 @@ class ProductDetail extends Component {
 
     }
 
-    addToCartButton = () => {
-        const amountOfProducts = parseInt(this.quantity.value)
-        console.log(amountOfProducts)
-        console.log(typeof(amountOfProducts))
+    addToCartButton = async () => {   // need product_id, user_id, quantity
+        const quantityProduct = parseInt(this.quantity.value)
+        // console.log(quantityProduct)   // 5 Number
+        // console.log(typeof(quantityProduct))
+
+        console.log('%c this.props.cartsSTATE', 'color:orange; font-weight:bold;');
+        console.log(this.props.cartsSTATE)
+
+        let productID = this.props.match.params.productID
+        
+        // If user order a product more than once, should be validated first in 
+        // Misalkan productID = 5 (Honda)
+        const existingProduct =  this.props.cartsSTATE.find( cart => cart.product_id == productID )
+        console.log('%c existingProduct', 'color:orange; font-weight:bold;');
+        console.log(existingProduct);
+
+        if(existingProduct) {
+            // patch quantity
+            console.log('Patch quantity')
+            const newQuantity = existingProduct.quantity + quantityProduct  
+            await this.props.updateQuantity(newQuantity, existingProduct.product_id, this.props.objectUser.id )
+        } else {
+            // post addCart
+            console.log('Post new cart')
+            await this.props.addCart(productID, this.props.objectUser.id, quantityProduct)
+            await this.props.getCarts(this.props.objectUser)
+        }
 
     }
 
@@ -83,7 +112,8 @@ class ProductDetail extends Component {
                             <br/>
                             <h5> Quantity </h5>
                             <input ref={input => this.quantity = input}  type='number' placeholder="Quantity" className="form-control mb-3" min="1" defaultValue={1}/>
-                            <button className="btn btn-danger" onClick={ () => this.addToCartButton() }> Add To Cart </button>
+
+                            <button className="btn btn-danger btn-block" onClick={ () => this.addToCartButton() }> Add To Cart </button>
 
                             <br/><br/>
                         </div>
@@ -100,8 +130,10 @@ class ProductDetail extends Component {
 
 const mapStateToProps = state => {
     return{
-        productsSTATE : state.product.products
+        productsSTATE : state.product.products,
+        objectUser : state.auth,
+        cartsSTATE : state.carts.carts
     }
 }
 
-export default connect(mapStateToProps)(ProductDetail);
+export default connect(mapStateToProps, { addCart, getCarts, updateQuantity } )(ProductDetail);

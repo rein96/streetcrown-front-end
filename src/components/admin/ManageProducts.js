@@ -25,6 +25,11 @@ class ManageProducts extends Component {
         return result
     };
 
+    // pressEnterAddProduct = (event) => {
+    //     event.preventDefault()
+    //     this.addProduct()
+    // }
+
     addProduct = async () => {
         const productName = this.productName.value
         const productCategory = this.selectedCategory.value
@@ -43,15 +48,14 @@ class ManageProducts extends Component {
 
         await this.props.addProduct(formData)
         await this.props.getProducts()
-
-        // window.location.reload()
     }
 
-    // deleteProductButton = async (productID) => {
-    //    await this.props.deleteProduct(productID)
-    //    await this.props.getProducts()
-    // }
+    deleteProductButton = async (productID) => {
+       await this.props.deleteProduct(productID)
+       await this.props.getProducts()
+    }
 
+    // NEXT UPDATE
     editProductButton = async (productID) => {
         await this.props.editProduct(productID)
         
@@ -71,7 +75,7 @@ class ManageProducts extends Component {
                     </th>
                     <th scope="col">
                         <button className="btn btn-warning" onClick={ () => this.editProductButton(product.id)}>Edit</button>
-                        <button className="btn btn-danger"  onClick={ () => this.deleteProductButton(product.id, product.name, product.category, product.description, product.price )}>Delete</button>
+                        <button className="btn btn-danger"  onClick={ () => this.deleteProductButton(product.id)}>Delete</button>
                     </th>
                 </tr>
             )
@@ -98,34 +102,40 @@ class ManageProducts extends Component {
                                     <div className="filter-content">
                                         <div className="card-body">
                                             <div className="form-row">
-                                                Name :
-                                                <form className="input-group">
-                                                    <input placeholder="Product Name" ref={input => this.productName = input} className="form-control mb-2" type="text" required/>
-                                                </form>
 
-                                                Category : 
-                                                <form className="input-group">
-                                                    <select class="custom-select" name="selectedCategory" ref={input => this.selectedCategory = input} >
-                                                        {this.categoryOptions()}
-                                                        {/* <option selected>Open this select menu</option>
-                                                        <option value="1">One</option>
-                                                        <option value="2">Two</option>
-                                                        <option value="3">Three</option> */}
-                                                    </select>
-                                                </form>
+                                                {/* <form onSubmit={this.pressEnterAddProduct}> */}
+                                                    Name :
+                                                    <form className="input-group">
+                                                        <input placeholder="Product Name" ref={input => this.productName = input} className="form-control mb-2" type="text" required/>
+                                                    </form>
 
-                                                Price :
-                                                <form className="input-group">
-                                                    <input placeholder="Product Price" ref={input => this.productPrice = input} className="form-control mb-2" type="number" required />
-                                                </form>
+                                                    Category : 
+                                                    <form className="input-group">
+                                                        <select class="custom-select" name="selectedCategory" ref={input => this.selectedCategory = input} >
+                                                            {this.categoryOptions()}
+                                                            {/* <option selected>Open this select menu</option>
+                                                            <option value="1">One</option>
+                                                            <option value="2">Two</option>
+                                                            <option value="3">Three</option> */}
+                                                        </select>
+                                                    </form>
 
-                                                Description :
-                                                <form className="input-group">
-                                                    <textarea placeholder="Product Description" ref={input => this.productDescription = input} className="form-control mb-2" type="text" style={{ height: "200px" }} required/>
-                                                </form>
+                                                    Price :
+                                                    <form className="input-group">
+                                                        <input placeholder="Product Price" ref={input => this.productPrice = input} className="form-control mb-2" type="number" required />
+                                                    </form>
 
-                                                Picture :
-                                                <input type='file' className="custom-file" ref={input => this.productPicture = input} required /> 
+                                                    Description :
+                                                    <form className="input-group">
+                                                        <textarea placeholder="Product Description" ref={input => this.productDescription = input} className="form-control mb-2" type="text" style={{ height: "200px" }} required/>
+                                                    </form>
+
+                                                    Picture :
+                                                    <input type='file' className="custom-file" ref={input => this.productPicture = input} required /> 
+
+                                                {/* </form> */}
+
+
 
                                                 <button onClick={this.addProduct} className="btn btn-outline-danger btn-block mt-5">Add</button>
                                         

@@ -6,9 +6,9 @@ import { getProducts } from '../actions/index'
 
 import '../css/products.css'
 
-const imageStyle = {
-    width : '300px',
-    borderRadius: '10px'
+const borderRadius = {
+    // width : '300px',
+    borderRadius: '18px'
 }
 
 class Products extends Component {
@@ -28,9 +28,9 @@ class Products extends Component {
     renderListProduct = () => {
         let render = this.props.productsSTATE.map( product => {
             return (
-                <div className="card col-11 col-sm-5 col-md-3 col-lg-3 m-3 shadow" key={product.id}>
+                <div className="card col-11 col-sm-5 col-md-3 col-lg-3 m-3 shadow" key={product.id} style={ borderRadius }>
                     <center>
-                    <img src={`http://localhost:2019/products/${product.image}`} className="card-img-top shadow-lg mt-2" alt="products" style={imageStyle} />
+                    <img src={`http://localhost:2019/products/${product.image}`} className="card-img-top shadow-lg mt-2" alt="products" style={borderRadius} />
                     </center>
                     
                     <div className='card-body'>
@@ -40,7 +40,7 @@ class Products extends Component {
                         <p className='card-text'> Rp. {product.price.toLocaleString()} </p>
                         
                         <Link to={`/productdetail/${product.id}`} >
-                            <button className="btn btn-danger btn-block" > Detail </button>
+                            <button className="btn btn-danger btn-block" style={borderRadius} > Detail </button>
                         </Link>
                     </div>
                 </div>

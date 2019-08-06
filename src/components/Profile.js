@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
-import { updateAvatar, deleteAvatar, editProfile } from '../actions/index' 
+import { updateAvatar, deleteAvatar, editProfile, addAddress, getAddresses, deleteAddress } from '../actions/index' 
 // import axios from '../config/axios';
 
 class Profile extends Component {
@@ -47,6 +47,30 @@ class Profile extends Component {
        console.log(formData)
 
        this.props.updateAvatar(formData, this.props.objectUser)
+    }
+
+    addAddress = () => {
+        const newAddress = this.address.value
+
+        this.props.addAddress(newAddress, this.props.objectUser)
+
+        this.address.value = '';
+    }
+
+    renderAddresses = () => {
+        let render = this.props.objectUser.addresses.map( address => {  //  address :  { id, user_id, address }
+            return (
+            <tr key={address.id} > 
+                <th scope="row" > {address.address} </th>
+                <td> <button className="btn btn-danger" onClick={ () => { this.deleteAddress(address.id) } } >Delete</button> </td> 
+            </tr>)
+        })
+
+        return render;
+    }
+
+    deleteAddress = (addressId) => {
+        this.props.deleteAddress(addressId, this.props.objectUser)
     }
 
 
@@ -101,6 +125,36 @@ class Profile extends Component {
 
                     </div>
 
+                    {/* Address */}
+                    <div className='jumbotron container'>
+                        {/* <form onSubmit={this.pressEnterAddress}> */}
+                            <h1>Addresses</h1>
+                            
+                            {/* <h4> Your Addresses </h4> */}
+                            <table className="table table-hover">
+                                <tbody>
+                                    {this.renderAddresses()}
+                                </tbody>
+                                
+                            </table>
+                            
+
+                                    <br/>
+                            {/* Input new address */}
+                            <div className="form-group">
+                                {/* <label htmlFor="name">Add address:</label> */}
+                                <input ref={input => this.address = input} type="text" className="form-control" id="address" placeholder="Add new address" />
+                            </div>
+
+                        {/* </form> */}
+                        
+                        <button
+                            className='btn btn-primary'
+                            onClick={this.addAddress}
+                        >Add New Address</button>
+
+                    </div>
+
                     {/* Edit Profile */}
                     <div className='jumbotron container'>
                         <form onSubmit={this.pressEnterUpdate}>
@@ -118,13 +172,7 @@ class Profile extends Component {
                                 <label htmlFor="age">Phone Number</label>
                                 <input ref={input => this.phone_number = input} type="number" className="form-control" id="age" defaultValue={phone_number}/>
                             </div>
-                            {/* <div className="form-group">
-                                <label htmlFor="password">Password</label>
-                                <input ref={input => this.password = input} type="password" className="form-control" id="password"/>
-                            </div> */}
-                            {/* <div className='custom-file'>
-                                <input type='file' ref={input => {this.avatar = input}}/>
-                            </div> */}
+
                         </form>
                         
                         <button
@@ -164,9 +212,9 @@ class Profile extends Component {
 
 const mapStateToProps = state =>{
     return {
-        objectUser : state.auth     // { id, name, username, email, phone_number, is_admin, avatar }
+        objectUser : state.auth     // { id, name, username, email, phone_number, is_admin, avatar, addresses :[ {}, {} ] }
     }
 }
 
 
-export default connect(mapStateToProps, { updateAvatar, deleteAvatar, editProfile })(Profile);
+export default connect(mapStateToProps, { updateAvatar, deleteAvatar, editProfile, addAddress, getAddresses, deleteAddress })(Profile);

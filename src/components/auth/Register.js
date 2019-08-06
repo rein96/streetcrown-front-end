@@ -26,6 +26,7 @@ class Register extends Component {
         const data_retype_password = this.retype_password.value;
 
         // console.log(data_name,data_username,data_email,data_phone_number,data_password,data_retype_password);
+        // name minimum 3, username minimum 3, email, phone_number ?, password minimum 6 string
 
         if(data_password !== data_retype_password) {
             return alert('Password is not match :(');
@@ -40,11 +41,20 @@ class Register extends Component {
                 password: data_password        
             })
 
-            if(res.data.sqlMessage) {
-                alert(res.data.sqlMessage)
-            } else {
-                alert('Registration Success! Please login now :) ')
-                this.setState( { register : true } )
+            console.log(res.data)
+            console.log(typeof(res.data))
+
+            if( typeof(res.data) === 'string' ) {
+                return alert(res.data)
+            }
+
+            if( res.data.sqlMessage ) {
+                return alert(res.data.sqlMessage)
+            }
+
+            if (typeof(res.data) === 'object' ) {
+                alert('Registration Success! Please login now :)')
+                this.setState( { register: true } )
             }
             
         } catch (err) {
@@ -117,7 +127,7 @@ class Register extends Component {
                                             <div class="form-group">
                                                 <label>Password</label>
                                                 <form className="input-group">
-                                                    <input ref={input => this.password = input} className="form-control" type="password" placeholder="Password" required />
+                                                    <input ref={input => this.password = input} className="form-control" type="password" placeholder="Password" minimum="1" required  />
                                                 </form>
                                             </div>
     
