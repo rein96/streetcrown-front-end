@@ -374,9 +374,63 @@ export const updateQuantity = (quantity, product_id, user_id) => {
 export const deleteCart = (id) => {
 
     return async () => {
-        const res = await axios.delete( `/deletecart/${id}` )
-        console.log(res.data)
-
+        try {
+            const res = await axios.delete( `/deletecart/${id}` )
+            console.log(res.data)
+        } catch (err) {
+            console.error(err)
+        }
     }
+}
 
+// PATCH CART STATUS TO 'Checkout'
+export const patchCartStatus = (user_id) => {
+
+    return async () => {
+        try {
+            const res = await axios.patch(`/patchcart/${user_id}`)
+
+            console.log(res.data)
+
+        } catch (err) {
+            console.error(err)
+        }
+    }
+}
+
+
+
+////////////////////////////////////////////////////////////////////////////////////
+// CHECKOUT
+
+// POST CHECKOUT
+export const postCheckout = ( user_id, price_total, order_recipient, order_address, order_phone_number, allCartsArray ) => {
+
+    return async () => {
+        try {
+            const res = await axios.post('/checkout', {
+                user_id, price_total, order_recipient, order_address, order_phone_number, allCartsArray
+            })
+            console.log(res.data)
+
+            return res.data
+        } catch (err) {
+            console.error(err)
+        }
+    }
+}
+
+// GET TRANSACTION CHECKOUT FOR USER (Transaction.js)
+export const getTransaction = (user_id) => {
+
+    return async () => {
+        try {
+            const res = await axios.get(`/transaction/${user_id}`)
+
+            return res.data
+            
+        } catch (err) {
+            console.error(err)
+        }
+    }
 }

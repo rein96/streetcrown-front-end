@@ -38,7 +38,8 @@ class Header extends React.Component {
 
 
     render() {
-
+      
+      // If user has already logged in 
       if(this.props.objectUser.username !== '') {
         return (
           <Navbar color="dark" dark expand="md">
@@ -64,10 +65,24 @@ class Header extends React.Component {
                             <DropdownToggle nav caret style={{ color: "white" }}>
                                 Hello {this.props.objectUser.username}
                             </DropdownToggle>
+
                             <DropdownMenu right>
                             <Link className="dropdown-item" to="/profile">
                                 <DropdownItem>Profile</DropdownItem>
                             </Link>
+
+                            <Link className="dropdown-item" to="/transaction">
+                                <DropdownItem>Transaction</DropdownItem>
+                            </Link>
+
+                            {/* if user === admin, it will appear admin dashboard dropdown */}
+                            { this.props.objectUser.is_admin === 1 && <Link className="dropdown-item" to="/admin">
+                                <DropdownItem>Admin <i class="material-icons" style={{ color: '#428bca' }} >verified_user</i> </DropdownItem>
+                            </Link> }
+                            {/* <span className="badge badge-pill badge-primary">Admin</span> */}
+
+
+
                             {/* <Link className="dropdown-item" to="/editprofile">
                                 <DropdownItem>Edit Profile</DropdownItem>
                             </Link> */}
@@ -84,6 +99,7 @@ class Header extends React.Component {
 
         )
       }
+      // if user has not logged in
         return (
             <div>
               <Navbar color="dark" dark expand="md">

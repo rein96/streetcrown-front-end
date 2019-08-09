@@ -13,6 +13,8 @@ import Admin from './components/admin/Admin'
 import Checkout from './components/Checkout'
 import Profile from './components/Profile'
 import ProductDetail from './components/ProductDetail'
+import Transaction from './components/Transaction'
+
 import { keepLogin } from './actions/index'
 
 // New object cookies()
@@ -54,10 +56,11 @@ class App extends Component {
                     <Route path='/profile' component={Profile} />
                     <Route path='/admin' component={Admin} />
                     <Route path='/productdetail/:productID' component={ProductDetail} />
-
-                    {/* Belom dikerjakan */}
                     <Route path='/cart' component={Cart} />
                     <Route path='/checkout' component={Checkout} />
+
+                    {/* Belom dikerjakan */}
+                    <Route path='/transaction' component={Transaction} />
                     
 
 
