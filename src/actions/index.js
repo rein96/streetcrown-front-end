@@ -434,3 +434,46 @@ export const getTransaction = (user_id) => {
         }
     }
 }
+
+// UPLOAD TRANSACTION PROOF BY USER (Transaction.js)
+export const uploadProof = (formData) => {
+
+    return async () => {
+        try {
+            const res = await axios.patch('/uploadproof', formData )
+
+            console.log(res.data)
+        } catch (err) {
+            console.error(err)
+        }
+    }
+}
+
+
+//////////////////////////////////////////////////////////////////////////////////////////
+//      ADMIN ROLE
+export const getAllTransactions = () => {
+
+    return async () => {
+        try {
+            const res = await axios.get('/alltransactions')
+
+            return res.data
+        } catch (err) {
+            console.error(err)
+        }
+    }
+}
+
+export const specificTransaction = (checkout_id) => {
+
+    return async () => {
+        try {
+            const res = await axios.get(`/specifictransaction/${checkout_id}`)
+
+            return res.data
+        } catch (err) {
+            console.error(err)
+        }
+    }
+}

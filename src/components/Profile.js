@@ -24,7 +24,7 @@ class Profile extends Component {
     }
 
     uploadAvatar = () => {
-        // console.log(this.avatar);
+        // console.log(this.avatar.files);
         /*  [Array]
             files: 
             FileList(1)
@@ -44,7 +44,7 @@ class Profile extends Component {
 
        formData.append('username', this.props.objectUser.username)
        formData.append('avatar', newAvatar )
-       console.log(formData)
+    //    console.log(formData)
 
        this.props.updateAvatar(formData, this.props.objectUser)
     }

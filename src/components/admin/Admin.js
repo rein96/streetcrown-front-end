@@ -2,6 +2,12 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 
 import ManageProducts from './ManageProducts'
+import TransactionDetail from './TransactionDetail'
+
+const adminStyle = {
+    color: '#428bca',
+    fontSize : '38px'
+}
 
 class Admin extends Component {
     render() {
@@ -12,8 +18,9 @@ class Admin extends Component {
 
         return (
             <div>
-                <center> <h1> Dashboard Admin </h1> </center>
+                <center> <h1 className="font-weight-bold mt-4"> Dashboard Admin <i class="material-icons" style={adminStyle} >verified_user</i> </h1> </center>
                 <ManageProducts />
+                <TransactionDetail />
                 {/* <h1> Transaction approval </h1>
                 <h1> History Transaction </h1> */}
             </div>

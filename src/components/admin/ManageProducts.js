@@ -94,7 +94,7 @@ class ManageProducts extends Component {
                 <div className="row mt-5">
                     <div className="col-sm-12 col-md-12 col-lg-4">
                         {/* Input Product */}
-                        <h1 className=" text-center">Input Product</h1>
+                        <h3 className=" text-center">Input Product</h3>
                         <div className="card">
                                 <header className="card-header bg-dark">
                                     <h6 className="title text-white">Add Product</h6>
@@ -149,7 +149,7 @@ class ManageProducts extends Component {
                     <div className="col"> 
 
                         {/* List Products */}
-                        <h1 className=" text-center">List Product</h1>
+                        <h3 className=" text-center">Product List</h3>
                         <table className="table table-hover mb-5">
                             <thead>
                                 <tr>

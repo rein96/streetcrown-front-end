@@ -1,7 +1,9 @@
 import React, { Component } from 'react'
 import { connect } from  'react-redux'
+import Swal from 'sweetalert2'
 
-import { getTransaction } from '../actions/index'
+import { getTransaction, uploadProof } from '../actions/index'
+
 
 const paymentStyle = {
     fontSize : '40px',
@@ -21,12 +23,53 @@ class Transaction extends Component {
         const transactionArray = await this.props.getTransaction(id)
 
         this.setState( { transactionArray } )
+        console.log(transactionArray)
+
+    }
+
+    uploadProofModal = async (transactionID, price_total) => {
+        console.log(transactionID)
+
+        // Modal to input transaction proof image
+        const { value: file } = await Swal.fire({
+            title: 'Select image (maximal 1 MB and jpg/jpeg/png extension) ',
+            input: 'file',
+            inputAttributes: {
+            accept: 'image/*',
+            'aria-label': 'Upload your profile picture'
+            }
+        })
+        
+        if (file) {
+            const reader = new FileReader()
+            reader.onload = (e) => {
+            Swal.fire({
+                title: 'Thankyou for uploading proof, we will process as soon as possible :)',
+                imageUrl: e.target.result,
+                imageAlt: 'The uploaded picture'
+            })
+            }
+            reader.readAsDataURL(file)
+
+            console.log(file) // similar result with this.avatar.files[0] with normal input type file 
+            // at backend :
+            // filename(req, file, cb) { cb(null, Date.now() + '-' + req.body.user_id + '-' + req.body.price_total + path.extname(file.originalname) ) } at checkoutRouter.js
+
+            const formData = new FormData()
+
+            formData.append('username', this.props.objectUser.username)  // user id
+            formData.append('price_total', price_total)
+            formData.append('id', transactionID ) // checkout id
+            formData.append('payment', file )
+
+            await this.props.uploadProof(formData)
+        }
     }
 
     renderTransaction = () => {
         let render = this.state.transactionArray.map( transaction => {
 
-            const { proof_of_payment, order_address, order_phone_number, order_recipient, order_resi_number, order_status, price_total, created_at } = transaction
+            const { id, proof_of_payment, order_address, order_phone_number, order_recipient, order_resi_number, order_status, price_total, created_at } = transaction
 
             return (
                 <div className="card mb-3 shadow" style={{ maxWidth: '1100px', borderRadius: "30px"}} key={transaction.id} >
@@ -34,17 +77,25 @@ class Transaction extends Component {
 
                         <div className="col-4 col-md-4">
                             {proof_of_payment === null ? (
-                                <center>
-                                    Please Upload Transaction Proof :)
-                                    <input type='file' className="custom-file" ref={input => this.transactionImage = input} required />
-                                </center>
+                                <div>
+                                    <center>
+                                        <span>Please Upload Transaction Here  </span> <br/>
+                                        <button className="btn btn-primary" onClick={ () => { this.uploadProofModal(id, price_total) } } required>Upload</button>
+                                        
+                                    </center>
+                                </div>
 
                             ) : (
-                                <h5> Proof is uploaded successfully </h5>
+                                <div>
+                                    <span> Your Proof Image </span>
+                                    <img src={`http://localhost:2019/proof/${proof_of_payment}`}  className="card-img" alt={proof_of_payment} style={{ width: "150px" }} />
+                                </div>
                             )}
-                                {/* <img src={`http://localhost:2019/products/${cart.image}`}  className="card-img" alt={cart.product} style={{ width: "150px", borderRadius: '30px' }} /> */}
 
-                                <button type="button" class="btn btn-lg btn-success" disabled> {order_status} </button>
+                                <div className="mt-5">
+                                    Status : <button type="button" className="btn btn-sm btn-success " disabled> {order_status} </button>
+                                </div>
+                                
                         </div>
 
                         <div className="col-8 col-md-8">
@@ -57,11 +108,6 @@ class Transaction extends Component {
                                 <h5> {order_address} </h5>
                                 <h5> {order_phone_number} </h5>
                             </h5>
-
-
-                            {/* <p className="card-text"> Rp {(cart.price).toLocaleString()} / Unit </p>
-                            <p className="card-text"> Rp {(cart.quantity*cart.price).toLocaleString()} </p>
-                            <button className="btn btn-outline-danger"  onClick={ () => this.deleteCartButton(cart.id) } > <i class="fa fa-trash-o"></i> </button>  */}
 
                         </div>
 
@@ -104,4 +150,4 @@ const mapStateToProps = state => {
 
 
 
-export default connect(mapStateToProps, { getTransaction })(Transaction)
+export default connect(mapStateToProps, { getTransaction, uploadProof })(Transaction)
