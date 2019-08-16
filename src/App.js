@@ -13,7 +13,7 @@ import Admin from './components/admin/Admin'
 import Checkout from './components/Checkout'
 import Profile from './components/Profile'
 import ProductDetail from './components/ProductDetail'
-import Transaction from './components/Transaction'
+import TransactionUser from './components/TransactionUser'
 
 import { keepLogin } from './actions/index'
 import HomeModal from './components/home/HomeModal'
@@ -62,7 +62,7 @@ class App extends Component {
                     <Route path='/checkout' component={Checkout} />
 
                     {/* Belom dikerjakan */}
-                    <Route path='/transaction' component={Transaction} />
+                    <Route path='/transaction' component={TransactionUser} />
                     
 
 

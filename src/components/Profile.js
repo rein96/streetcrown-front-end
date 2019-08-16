@@ -89,7 +89,7 @@ class Profile extends Component {
             return (
                 <div>
                     {/* Jumbotron */}
-                    <div className="jumbotron container">
+                    <div className="jumbotron container mt-4">
                         
                         <div className="row">
                             <div className="col">

@@ -10,6 +10,11 @@ export default (state = init , action) => {
                 carts : action.payload
             }
 
+        case 'LOGOUT' :
+            return {
+                carts : []
+            }
+
         default:
             return state
     }

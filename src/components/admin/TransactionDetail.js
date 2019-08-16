@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import ManageProducts from './ManageProducts';
 import Swal from 'sweetalert2'
 
 import { getAllTransactions, specificTransaction, addResiNumber, deleteResiNumber, finishTransaction, unfinishedTransaction, rejectTransaction, deleteTransaction } from '../../actions/index'
@@ -126,7 +125,7 @@ class TransactionDetail extends Component {
 
                     if ( res.affectedRows ) {
                         Swal.fire(
-                            'Completed!',
+                            'Success!',
                             'The transaction has been uncompleted.',
                             'success'
                         )
@@ -174,8 +173,7 @@ class TransactionDetail extends Component {
             this.getAllTransactions()
           }
     }
-
-    // DELETE STILL BUG
+    
     deleteTransactionBtn = async (id, proof_of_payment) => {
 
         Swal.fire({
@@ -183,8 +181,8 @@ class TransactionDetail extends Component {
             text: "The transaction and the proof image will be deleted permanently on database",
             type: 'warning',
             showCancelButton: true,
-            confirmButtonColor: '#3085d6',
-            cancelButtonColor: '#d33',
+            confirmButtonColor: '#d33',
+            cancelButtonColor: '#3085d6',
             confirmButtonText: 'Delete Now !'
           }).then( async (result) => {
             if (result.value === true) {
@@ -283,7 +281,7 @@ class TransactionDetail extends Component {
                     </th>
                     <th scope="col">
                         <p> Price Total : Rp. {transaction.price_total.toLocaleString()} </p>
-                        <button className="btn btn-outline-primary" onClick={ () => {this.snippetProductModal(id, price_total)} } data-toggle="modal" data-target="#exampleModal" > See Products </button> <br/><br/>
+                        <button className="btn btn-outline-primary" onClick={ () => {this.snippetProductModal(id, price_total)} } data-toggle="modal" data-target="#snippetProductModal" > See Products </button> <br/><br/>
 
                         { order_status === 'Completed' ? ( 
                         <button className="btn btn-danger" onClick={ () => {this.unfinishedTransactionBtn(id)} }  >Unfinished</button> ) :  (
@@ -305,7 +303,7 @@ class TransactionDetail extends Component {
     // initial render
     render() {
         return (
-            <div>
+            <div >
                 <center>
                     <h2 className="mt-3"> 
                             <i class="material-icons" style={paymentStyle} >payment</i>
@@ -336,11 +334,11 @@ class TransactionDetail extends Component {
 
 
                 {/* Modal (depends on this.state.modalTransaction) */}
-                <div className="modal fade" id="exampleModal" tabIndex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div className="modal fade" id="snippetProductModal" tabIndex="-1" role="dialog" aria-labelledby="snippetProductModalLabel" aria-hidden="true">
                     <div className="modal-dialog modal-xl" role="document">
                         <div className="modal-content">
                             <div className="modal-header">
-                                <h5 className="modal-title" id="exampleModalLabel">Customer Products</h5>
+                                <h5 className="modal-title" id="snippetProductModalLabel">Customer Products</h5>
                                 <button type="button" className="close" data-dismiss="modal" aria-label="Close">
                                     <span aria-hidden="true">&times;</span>
                                 </button>

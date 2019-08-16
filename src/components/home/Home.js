@@ -5,14 +5,11 @@ import '../../css/home.css'
 import HomeCarousel from './HomeCarousel'
 import ProductServices from './ProductServices'
 import Location from './Location'
-// import BeforeAfter from './BeforeAfter'
-// import Footer from './Footer'
-// import HomeModal from './HomeModal'
+import BeforeAfter from './BeforeAfter'
 
 
 
 class Home extends React.Component {
-
 
 
     render() {
@@ -21,7 +18,7 @@ class Home extends React.Component {
 
                 <HomeCarousel />
                 <ProductServices />
-                {/* <BeforeAfter /> */}
+                <BeforeAfter />
                 <Location />
 
                 {/* imported to App.js */}

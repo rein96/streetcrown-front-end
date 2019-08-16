@@ -1,8 +1,11 @@
 import React, { Component } from 'react'
 import { connect } from  'react-redux'
 import { Link, Redirect } from 'react-router-dom'
+import Swal from 'sweetalert2'
 
-import { getCarts, deleteCart } from '../actions/index'
+import quantityIcon from '../images/quantity-icon.png'
+
+import { getCarts, deleteCart, changeQuantity } from '../actions/index'
 
 import '../css/cart.css'
 
@@ -22,20 +25,15 @@ class Cart extends Component {
         total : 0
     }
 
-    componentWillMount() {
-        this.props.getCarts(this.props.objectUser)
-    }
+    // componentWillMount() {   // REPLACED BY NAVBAR ACTION REDUCER CART
+    //     this.props.getCarts(this.props.objectUser)
+    // }
 
     deleteCartButton = async (cartID) => {
         console.log(cartID)
         await this.props.deleteCart(cartID)
         await this.props.getCarts(this.props.objectUser)
     }
-
-    // updateQuantity = () => {
-    //     const newQuantity = this.reinput_quantity.value
-    //     console.log(newQuantity)
-    // }
 
     showTotalQuantity = () => {
         let totalQuantity = 0;
@@ -54,8 +52,6 @@ class Cart extends Component {
             subtotal = subtotal + (cartArray[i].price * cartArray[i].quantity )
         }
 
-        // this.setState( { subtotal } )
-
         return subtotal.toLocaleString()
     }
 
@@ -68,14 +64,28 @@ class Cart extends Component {
         }
         total = total + 10000
 
-        // this.setState( { total } )
-
         return (total).toLocaleString()
     }
 
-    changeQuantity = (cartID, cartQuantity) => {
-        const newQuantity = cartQuantity
-        console.log(cartQuantity)
+    changeQuantity = async (cartID, cartQuantityPrev) => {
+        console.log(cartID)
+
+        await Swal.fire({
+            title: 'Input new quantity',
+            input: 'number',
+            inputValue : cartQuantityPrev,  // inputValue = defaultValue
+            inputPlaceholder: 'Quantity',
+            showCancelButton: true,
+            inputValidator: async (quantity) => {
+                if(quantity == cartQuantityPrev) { return alert('You just inputted the same value :D') }
+          
+                const resdata = await this.props.changeQuantity(cartID, quantity)
+                console.log(resdata)
+                if (resdata.affectedRows) {
+                      this.props.getCarts(this.props.objectUser)
+                }
+            }
+        })
     }
 
 
@@ -97,7 +107,10 @@ class Cart extends Component {
                                 <h5 className="card-title">
                                     <Link to={`/productdetail/${cart.product_id}`} style = {{color: '#d9534f'}} >  {cart.product_name} </Link>
                                 </h5>
-                                <input type="number" defaultValue={cart.quantity} className="card-text"  ref={input => this.reinput_quantity = input} onChange={ () => this.changeQuantity(cart.id, cart.quantity ) } />  
+                                <button className="btn btn-link" onClick={ () => this.changeQuantity(cart.id, cart.quantity ) } style={{ color: '#d9534f' }} > 
+                                    {cart.quantity} Units
+                                    <img src={quantityIcon} alt="quantity" style={{ width: '20px' }} className="ml-3" />
+                                </button>  
 
                                 <p className="card-text"> Rp {(cart.price).toLocaleString()} / Unit </p>
                                 <p className="card-text"> Rp {(cart.quantity*cart.price).toLocaleString()} </p>
@@ -108,17 +121,7 @@ class Cart extends Component {
                         </div>
                     </div>
                 </div>
-                // <tr key={cart.product_id}>
-                //     <th scope="row"> <img src={`http://localhost:2019/products/${cart.image}`} alt={cart.product} style={{ width: "150px" }} /> </th>
-                //     <td style={{ verticalAlign: "middle" }} > {cart.product_name} </td>
-                //     <td style={{ verticalAlign: "middle" }} > {cart.quantity} </td>
-                //     <td style={{ verticalAlign: "middle" }} > Rp {(cart.price).toLocaleString()} </td>
-                //     <td style={{ verticalAlign: "middle" }} > Rp {(cart.quantity*cart.price).toLocaleString()} </td>
-                    
-                //     <td style={{ verticalAlign: "middle" }} > 
-                //         <button className="btn btn-danger" style={{ borderRadius: "50%" }} onClick={ () => this.deleteCartButton(cart.id) } > <center>X</center> </button>  
-                //     </td>
-                // </tr>
+
             )
         })
 
@@ -227,4 +230,4 @@ const mapStateToProps = state => {
     }
 }
 
-export default connect( mapStateToProps, { getCarts, deleteCart } )(Cart);
+export default connect( mapStateToProps, { getCarts, deleteCart, changeQuantity } )(Cart);

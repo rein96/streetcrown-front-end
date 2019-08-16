@@ -322,9 +322,8 @@ export const editProduct = (productID) => {
 export const getCarts = (objectUser) => {
 
     return async dispatch => {
-        const { id, name, username, email, phone_number, is_admin, avatar, addresses } = objectUser
 
-        const res = await axios.get(`/getcarts/${id}`)
+        const res = await axios.get(`/getcarts/${objectUser.id}`)
 
         // console.log(res.data)
         // cookie.set('streetCrownUserCart')
@@ -367,6 +366,17 @@ export const updateQuantity = (quantity, product_id, user_id) => {
 
     }
 }
+
+// CHANGE QUANTITY
+export const changeQuantity = (id, quantity) => {
+
+    return async () => {
+        const res = await axios.patch(`/changequantity/${id}`, { quantity : quantity } )
+        return res.data
+    }
+}
+
+
 
 // DELETE CART
 export const deleteCart = (id) => {
@@ -541,9 +551,18 @@ export const rejectTransaction = (id, proof_of_payment, order_message) => {
 export const deleteTransaction = (id, proof_of_payment) => {
 
     return async () => {
+
         try {
-            const res = await axios.delete(`/deleteTransaction/${id}/${proof_of_payment}` )
-            return res.data
+            // To delete if there is no proof_of_payment image
+            console.log(proof_of_payment)
+            if(proof_of_payment == null) {
+                const res = await axios.delete(`/deleteTransaction/${id}`)
+                return res.data
+            } else {
+                const res = await axios.delete(`/deletetransactionwithimage/${id}/${proof_of_payment}` )
+                return res.data
+            }
+
         } catch (err) {
             console.error(err)
         }
