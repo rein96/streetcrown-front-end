@@ -1,7 +1,8 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import axios from '../config/axios';
-import { Link } from 'react-router-dom'
+import { Link, withRouter } from 'react-router-dom'
+import Swal from 'sweetalert2'
 
 import { addCart, getCarts, updateQuantity } from '../actions/index'
 
@@ -34,7 +35,6 @@ class ProductDetail extends Component {
     async componentWillMount() {
         // Define the parameter at App.js, and called from Products.js
         let productID = this.props.match.params.productID
-        // let selectedProductObject = this.props.productsSTATE.filter( product => product.id == productID )
 
         try{
             const res = await axios.get(`/singleproduct/${productID}`)
@@ -42,19 +42,31 @@ class ProductDetail extends Component {
             this.setState( { selectedProduct : res.data } )
             console.log('%c this.state.selectedProduct', 'color:orange; font-weight:bold;');
             console.log(this.state.selectedProduct)
-
-            // get Cart app level state to validate a product which had bought more than one
-            await this.props.getCarts(this.props.objectUser)
-            console.log('%c this.props.cartsSTATE', 'color:orange; font-weight:bold;');
-            console.log(this.props.cartsSTATE)
-
         } catch(err) {
             console.error(err)
         }
 
+        // if there is no user logged in -> it will not request to backend
+        if( this.props.objectUser.username === '' ) {
+            return console.log('No user')
+        }
+
+        // get Cart app level state to validate a product which had bought more than one
+        await this.props.getCarts(this.props.objectUser)
+        console.log('%c this.props.cartsSTATE', 'color:orange; font-weight:bold;');
+        console.log(this.props.cartsSTATE)
     }
 
     addToCartButton = async () => {   // need product_id, user_id, quantity
+
+        if( this.props.objectUser.username === '' ) {
+            alert('You need to login first!')
+            // redirect to /login using withRouter + history.push
+            return (
+                this.props.history.push('/login')
+            )
+        }
+
         const quantityProduct = parseInt(this.quantity.value)
         // console.log(quantityProduct)   // 5 Number
         // console.log(typeof(quantityProduct))
@@ -74,11 +86,39 @@ class ProductDetail extends Component {
             // patch quantity
             console.log('Patch quantity')
             const newQuantity = existingProduct.quantity + quantityProduct  
-            await this.props.updateQuantity(newQuantity, existingProduct.product_id, this.props.objectUser.id )
+            const resdata = await this.props.updateQuantity(newQuantity, existingProduct.product_id, this.props.objectUser.id )
+            if(resdata.insertId === 0) {
+                const Toast = Swal.mixin({
+                    toast: true,
+                    position: 'top',
+                    showConfirmButton: false,
+                    timer: 3000
+                  })
+                  
+                  Toast.fire({
+                    type: 'success',
+                    title: 'The product on your cart has been updated ! :)'
+                  })
+                // alert('The product on your cart has been updated ! :) ')
+            }
+            await this.props.getCarts(this.props.objectUser)
         } else {
             // post addCart
             console.log('Post new cart')
-            await this.props.addCart(productID, this.props.objectUser.id, quantityProduct)
+            const resdata = await this.props.addCart(productID, this.props.objectUser.id, quantityProduct)
+            if(resdata.insertId) {
+                const Toast = Swal.mixin({
+                    toast: true,
+                    position: 'top',
+                    showConfirmButton: false,
+                    timer: 3000
+                  })
+                  
+                  Toast.fire({
+                    type: 'success',
+                    title: 'Product has been added to your cart :)'
+                  })
+            }
             await this.props.getCarts(this.props.objectUser)
         }
 
@@ -136,4 +176,4 @@ const mapStateToProps = state => {
     }
 }
 
-export default connect(mapStateToProps, { addCart, getCarts, updateQuantity } )(ProductDetail);
+export default withRouter(connect(mapStateToProps, { addCart, getCarts, updateQuantity } )(ProductDetail));

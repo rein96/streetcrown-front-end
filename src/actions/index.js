@@ -32,6 +32,7 @@ export const onLogin = (inputEmail, inputPassword) => {
                 // set cookie
                 cookie.set('streetcrownUser', { id, name, username, email, phone_number, is_admin, avatar, addresses } )
 
+                
 
                 // kirim data_user Object{} untuk 
                 dispatch({
@@ -39,7 +40,8 @@ export const onLogin = (inputEmail, inputPassword) => {
                     payload: {
                         id, name, username, email, phone_number, is_admin, avatar, addresses
                     }
-            });
+                });
+                return res.data
         }
             
         } catch (err) {
@@ -270,6 +272,8 @@ export const getProducts = () => {
                 payload: res.data
             })
             
+            return res.data
+            
         } catch (err) {
             console.error(err)
         }
@@ -343,11 +347,7 @@ export const addCart = (productID, userID, quantity) => {
             quantity: quantity
         })
 
-        console.log(res.data)
-
-        if(res.data.insertId) {
-            alert('Product has been added to your cart :)')
-        }
+        return res.data
     }
 }
 
@@ -363,10 +363,8 @@ export const updateQuantity = (quantity, product_id, user_id) => {
         })
 
         console.log(res.data)
+        return res.data
 
-        if(res.data.insertId === 0) {
-            alert('The product on your cart has been updated ! :) ')
-        }
     }
 }
 
@@ -477,3 +475,79 @@ export const specificTransaction = (checkout_id) => {
         }
     }
 }
+
+export const addResiNumber = (id, resi) => {
+
+    return async () => {
+        try {
+            const res = await axios.patch(`/addresi/${id}`, { order_resi_number : resi } )
+
+            return res.data
+        } catch (err) {
+            console.error(err)
+        }
+    }
+}
+
+export const deleteResiNumber = (id) => {
+
+    return async () => {
+        try {
+            const res = await axios.patch(`/deleteresi/${id}`)
+
+            return res.data
+        } catch (err) {
+            console.error(err)
+        }
+    }
+}
+
+export const finishTransaction = (id) => {
+
+    return async () => {
+        try {
+            const res = await axios.patch(`/finishtransaction/${id}`)
+            return res.data
+        } catch (err) {
+            console.error(err)
+        }
+    }
+}
+
+export const unfinishedTransaction = (id) => {
+
+    return async () => {
+        try {
+            const res = await axios.patch(`/unfinishedtransaction/${id}`)
+            return res.data
+        } catch (err) {
+            console.error(err)
+        }
+    }
+}
+
+export const rejectTransaction = (id, proof_of_payment, order_message) => {
+
+    return async () => {
+        try {
+            const res = await axios.patch(`/rejecttransaction/${id}`, { proof_of_payment, order_message } )
+            return res.data
+        } catch (err) {
+            console.error(err)
+        }
+    }
+}
+
+export const deleteTransaction = (id, proof_of_payment) => {
+
+    return async () => {
+        try {
+            const res = await axios.delete(`/deleteTransaction/${id}/${proof_of_payment}` )
+            return res.data
+        } catch (err) {
+            console.error(err)
+        }
+    }
+}
+
+

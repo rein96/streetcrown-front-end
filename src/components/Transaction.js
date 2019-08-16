@@ -19,12 +19,15 @@ class Transaction extends Component {
     }
 
     async componentWillMount(){
+        await this.getUserTransaction()
+    }
+
+    getUserTransaction = async () => {
         const { id } = this.props.objectUser
         const transactionArray = await this.props.getTransaction(id)
 
         this.setState( { transactionArray } )
         console.log(transactionArray)
-
     }
 
     uploadProofModal = async (transactionID, price_total) => {
@@ -63,6 +66,7 @@ class Transaction extends Component {
             formData.append('payment', file )
 
             await this.props.uploadProof(formData)
+            await this.getUserTransaction()
         }
     }
 
@@ -70,6 +74,20 @@ class Transaction extends Component {
         let render = this.state.transactionArray.map( transaction => {
 
             const { id, proof_of_payment, order_address, order_phone_number, order_recipient, order_resi_number, order_status, price_total, created_at } = transaction
+
+            var order_status_style = ''
+            if(order_status === 'Pending'){
+                order_status_style = 'badge-warning'
+
+            } else if (order_status === 'Sending' ) {
+                order_status_style = 'badge-primary'
+
+            } else if (order_status === 'Completed'){
+                order_status_style = 'badge-success'
+
+            } else if (order_status ==='Rejected') {
+                order_status_style = 'badge-danger'
+            }
 
             return (
                 <div className="card mb-3 shadow" style={{ maxWidth: '1100px', borderRadius: "30px"}} key={transaction.id} >
@@ -87,13 +105,17 @@ class Transaction extends Component {
 
                             ) : (
                                 <div>
-                                    <span> Your Proof Image </span>
+                                    <p> Your Proof Image </p>
                                     <img src={`http://localhost:2019/proof/${proof_of_payment}`}  className="card-img" alt={proof_of_payment} style={{ width: "150px" }} />
                                 </div>
                             )}
 
                                 <div className="mt-5">
-                                    Status : <button type="button" className="btn btn-sm btn-success " disabled> {order_status} </button>
+                                    Status : &nbsp;
+                                    <button 
+                                        type="button" 
+                                        className={'btn btn-sm ' + order_status_style } 
+                                        disabled> {order_status} </button>
                                 </div>
                                 
                         </div>

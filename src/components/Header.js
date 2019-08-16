@@ -15,9 +15,10 @@ import {
     DropdownMenu,
     DropdownItem } from 'reactstrap';
 
-import { onLogout } from '../actions/index'
+import { onLogout, getCarts } from '../actions/index'
     
 import streetcrown_logo from '../images/streetcrown-logo.png'
+import avatar_default from '../images/avatar_default.png'
 
 
 class Header extends React.Component {
@@ -35,6 +36,21 @@ class Header extends React.Component {
           isOpen: !this.state.isOpen
         });
       }
+
+    async componentWillMount() {
+        // To prevent http request whenever there is no user logged in
+        if(this.props.objectUser.username !== '')  { await this.props.getCarts(this.props.objectUser) }
+    }
+
+    countQuantityCart = () => {
+      let totalQuantity = 0;
+      let cartArray = this.props.cartsSTATE
+      for ( let i = 0 ; i < cartArray.length; i++) {
+          totalQuantity = totalQuantity + cartArray[i].quantity
+      }
+
+      return totalQuantity
+    }
 
 
     render() {
@@ -56,14 +72,14 @@ class Header extends React.Component {
                 <Collapse isOpen={this.state.isOpen} navbar>
                     <Nav className="ml-auto" navbar>
                         <NavItem>
-                            <Link className="nav-link" to="/cart" style={{ color: "white" }}>Cart </Link>
+                            <Link className="nav-link" to="/cart" style={{ color: "white" }}> <span className="badge badge-light round"> {this.countQuantityCart()} </span>  </Link>
                         </NavItem>
                         <NavItem>
                             <Link className="nav-link" to="/cart" style={{ color: "white" }}><i class="material-icons">shopping_cart</i></Link>
                         </NavItem>
                         <UncontrolledDropdown nav inNavbar>
                             <DropdownToggle nav caret style={{ color: "white" }}>
-                                Hello {this.props.objectUser.username}
+                                Hello {this.props.objectUser.username}  { this.props.objectUser.avatar === null ? <img src={avatar_default} alt="avatar_default" style={ { width: "30px" } } /> : <img src={`http://localhost:2019/users/avatar/${this.props.objectUser.avatar}`} style={ { width: "30px", borderRadius: "200px" } }   alt="avatar" key={ new Date() } />  } 
                             </DropdownToggle>
 
                             <DropdownMenu right>
@@ -163,8 +179,9 @@ class Header extends React.Component {
 
 const mapStateToProps = state => {
   return {
-    objectUser : state.auth
+    objectUser : state.auth,
+    cartsSTATE : state.carts.carts
   }
 }
 
-export default connect(mapStateToProps, { onLogout })(Header);
+export default connect(mapStateToProps, { onLogout, getCarts })(Header);

@@ -14,19 +14,21 @@ const borderRadius = {
 class Products extends Component {
 
     state = {
-        categorySelected : 'All'
+        productArray : [],   //this array will be rendered
+        exteriorLength : 0
     }
 
-    async componentWillMount() {
+    async componentDidMount() {
         window.scrollTo(0, 0);
 
-        await this.props.getProducts()
+        const productArray = await this.props.getProducts()
+        this.setState( { productArray } )
+
+        console.log(this.state.productArray)
     }
 
-     
-
     renderListProduct = () => {
-        let render = this.props.productsSTATE.map( product => {
+        let render = this.state.productArray.map( product => {
             return (
                 <div className="card col-11 col-sm-5 col-md-3 col-lg-3 m-3 shadow" key={product.id} style={ borderRadius }>
                     <center>
@@ -46,22 +48,108 @@ class Products extends Component {
                 </div>
             )
         })
-
         return render;
     }
 
-    renderCategory = () => {
-        // let render = this.props.productsSTATE.map( product => {
-        //     return (
-        //         <a href="#" className="list-group-item">Exterior <span className="float-right badge badge-light round">10</span> </a>
-        //     )
-        // })
+    // Filter Array function (it is created to reduce repetition of codes)
+    filterExteriorArray = () => {
+        const exterior = this.props.productsSTATE.filter( product => {
+            return(
+                product.category.includes('Exterior')
+            )
+        })
+        return exterior
     }
 
+    filterInteriorArray = () => {
+        const interior = this.props.productsSTATE.filter( product => {
+            return(
+                product.category.includes('Interior')
+            )
+        })
+        return interior
+    }
 
+    filterEngineArray = () => {
+        const engine = this.props.productsSTATE.filter( product => {
+            return(
+                product.category.includes('Engine')
+            )
+        })
+        return engine
+    }
 
+    // Filter by category
+    selectAll = () => {
+        this.setState( { productArray: this.props.productsSTATE } )
+    }
 
+    selectExterior = () => {
+        const exterior = this.filterExteriorArray()
+        this.setState( { productArray : exterior } )
+    }
+
+    selectInterior = () => {
+        const interior = this.filterInteriorArray()
+        this.setState( { productArray : interior } )
+    }
+
+    selectEngine = () => {
+        const engine = this.filterEngineArray()
+        this.setState( { productArray : engine } )
+    }
+
+    // Badge Count
+    countExterior = () => {
+        const exterior = this.filterExteriorArray()
+        return exterior.length
+    }
+
+    countInterior = () => {
+        const interior = this.filterInteriorArray()
+        return interior.length
+    }
+
+    countEngine = () => {
+        const engine = this.filterEngineArray()
+        return engine.length
+    }
+
+    filterPrice = () => {
+        let inputMin = parseInt(this.min.value)
+        let inputMax = parseInt(this.max.value)
+        console.log(inputMin)
+        console.log(inputMax)
+
+        // if there is a filter price (either min or max)
+        if( inputMin > 0 || inputMax > 0 ) {
+
+            let arrayFiltered = this.props.productsSTATE.filter( product => {
+                // if user fill both min and max price
+                if( inputMin > 0 && inputMax > 0 ) {
+                    return (product.price >= inputMin && inputMax >= product.price  )
+
+                // fill min price
+                } else if (inputMin > 0) {
+                    return (product.price >= inputMin)
+
+                // fill max price
+                } else if (inputMax> 0) {
+                    return (product.price <= inputMax)
+                }
+            })
+
+            return this.setState( { productArray : arrayFiltered } )
+
+        } else {
+            return this.setState( { productArray : this.props.productsSTATE } )
+        }
+    }
+
+    // Initial render react
     render() {
+        let allLength = this.props.productsSTATE.length
+
         return (
             // Category and Price Filter column
             <div>
@@ -72,25 +160,24 @@ class Products extends Component {
                                 <header className="card-header bg-danger"><h6 className="title text-white"> Category </h6></header>
                                 <div className="filter-content">
                                     <div className="list-group list-group-flush">
-                                        {/* {this.renderCategory()} */}
-
-                                        {/*  */}
-                                    <a href="#" className="list-group-item">Exterior <span className="float-right badge badge-light round">10</span> </a>
-                                    <a href="#" className="list-group-item">Interior  <span className="float-right badge badge-light round">5</span>  </a>
-                                    <a href="#" className="list-group-item">Engine <span className="float-right badge badge-light round">4</span>  </a>
+                                        <button onClick={ () => this.selectAll() } className="list-group-item btn btn-link">All <span className="float-right badge badge-light round"> {allLength} </span> </button>
+                                        <button onClick={ () => this.selectExterior() } className="list-group-item btn btn-link">Exterior <span className="float-right badge badge-light round"> {this.countExterior()} </span> </button>
+                                        <button onClick={ () => this.selectInterior() } className="list-group-item btn btn-link">Interior <span className="float-right badge badge-light round"> {this.countInterior()} </span> </button>
+                                        <button onClick={ () => this.selectEngine() } className="list-group-item btn btn-link">Engine <span className="float-right badge badge-light round"> {this.countEngine()} </span> </button>
                                     </div>  
                                 </div>
                             </article> 
+                                        <br/>
                             <article className="card-group-item">
                                 <header className="card-header bg-danger">
-                                    <h6 className="title text-white">Price Range Input</h6>
+                                    <h6 className="title text-white">Price Range Filter</h6>
                                 </header>
                                     <div className="filter-content">
                                         <div className="card-body">
                                             <div className="form-row">
-                                                <form className="input-group"><input placeholder="Minimum" ref={input => this.min = input} className="form-control mb-2" type="text" /></form>
-                                                <form className="input-group"><input placeholder="Maximum" ref={input => this.max = input} className="form-control" type="text" /></form>
-                                                <button onClick={this.onBtnSearch} className="btn btn-outline-danger btn-block mt-5">Search</button>
+                                                <form className="input-group"><input onChange={ () => this.filterPrice() } placeholder="Minimum" ref={input => this.min = input} className="form-control mb-2" type="text" /></form>
+                                                <form className="input-group"><input onChange={ () => this.filterPrice() } placeholder="Maximum" ref={input => this.max = input} className="form-control" type="text" /></form>
+                                                {/* <button onClick={this.searchPrice} className="btn btn-outline-danger btn-block mt-5">Search</button> */}
                                         
                                             </div>
                                         </div>
@@ -114,7 +201,7 @@ class Products extends Component {
 
 const mapStateToProps = state => {
     return{
-        productsSTATE : state.product.products
+        productsSTATE : state.product.products  // this array will be filtered
     }
 }
 

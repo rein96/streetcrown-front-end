@@ -100,7 +100,8 @@ class Register extends Component {
                                                 <label for="uname1">Name</label>
                                                 <form className="input-group">
                                                     <input ref={input => this.name = input} className="form-control" type="text" placeholder="Name" required />
-                                                </form> 
+                                                </form>
+                                                <small class="form-text text-muted">Minimum 3 characters.</small> 
                                             </div>
     
                                             <div class="form-group">
@@ -108,6 +109,7 @@ class Register extends Component {
                                                 <form className="input-group">
                                                     <input ref={input => this.username = input} className="form-control" type="text" placeholder="Username" required />
                                                 </form> 
+                                                <small class="form-text text-muted">Minimum 3 characters.</small>
                                             </div>
                                         
                                             <div class="form-group">
@@ -115,6 +117,7 @@ class Register extends Component {
                                                 <form className="input-group">
                                                     <input ref={input => this.email = input} className="form-control" type="email" placeholder="Email" required />
                                                 </form>
+                                                <small class="form-text text-muted">We'll never share your email with anyone else.</small>
                                             </div>
     
                                             <div class="form-group">
@@ -129,6 +132,7 @@ class Register extends Component {
                                                 <form className="input-group">
                                                     <input ref={input => this.password = input} className="form-control" type="password" placeholder="Password" minimum="1" required  />
                                                 </form>
+                                                <small class="form-text text-muted">Don't worry, your password is hashed.</small>
                                             </div>
     
                                             <div class="form-group">
@@ -136,6 +140,7 @@ class Register extends Component {
                                                 <form className="input-group">
                                                     <input ref={input => this.retype_password = input} className="form-control" type="password" placeholder="Re-Type Password" required />
                                                 </form>
+                                                <small class="form-text text-muted">Don't worry, your password is hashed.</small>
                                             </div>
     
                                         </form>

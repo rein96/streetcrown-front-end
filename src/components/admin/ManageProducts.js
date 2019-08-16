@@ -7,7 +7,8 @@ import { addProduct, getProducts, deleteProduct, editProduct } from '../../actio
 class ManageProducts extends Component {
 
     state = {
-        edit : false
+        // editProductObj: {}
+        id:0 , name: '', category: '', description: '', price: 0, image : ''
     }
 
     async componentDidMount() {
@@ -24,11 +25,6 @@ class ManageProducts extends Component {
 
         return result
     };
-
-    // pressEnterAddProduct = (event) => {
-    //     event.preventDefault()
-    //     this.addProduct()
-    // }
 
     addProduct = async () => {
         const productName = this.productName.value
@@ -55,27 +51,40 @@ class ManageProducts extends Component {
        await this.props.getProducts()
     }
 
-    // NEXT UPDATE
-    editProductButton = async (productID) => {
-        await this.props.editProduct(productID)
+    // LAH KOK MESTI ASYNC AWAIT ???
+    editProductModal = async (id, name, category, description, price, image) => {
+
+        await this.setState( { id, name, category, description, price : parseFloat(price), image } )
+
+        console.log(id, name, category, description, price, image)
+
+        console.log(this.state.price)
         
+    }
+
+    editProductButton = () => {
+        // console.log(this.productNameEdit.value)
+        // console.log(this.selectedCategoryEdit.value)
+        // console.log(this.productPriceEdit.value)
+        console.log(this.state.price)
     }
 
     renderProductList = () => {
         let render = this.props.productsSTATE.map(product => {
+            let { id, name, category, description, price, image } = product
             return (
-                <tr key={product.id}>
+                <tr key={id}>
                     {/* <th scope="col">{product.id}</th> */}
-                    <th scope="col">{product.name}</th>
-                    <th scope="col">{product.category}</th>
-                    <th scope="col">{product.description}</th>
-                    <th scope="col">{product.price}</th>
+                    <th scope="col">{name}</th>
+                    <th scope="col">{category}</th>
+                    <th scope="col">{description}</th>
+                    <th scope="col">{price}</th>
                     <th scope="col">
-                        <img src={`http://localhost:2019/products/${product.image}`} style={{ width: "150px" }} />
+                        <img src={`http://localhost:2019/products/${image}`} style={{ width: "150px" }} />
                     </th>
                     <th scope="col">
-                        <button className="btn btn-warning" onClick={ () => this.editProductButton(product.id)}>Edit</button>
-                        <button className="btn btn-danger"  onClick={ () => this.deleteProductButton(product.id)}>Delete</button>
+                        <button className="btn btn-warning" onClick={ () => this.editProductModal(id, name, category, description, price, image)} data-toggle="modal" data-target="#editProductModal" >Edit</button>
+                        <button className="btn btn-danger"  onClick={ () => this.deleteProductButton(id)}>Delete</button>
                     </th>
                 </tr>
             )
@@ -113,10 +122,6 @@ class ManageProducts extends Component {
                                                     <form className="input-group">
                                                         <select class="custom-select" name="selectedCategory" ref={input => this.selectedCategory = input} >
                                                             {this.categoryOptions()}
-                                                            {/* <option selected>Open this select menu</option>
-                                                            <option value="1">One</option>
-                                                            <option value="2">Two</option>
-                                                            <option value="3">Three</option> */}
                                                         </select>
                                                     </form>
 
@@ -171,6 +176,56 @@ class ManageProducts extends Component {
                         </table>
 
                     </div>      {/* end div col */}
+
+
+                    {/*  */}
+                    <div className="modal fade" id="editProductModal" tabIndex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div className="modal-dialog modal-xl" role="document">
+                        <div className="modal-content">
+                            <div className="modal-header">
+                                <h5 className="modal-title" id="exampleModalLabel">Edit Product</h5>
+                                <button type="button" className="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div className="modal-body">
+                            <div className="form-row">
+
+
+    Name :
+    <form className="input-group">
+        <input defaultValue={this.state.name}  placeholder="Product Name" ref={input => this.productNameEdit = input} className="form-control mb-2" type="text" required/>
+    </form>
+
+    Category : 
+    <form className="input-group">
+        <select defaultValue={this.state.category} class="custom-select" name="selectedCategory" ref={input => this.selectedCategoryEdit = input} >
+            {this.categoryOptions()}
+        </select>
+    </form>
+
+    Price :
+    <form className="input-group">
+        <input placeholder="Product Price" ref={input => this.productPriceEdit = input}  defaultValue={this.state.price} className="form-control mb-2" type="number" required />
+    </form>
+
+    Description :
+    <form className="input-group">
+        <input type="text" placeholder="Product Description" ref={input => this.productDescriptionEdit = input} className="form-control mb-2" style={{ height: "100px" }} defaultValue={this.state.description} />
+    </form>
+
+
+<button onClick={this.editProductButton} className="btn btn-outline-danger btn-block mt-5">Edit</button>
+
+</div>
+
+                            </div>
+                            <div className="modal-footer">
+                                <button type="button" className="btn btn-danger" data-dismiss="modal">Close</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
                     
                 </div>  {/* end div row */}
 

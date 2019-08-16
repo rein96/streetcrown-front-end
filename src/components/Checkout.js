@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from  'react-redux'
 import { Link, Redirect } from 'react-router-dom'
+import Swal from 'sweetalert2'
 
 import { getCarts, addAddress, postCheckout, patchCartStatus } from '../actions/index'
 
@@ -63,6 +64,7 @@ class Checkout extends Component {
         console.log(cartsSTATE)
 
         const selectedAddress = this.selectedAddress.value
+        if(selectedAddress === '') { return alert('You must input/choose an address !') }
         const recipientName = this.recipient.value
         const recipient_phone_number = this.phone_number.value
         const totalPrice = this.showTotal()
@@ -87,7 +89,12 @@ class Checkout extends Component {
 
         console.log(statusCheckout)
         if(statusCheckout.insertId){
-            alert('Checkout Success, One More Step : Upload Transaction Image on Transaction Tab !')
+            Swal.fire(
+                'Checkout Success!',
+                'One More Step : Upload Transaction Image on Transaction Tab !',
+                'success'
+              )
+            // alert('Checkout Success, One More Step : Upload Transaction Image on Transaction Tab !')
 
             this.setState( { redirectTransaction : true } )
         }
@@ -107,6 +114,11 @@ class Checkout extends Component {
     render() {
 
         const { phone_number, name } = this.props.objectUser
+
+        // if user hasn't logged in, or logged out on checkout component, it will redirect to /products
+        if(this.props.objectUser.username === '') {
+            return <Redirect to='/products' />
+        }
        
         // When user has checkout successfully, it will redirect to transaction
         if(this.state.redirectTransaction === true) {

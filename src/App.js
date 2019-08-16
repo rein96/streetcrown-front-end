@@ -16,6 +16,8 @@ import ProductDetail from './components/ProductDetail'
 import Transaction from './components/Transaction'
 
 import { keepLogin } from './actions/index'
+import HomeModal from './components/home/HomeModal'
+import Footer from './components/home/Footer'
 
 // New object cookies()
 const cookie = new cookies()
@@ -65,6 +67,8 @@ class App extends Component {
 
 
                 </Switch>
+                <Footer  />
+                <HomeModal />
 
             
             </BrowserRouter>

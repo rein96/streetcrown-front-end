@@ -6,7 +6,7 @@ import streetcrown_logo from '../../images/streetcrown-logo.png'
 class Footer extends Component {
     render() {
         return (
-            <footer>
+            <footer id="footer">
             <div className="container">
             <div className="row">
             

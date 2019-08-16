@@ -4,6 +4,8 @@ import { connect } from 'react-redux'
 import { updateAvatar, deleteAvatar, editProfile, addAddress, getAddresses, deleteAddress } from '../actions/index' 
 // import axios from '../config/axios';
 
+import avatar_default from '../images/avatar_default.png'
+
 class Profile extends Component {
 
     updateProfile = () => {
@@ -91,7 +93,8 @@ class Profile extends Component {
                         
                         <div className="row">
                             <div className="col">
-                                <img src={`http://localhost:2019/users/avatar/${avatar}`} style={ { width: "200px" } }  alt="Please choose your avatar" key={ new Date() } />
+                                { avatar === null ? <img src={avatar_default} alt="avatar_default" style={ { width: "200px" } } /> : <img src={`http://localhost:2019/users/avatar/${avatar}`} style={ { width: "200px", borderRadius: "150px" } }  alt="Please choose your avatar" key={ new Date() } />  }
+                                
 
                                 <input type='file' className="custom-file" ref={input => this.avatar = input}  /> 
 

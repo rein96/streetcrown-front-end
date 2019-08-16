@@ -1,8 +1,11 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import ManageProducts from './ManageProducts';
+import Swal from 'sweetalert2'
 
-import { getAllTransactions, specificTransaction } from '../../actions/index'
+import { getAllTransactions, specificTransaction, addResiNumber, deleteResiNumber, finishTransaction, unfinishedTransaction, rejectTransaction, deleteTransaction } from '../../actions/index'
+
+import '../../css/transactiondetail.css'
 
 const paymentStyle = {
     fontSize : '40px',
@@ -14,82 +17,292 @@ class TransactionDetail extends Component {
 
     state = {
         allTransactions : [],
-        modalTransaction: []
+        modalTransaction: [],
+        price_total : 0
     }
 
-    async componentWillMount() {
+    componentWillMount() {
+        this.getAllTransactions()
+    };
+
+    getAllTransactions = async () => {
         const allTransactions = await this.props.getAllTransactions()
 
         this.setState( { allTransactions } )
 
         console.log(this.state.allTransactions)
-    }
+    };
 
-    snippetProductModal = async (checkout_id) => {
+    snippetProductModal = async (checkout_id, price_total) => {
         const productsArray = await this.props.specificTransaction(checkout_id)
 
         console.log(productsArray);
 
         this.setState( { modalTransaction : productsArray } )
+        this.setState( { price_total } )
+    };
+
+    addResi = async (id) => {
+
+        await Swal.fire({
+            title: 'Add Resi Number',
+            input: 'text',
+            showCancelButton: true,
+            inputValidator: async (resi) => {
+                if (!resi) {
+                    return 'You need to write something!'
+                }
+
+                await this.props.addResiNumber(id, resi)
+
+                await this.getAllTransactions()
+            }
+        })
+    };
+
+    deleteResi = async (id) => {
+        const data = await this.props.deleteResiNumber(id)
+
+        if(data.affectedRows) {
+            Swal.fire({
+                position: 'top-end',
+                type: 'success',
+                title: 'Resi has been deleted',
+                showConfirmButton: false,
+                timer: 1500
+            })
+
+            this.getAllTransactions()
+        }
+    };
+
+    finishTransactionBtn = (id) => {
+        // this.props.finishTransaction(id)
+
+        Swal.fire({
+            title: 'Are you sure?',
+            text: "Make sure the customer has received the products!",
+            type: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, I\'m sure of it !'
+          }).then( async (result) => {
+            if (result.value === true) {
+
+                const res = await this.props.finishTransaction(id)
+                console.log(res)
+
+                    if ( res.affectedRows ) {
+                        Swal.fire(
+                            'Completed!',
+                            'The transaction has been completed.',
+                            'success'
+                        )
+        
+                        this.getAllTransactions()
+                    } else {
+                        alert('Error when finish a transaction')
+                    }
+                }
+        })
     }
 
-    renderTransactionDetail = () => {
+    unfinishedTransactionBtn = (id) => {
 
+        Swal.fire({
+            title: 'Are you sure?',
+            text: "The order status will be changed to 'Sending'",
+            type: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, I\'m sure of it !'
+          }).then( async (result) => {
+            if (result.value === true) {
+
+                const res = await this.props.unfinishedTransaction(id)
+                console.log(res)
+
+                    if ( res.affectedRows ) {
+                        Swal.fire(
+                            'Completed!',
+                            'The transaction has been uncompleted.',
+                            'success'
+                        )
+        
+                        this.getAllTransactions()
+                    } else {
+                        alert('Error when unfinish a transaction')
+                    }
+                }
+        })
+    }
+
+    paymentProofModal = (proof_of_payment) => {
+        Swal.fire({
+            imageUrl: `http://localhost:2019/proof/${proof_of_payment}`,
+            imageWidth: 400,
+            imageAlt: 'payment-image',
+          })
+    };
+
+    rejectTransactionBtn = async (id, proof_of_payment) => {
+        const { value: text } = await Swal.fire({
+            input: 'textarea',
+            title: 'Rejection message',
+            text: 'Tell the user why you reject this transaction (Note: It will delete the proof of payment image)',
+            type: 'warning',
+            confirmButtonText: 'Reject Now !',
+            confirmButtonColor: '#d33',
+            inputPlaceholder: 'Type your message here...',
+            inputAttributes: {
+              'aria-label': 'Type your message here'
+            },
+            showCancelButton: true
+          })
+
+          //text force to null
+          if(text === undefined){
+              text = 'No message' 
+          } 
+          const resdata = await this.props.rejectTransaction(id, proof_of_payment, text)
+          console.log(resdata)
+          
+          if (resdata.affectedRows) {
+            Swal.fire('Transaction has been rejected & Proof image has been deleted')
+            this.getAllTransactions()
+          }
+    }
+
+    // DELETE STILL BUG
+    deleteTransactionBtn = async (id, proof_of_payment) => {
+
+        Swal.fire({
+            title: 'Are you sure?',
+            text: "The transaction and the proof image will be deleted permanently on database",
+            type: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Delete Now !'
+          }).then( async (result) => {
+            if (result.value === true) {
+                const resdata = await this.props.deleteTransaction(id, proof_of_payment)
+                console.log(resdata)
+                    if ( resdata.affectedRows ) {
+                        Swal.fire(
+                            'Completed!',
+                            'The transaction and proof image has been deleted permanently.',
+                            'success'
+                        )
+        
+                        this.getAllTransactions()
+                    } else {
+                        alert('Error when delete a transaction')
+                    }
+                }
+        })
+    }
+
+    // Modal to see products & quantity on each transaction 
+    renderTransactionDetail = () => {
         let renderDetail = this.state.modalTransaction.map( transaction => {
             return (
-                <div>
-                    <p><span className="modal-lable">Title: {this.state.modalTransaction.name} </span></p>
-                    <p><span className="modal-lable">Msg:</span></p>
-                    {transaction.name}
-                    {transaction.price}
-                </div>
+                <tr key={transaction.product_id} >
+                    <th scope="col">
+                        <img src={`http://localhost:2019/products/${transaction.image}`}  className="card-img" alt={transaction.name} style={{ width: "100px" }} />
+                        
+                    </th>
+                    <th scope="col">
+                        <span> {transaction.name} </span>
+                    </th>
+                    <th scope="col"> <span>{transaction.quantity}</span> </th>
+                    <th scope="col"> <span>{ (transaction.price).toLocaleString() }</span> </th>
+                    <th scope="col"> <span>{ (transaction.price*transaction.quantity).toLocaleString() }</span> </th>
+                </tr>
             )
         })
 
         return renderDetail
-    }
+    };
 
-
-
+    // List all transactions by all users
     renderTransactions = () => {
         let render = this.state.allTransactions.map(transaction => { 
+            let { id, created_at, username, email, order_recipient, order_address, order_phone_number, order_resi_number, proof_of_payment, price_total, order_status } = transaction
+
+            var order_status_style = ''
+            if(order_status === 'Pending'){
+                order_status_style = 'badge-warning'
+
+            } else if (order_status === 'Sending' ) {
+                order_status_style = 'badge-primary'
+
+            } else if (order_status === 'Completed'){
+                order_status_style = 'badge-success'
+
+            } else if (order_status ==='Rejected') {
+                order_status_style = 'badge-danger'
+            }
 
             return (
-                <tr key={transaction.id}>
-
-                    <th scope="col">{transaction.created_at}</th>
-
+                <tr key={id}>
                     <th scope="col">
-                        <p> Username : {transaction.username} </p>
-                        <p> Email : {transaction.email} </p>
+                        <p>{created_at} </p>
+                        <span 
+                            // className={'badge badge-pill' + ( order_status === 'Sending' ? ' badge-primary' : ( order_status === 'Completed' ? ' badge-success' : ' badge-warning' ) ) } > {order_status}
+                            className={'badge badge-pill ' + order_status_style }   > {order_status} 
+                        </span> <br/><br/>
+                        <button className="btn btn-outline-danger"  onClick={ () => this.deleteTransactionBtn(id, proof_of_payment) } > <i class="fa fa-trash-o"></i> </button>
                     </th>
 
                     <th scope="col">
-                        <p> Name : {transaction.order_recipient} </p>
-                        <p> Address : {transaction.order_address} </p>
-                        <p> Phone : {transaction.order_phone_number} </p>
+                        <p> Username : {username} </p>
+                        <p> Email : {email} </p>
+                    </th>
+                    <th scope="col">
+                        <p> Name : {order_recipient} </p>
+                        <p> Address : {order_address} </p>
+                        <p> Phone : {order_phone_number} </p>
                         <p> 
-                            Resi : { transaction.order_resi_number === null ? <button className="btn btn-info btn-sm" > Add Resi </button> : <p> {transaction.order_resi_number} </p> }  
+                            Resi : { order_resi_number === null ? <button className="btn btn-info btn-sm" onClick={ () => this.addResi(id) } > Add Resi </button>      :  <p> 
+                                        {order_resi_number} 
+                                        <button onClick={ () => this.deleteResi(id) } className="btn btn-link" style={{ color : '#d9534f' }} > 
+                                            <i class="material-icons">cancel</i> 
+                                        </button>
+                                    </p> }  
                         </p>
                     </th>
-                    
                     <th scope="col">
-                        {transaction.proof_of_payment === null ? <p> User hasn't upload proof image </p> : <img src={`http://localhost:2019/proof/${transaction.proof_of_payment}`}  className="card-img" alt={transaction.proof_of_payment} style={{ width: "100px" }} /> }
+                        {proof_of_payment === null ? <p>
+                             User hasn't upload proof image 
+                             </p> : <button className="btn btn-link" onClick={ () => this.paymentProofModal(proof_of_payment) }>
+                                <img src={`http://localhost:2019/proof/${proof_of_payment}`}  className="card-img" alt={proof_of_payment} style={{ width: "100px" }} />
+                             </button>  }
                     </th>
-
                     <th scope="col">
-                        <button className="btn btn-primary" onClick={ () => {this.snippetProductModal(transaction.id)} } data-toggle="modal" data-target="#exampleModal" > See Products </button>
-                        <button className="btn btn-success" >Completed</button>
+                        <p> Price Total : Rp. {transaction.price_total.toLocaleString()} </p>
+                        <button className="btn btn-outline-primary" onClick={ () => {this.snippetProductModal(id, price_total)} } data-toggle="modal" data-target="#exampleModal" > See Products </button> <br/><br/>
+
+                        { order_status === 'Completed' ? ( 
+                        <button className="btn btn-danger" onClick={ () => {this.unfinishedTransactionBtn(id)} }  >Unfinished</button> ) :  (
+                        <button className="btn btn-success" onClick={ () => {this.finishTransactionBtn(id)} }  >Finish</button>) }
+
+                        {/* Button Reject will appear */}
+                        { proof_of_payment != null && order_status != 'Completed'  ? (
+                        <button className="btn btn-danger" onClick={ () => {this.rejectTransactionBtn(id, proof_of_payment)} }  >Reject</button> ) : '' }
+
                     </th>
                 </tr>
-
             )
         })
-
         return render
-    }
+    };
 
 
+
+    // initial render
     render() {
         return (
             <div>
@@ -118,41 +331,51 @@ class TransactionDetail extends Component {
 
                             </tbody>
                     </table>
-
                 </center>
 
 
 
                 {/* Modal (depends on this.state.modalTransaction) */}
                 <div className="modal fade" id="exampleModal" tabIndex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                    <div className="modal-dialog" role="document">
+                    <div className="modal-dialog modal-xl" role="document">
                         <div className="modal-content">
                             <div className="modal-header">
-                                <h5 className="modal-title" id="exampleModalLabel">Edit Jewel</h5>
+                                <h5 className="modal-title" id="exampleModalLabel">Customer Products</h5>
                                 <button type="button" className="close" data-dismiss="modal" aria-label="Close">
                                     <span aria-hidden="true">&times;</span>
                                 </button>
                             </div>
                             <div className="modal-body">
-                                {this.renderTransactionDetail()}
+
+                                <span className="font-weight-bolder" style={{ fontSize: '30px' }}> Price Total : Rp. { this.state.price_total.toLocaleString() } </span>  <span className='text-muted'> included Shipping Fee (+Rp 10,000)   </span>
+                                <table className="table table-hover mb-5">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col" colSpan="2">Products</th>
+                                            <th scope="col">Quantity</th>
+                                            <th scope="col">Price</th>
+                                            <th scope="col">Total Price</th>
+                                        </tr>
+                                    </thead>
+
+                                    <tbody>
+                                        {this.renderTransactionDetail()}
+                                    </tbody>
+
+                                </table>
 
                             </div>
                             <div className="modal-footer">
-                                <button type="button" className="btn btn-secondary" data-dismiss="modal">Close</button>
-                                <button type="button" className="btn btn-primary" data-dismiss="modal" >Save changes</button>
+                                <button type="button" className="btn btn-danger" data-dismiss="modal">Close</button>
                             </div>
                         </div>
                     </div>
                 </div>
 
 
-
-
-
-
-            </div>
+            </div>  // end initial render()
         )
     }
 }
 
-export default connect(null, { getAllTransactions, specificTransaction } )(TransactionDetail)
+export default connect(null, { getAllTransactions, specificTransaction, addResiNumber, deleteResiNumber, finishTransaction, unfinishedTransaction, rejectTransaction, deleteTransaction } )(TransactionDetail)

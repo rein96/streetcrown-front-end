@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { Link, Redirect } from 'react-router-dom'
 import {connect} from 'react-redux'
-
+import Swal from 'sweetalert2'
 
 import {onLogin} from '../../actions/index'
 
@@ -14,11 +14,27 @@ class Login extends Component {
         this.onButtonClick()
     }
 
-    onButtonClick = () => {
+    onButtonClick = async () => {
         const data_email = this.email.value
         const data_password = this.password.value
 
-        this.props.onLogin(data_email, data_password)
+        const resdata = await this.props.onLogin(data_email, data_password)
+        // console.log(resdata)
+        if(resdata.username){
+            window.location.reload()
+            const Toast = Swal.mixin({
+                toast: true,
+                position: 'top-end',
+                showConfirmButton: false,
+                timer: 3000
+              })
+              
+              Toast.fire({
+                type: 'success',
+                title: 'Signed in successfully'
+              })
+        }
+        
     }
 
 

@@ -44,8 +44,6 @@ class Cart extends Component {
             totalQuantity = totalQuantity + cartArray[i].quantity
         }
 
-        // this.setState( { totalQuantity } )
-
         return totalQuantity
     }
 
@@ -97,7 +95,7 @@ class Cart extends Component {
 
                             <div className="card-body">
                                 <h5 className="card-title">
-                                    <Link to={`/productdetail/${cart.product_id}`} > {cart.product_name} </Link>
+                                    <Link to={`/productdetail/${cart.product_id}`} style = {{color: '#d9534f'}} >  {cart.product_name} </Link>
                                 </h5>
                                 <input type="number" defaultValue={cart.quantity} className="card-text"  ref={input => this.reinput_quantity = input} onChange={ () => this.changeQuantity(cart.id, cart.quantity ) } />  
 
