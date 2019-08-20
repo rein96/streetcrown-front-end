@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import Swal from 'sweetalert2'
+import Spinner from '../Spinner'
 
 import { getAllTransactions, specificTransaction, addResiNumber, deleteResiNumber, finishTransaction, unfinishedTransaction, rejectTransaction, deleteTransaction } from '../../actions/index'
 
@@ -12,22 +13,24 @@ const paymentStyle = {
 }
 
 
-class TransactionDetail extends Component {
+class ManageTransactions extends Component {
 
     state = {
         allTransactions : [],
         modalTransaction: [],
-        price_total : 0
+        price_total : 0,
+        loading: false
     }
 
-    componentWillMount() {
+    componentDidMount() {
         this.getAllTransactions()
     };
 
     getAllTransactions = async () => {
+        this.setState( { loading: true } )
         const allTransactions = await this.props.getAllTransactions()
 
-        this.setState( { allTransactions } )
+        this.setState( { allTransactions, loading: false } )
 
         console.log(this.state.allTransactions)
     };
@@ -249,7 +252,6 @@ class TransactionDetail extends Component {
                     <th scope="col">
                         <p>{created_at} </p>
                         <span 
-                            // className={'badge badge-pill' + ( order_status === 'Sending' ? ' badge-primary' : ( order_status === 'Completed' ? ' badge-success' : ' badge-warning' ) ) } > {order_status}
                             className={'badge badge-pill ' + order_status_style }   > {order_status} 
                         </span> <br/><br/>
                         <button className="btn btn-outline-danger"  onClick={ () => this.deleteTransactionBtn(id, proof_of_payment) } > <i class="fa fa-trash-o"></i> </button>
@@ -302,14 +304,21 @@ class TransactionDetail extends Component {
 
     // initial render
     render() {
+
+        if (this.props.objectUser.is_admin === 0 || this.props.objectUser.username === '') {
+            return <h1>Access Denied</h1>
+        }
+
         return (
-            <div >
+            <div className="ml-5 mr-5">
                 <center>
+                    <br/>
                     <h2 className="mt-3"> 
                             <i class="material-icons" style={paymentStyle} >payment</i>
                                 User Transactions
                             <i class="material-icons" style={paymentStyle}>payment</i>  
                     </h2>
+                    <br/>
 
                     <table className="table table-hover mb-5">
                             <thead>
@@ -320,14 +329,13 @@ class TransactionDetail extends Component {
                                     <th scope="col">DESTINATION</th>
                                     <th scope="col">PAYMENT PROOF</th>
                                     <th scope="col">ACTION</th>
-                                </tr>
+                                </tr>   
                             </thead>
 
-                            <tbody>
-                                {/* render all transaction */}
-                                {this.renderTransactions()}
+                            {/* render all transaction */}
+                            { this.state.loading === true ?  <Spinner /> : <tbody> {this.renderTransactions()}  </tbody> }                                                       
 
-                            </tbody>
+                            
                     </table>
                 </center>
 
@@ -376,4 +384,8 @@ class TransactionDetail extends Component {
     }
 }
 
-export default connect(null, { getAllTransactions, specificTransaction, addResiNumber, deleteResiNumber, finishTransaction, unfinishedTransaction, rejectTransaction, deleteTransaction } )(TransactionDetail)
+const mapStateToProps = state => ({
+    objectUser : state.auth
+})
+
+export default connect(mapStateToProps, { getAllTransactions, specificTransaction, addResiNumber, deleteResiNumber, finishTransaction, unfinishedTransaction, rejectTransaction, deleteTransaction } )(ManageTransactions)

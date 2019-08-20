@@ -1,0 +1,41 @@
+
+ /* Basic */
+
+.row {
+  min-height: 100vh;
+}
+
+ /* Tables */
+.card {
+  border: 0;
+  border-radius: 0px;
+  -webkit-box-shadow: 0 3px 0px 0 rgba(0, 0, 0, .08);
+  box-shadow: 0 3px 0px 0 rgba(0, 0, 0, .08);
+  transition: all .3s ease-in-out;
+  padding: 2.25rem 0;
+  position: relative;
+  will-change:transform; 
+  
+  }
+
+
+ /* Price */
+.display-2 {
+  font-size: 7rem;
+  letter-spacing: -.5rem;
+}
+
+/* Buttons */
+.btn {
+  text-transform: uppercase;
+  font-size: .75rem;
+  border-radius: 0;
+  padding: .75rem 1.25rem;
+  letter-spacing: 1px;
+}
+
+.btn-gradient { 
+  background-color: #f2f2f2;
+  transition: background .3s ease-in-out;
+  
+}

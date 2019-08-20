@@ -97,8 +97,14 @@ class ManageProducts extends Component {
 
     render() {
 
+        if (this.props.objectUser.is_admin === 0 || this.props.objectUser.username === '') {
+            return <h1>Access Denied</h1>
+        }
+
         return (
             <div>
+                
+                <br/> <center> <h2> Manage Products </h2> </center>
 
                 <div className="row mt-5">
                     <div className="col-sm-12 col-md-12 col-lg-4">
@@ -234,10 +240,9 @@ class ManageProducts extends Component {
     }
 }
 
-const mapStateToProps = state => {
-    return {
-        productsSTATE: state.product.products
-    }
-}
+const mapStateToProps = state => ({
+        productsSTATE: state.product.products,
+        objectUser: state.auth
+})
 
 export default connect(mapStateToProps, { addProduct, getProducts, deleteProduct, editProduct })(ManageProducts);

@@ -9,12 +9,15 @@ class BeforeAfter extends Component {
     render() {
         return (
             <div className="container mt-4">
-                <div id="beer-slider" className="beer-slider" data-beer-label="before">
-                        <img src={img1} alt="before"  />
+                <center> <h2> Before and After </h2> </center>
+                <div id="beer-slider" className="beer-slider shadow-lg" style={{ borderRadius: '15px' }} data-beer-label="before">
+                        <img src={img1}  alt="before"  />
                     <div className="beer-reveal" data-beer-label="after">
-                        <img src={img2} alt="after"   />
+                        <img src={img2}  alt="after"   />
                     </div>
                 </div>
+
+                <br/><br/>
 
             </div>
 

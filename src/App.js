@@ -9,11 +9,16 @@ import Login from './components/auth/Login'
 import Register from './components/auth/Register'
 import Products from './components/Products'
 import Cart from './components/Cart'
-import Admin from './components/admin/Admin'
 import Checkout from './components/Checkout'
 import Profile from './components/Profile'
 import ProductDetail from './components/ProductDetail'
 import TransactionUser from './components/TransactionUser'
+import Admin from './components/admin/Admin'
+import ManageProducts from './components/admin/ManageProducts'
+import ManageTransactions from './components/admin/ManageTransactions'
+import ManageUsers from './components/admin/ManageUsers'
+import CarDetailing from './components/services/CarDetailing'
+import MotorcycleDetailing from './components/services/MotorcycleDetailing'
 
 import { keepLogin } from './actions/index'
 import HomeModal from './components/home/HomeModal'
@@ -38,11 +43,6 @@ class App extends Component {
         }
     }
 
-    // componentDidMount() {
-    //     window.scrollTo(0, 0);
-    // }
-
-
     // Initialize cookie componentDidMount() {}  
 
     render() {
@@ -52,19 +52,25 @@ class App extends Component {
 
                 <Switch>
                     <Route path='/' exact component={Home}  />
+                    {/* Auth */}
                     <Route path='/login' component={Login}  />
                     <Route path='/register' component={Register} />
+                    {/* Products */}
                     <Route path='/products' component={Products} />
-                    <Route path='/profile' component={Profile} />
-                    <Route path='/admin' component={Admin} />
                     <Route path='/productdetail/:productID' component={ProductDetail} />
+                    {/* Services */}
+                    <Route path='/cardetailing' component={CarDetailing} />
+                    <Route path='/motorcycledetailing' component={MotorcycleDetailing} />
+                    {/* User */}
+                    <Route path='/profile' component={Profile} />
                     <Route path='/cart' component={Cart} />
                     <Route path='/checkout' component={Checkout} />
-
-                    {/* Belom dikerjakan */}
                     <Route path='/transaction' component={TransactionUser} />
-                    
-
+                    {/* Admin */}
+                    <Route path='/admin' component={Admin} />
+                    <Route path='/manageproducts' component={ManageProducts} />
+                    <Route path='/managetransactions' component={ManageTransactions} />
+                    <Route path='/manageusers' component={ManageUsers} />
 
                 </Switch>
                 <Footer  />

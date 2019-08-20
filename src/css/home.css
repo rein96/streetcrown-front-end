@@ -171,10 +171,64 @@ footer{
 
 /* CAROUSEL */
   /* Make the image responsive */
-.carousel-inner img {
-	width: 90%;
-	height: 30%;
+
+/* .carousel-inner img {
+	width: 70%;
+	height: 100%;
+} */
+
+@media (max-width: 575px) {
+	.carousel-inner img {
+		height:300px !important;
+
+		width:100% !important;
+        min-width:100 !important;
+        height: auto;
+	}
 }
+@media (min-width: 576px) {
+	.carousel-inner img {
+		width: 90%;
+		height: 100%;
+	}
+}
+
+@media (min-width: 768px) {
+	.carousel-inner img {
+		width: 80%;
+		height: 100%;
+	}
+}
+@media (min-width: 992px) {
+	.carousel-inner img {
+		width: 70%;
+		height: 100%;
+	}
+}
+
+@media (min-width: 1200px) {
+	.carousel-inner img {
+		width: 30%;
+		height: 100%;
+		object-fit:cover;
+		height:300px !important;
+
+		width:100% !important;
+        min-width:100 !important;
+        height: auto;
+	}
+}
+
+/* Bootstrap half-page carousel reference */
+/* .carousel-item {
+	height: 65vh;
+	min-height: 350px;
+	background: no-repeat center center scroll;
+	-webkit-background-size: cover;
+	-moz-background-size: cover;
+	-o-background-size: cover;
+	background-size: cover;
+} */
 
 .carousel-control-prev-icon,
 .carousel-control-next-icon {
@@ -182,7 +236,7 @@ height: 60px;
 width: 60px;
 outline: black;
 background-size: 50%, 50%;
-border-radius: 20%;
+border-radius: 50%;
 /* border: 1px solid black; */
 /* background-image: none; */
 background-color: black;
