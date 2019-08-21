@@ -1,15 +1,15 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-
+import { Link } from 'react-router-dom'
 import { addProduct, getProducts, deleteProduct, editProduct } from '../../actions/index'
 
 
 class ManageProducts extends Component {
 
-    state = {
-        // editProductObj: {}
-        id:0 , name: '', category: '', description: '', price: 0, image : ''
-    }
+    // state = {
+    //     // editProductObj: {}
+    //     id:0 , name: '', category: '', description: '', price: 0, image : ''
+    // }
 
     async componentDidMount() {
         await this.props.getProducts()
@@ -52,22 +52,17 @@ class ManageProducts extends Component {
     }
 
     // LAH KOK MESTI ASYNC AWAIT ???
-    editProductModal = async (id, name, category, description, price, image) => {
+    // editProductModal = async (id, name, category, description, price, image) => {
 
-        await this.setState( { id, name, category, description, price : parseFloat(price), image } )
+    //     await this.setState( { id, name, category, description, price : parseFloat(price), image } )
 
-        console.log(id, name, category, description, price, image)
+    //     await this.setState( { price } )
 
-        console.log(this.state.price)
+    //     console.log(id, name, category, description, price, image)
+
+    //     console.log(this.state.price)
         
-    }
-
-    editProductButton = () => {
-        // console.log(this.productNameEdit.value)
-        // console.log(this.selectedCategoryEdit.value)
-        // console.log(this.productPriceEdit.value)
-        console.log(this.state.price)
-    }
+    // }
 
     renderProductList = () => {
         let render = this.props.productsSTATE.map(product => {
@@ -83,7 +78,11 @@ class ManageProducts extends Component {
                         <img src={`http://localhost:2019/products/${image}`} style={{ width: "150px" }} />
                     </th>
                     <th scope="col">
-                        <button className="btn btn-warning" onClick={ () => this.editProductModal(id, name, category, description, price, image)} data-toggle="modal" data-target="#editProductModal" >Edit</button>
+                        {/* <button className="btn btn-warning" onClick={ async () => this.editProductModal(id, name, category, description, price, image)} data-toggle="modal" data-target="#editProductModal" >Edit</button> */}
+                        <Link to={`/editproduct/${id}`} >
+                            <button className="btn btn-warning" >Edit</button>
+                        </Link>
+
                         <button className="btn btn-danger"  onClick={ () => this.deleteProductButton(id)}>Delete</button>
                     </th>
                 </tr>
@@ -92,7 +91,6 @@ class ManageProducts extends Component {
 
         return render
     }
-
 
 
     render() {
@@ -184,18 +182,18 @@ class ManageProducts extends Component {
                     </div>      {/* end div col */}
 
 
-                    {/*  */}
-                    <div className="modal fade" id="editProductModal" tabIndex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                    <div className="modal-dialog modal-xl" role="document">
-                        <div className="modal-content">
-                            <div className="modal-header">
-                                <h5 className="modal-title" id="exampleModalLabel">Edit Product</h5>
-                                <button type="button" className="close" data-dismiss="modal" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
-                            </div>
-                            <div className="modal-body">
-                            <div className="form-row">
+    {/* MODAL IS STILL BUGGED WHENEVER CATCH DEFAULTVALUE */}
+    {/* <div className="modal fade" id="editProductModal" tabIndex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div className="modal-dialog modal-xl" role="document">
+        <div className="modal-content">
+            <div className="modal-header">
+                <h5 className="modal-title" id="exampleModalLabel">Edit Product</h5>
+                <button type="button" className="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div className="modal-body">
+            <div className="form-row">
 
 
     Name :
@@ -231,7 +229,7 @@ class ManageProducts extends Component {
                             </div>
                         </div>
                     </div>
-                </div>
+                </div> */}
                     
                 </div>  {/* end div row */}
 

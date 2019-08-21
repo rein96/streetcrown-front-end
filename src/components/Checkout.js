@@ -9,7 +9,6 @@ import payment_bca from '../images/payment-bca.png'
 import payment_gopay from '../images/payment-gopay.png'
 import payment_jenius from '../images/payment-jenius.png'
 import payment_ovo from '../images/payment-ovo.jpg'
-import { stat } from 'fs';
 
 const verticalCenter = {
     minHeight: '100vh',
@@ -89,6 +88,8 @@ class Checkout extends Component {
 
         console.log(statusCheckout)
         if(statusCheckout.insertId){
+            await this.props.patchCartStatus( id )
+            await this.props.getCarts(this.props.objectUser)
             Swal.fire(
                 'Checkout Success!',
                 'One More Step : Upload Transaction Image on Transaction Tab !',
@@ -96,11 +97,8 @@ class Checkout extends Component {
               )
             // alert('Checkout Success, One More Step : Upload Transaction Image on Transaction Tab !')
 
-            this.setState( { redirectTransaction : true } )
+            await this.setState( { redirectTransaction : true } )
         }
-
-        let patchCartStatus = await this.props.patchCartStatus( id )
-
     }
 
 

@@ -1,57 +1,94 @@
 import React, { Component } from 'react'
 
-// import '../../css/services.css'
+import '../../css/services.css'
 
 class CarDetailing extends Component {
     render() {
         return (
-            <div className="container mt-5 mb-5">
+            // <div className="container mt-5 mb-5">
 
-                <div className="card-group">
+            
 
-                    <div className="card">
-                        {/* <img className="card-img-top" src="..." alt="Card image cap"  /> */}
+            <section class="pricing py-5">
 
-                        <div className="card-header">
-                            Nano Ceramic Coating
+                <div class="container">
+                  <div class="row">
+                   
+                    <div class="col-lg-4">
+                      <div class="card mb-5 mb-lg-0">
+                        <div class="card-body">
+                          <h5 class="card-title text-muted text-uppercase text-center">Quick Polish</h5>
+                          <h6 class="card-price text-center">$0<span class="period">/month</span></h6>
+                          <hr />
+                          <ul class="fa-ul">
+                            <li><span class="fa-li"><i class="material-icons">check</i></span>Single User</li>
+                            <li><span class="fa-li"><i class="material-icons">check</i></span>5GB Storage</li>
+                            <li><span class="fa-li"><i class="material-icons">check</i></span>Unlimited Public Projects</li>
+                            <li><span class="fa-li"><i class="material-icons">check</i></span>Community Access</li>
+                            <li class="text-muted"><span class="fa-li"><i class="fas fa-times"></i></span>Unlimited Private Projects</li>
+                            <li class="text-muted"><span class="fa-li"><i class="fas fa-times"></i></span>Dedicated Phone Support</li>
+                            <li class="text-muted"><span class="fa-li"><i class="fas fa-times"></i></span>Free Subdomain</li>
+                            <li class="text-muted"><span class="fa-li"><i class="fas fa-times"></i></span>Monthly Status Reports</li>
+                          </ul>
+                          <a href="#" class="btn btn-block btn-primary text-uppercase">Button</a>
                         </div>
-
-                        <div className="card-body">
-                            <h5 className="card-title">Card title</h5>
-                            <p className="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-                            <p className="card-text"><small className="text-muted">Last updated 3 mins ago</small></p>
-                        </div>
-
-                        <ul class="list-group"> 
-                                <li class="list-group-item">Ultimate Features</li>
-                                <li class="list-group-item">Responsive Ready</li>
-                                <li class="list-group-item">Visual Composer Included</li>
-                                <li class="list-group-item">24/7 Support System</li>
-                            </ul>   
+                      </div>
                     </div>
 
-                    <div className="card">
-                        {/* <img className="card-img-top" src="..." alt="Card image cap"  /> */}
-                        <div className="card-body">
-                        <h5 className="card-title">Card title</h5>
-                        <p className="card-text">This card has supporting text below as a natural lead-in to additional content.</p>
-                        <p className="card-text"><small className="text-muted">Last updated 3 mins ago</small></p>
+
+                    <div class="col-lg-4">
+                      <div class="card">
+                        <div class="card-body">
+                          <h5 class="card-title text-muted text-uppercase text-center">Nano Ceramic Coating</h5>
+                          <h6 class="card-price text-center">$49<span class="period">/month</span></h6>
+                          <hr/>
+                          <ul class="fa-ul">
+                            <li><span class="fa-li"><i class="material-icons">check</i></span><strong>Unlimited Users</strong></li>
+                            <li><span class="fa-li"><i class="material-icons">check</i></span>150GB Storage</li>
+                            <li><span class="fa-li"><i class="material-icons">check</i></span>Unlimited Public Projects</li>
+                            <li><span class="fa-li"><i class="material-icons">check</i></span>Community Access</li>
+                            <li><span class="fa-li"><i class="material-icons">check</i></span>Unlimited Private Projects</li>
+                            <li><span class="fa-li"><i class="material-icons">check</i></span>Dedicated Phone Support</li>
+                            <li><span class="fa-li"><i class="material-icons">check</i></span><strong>Unlimited</strong> Free Subdomains</li>
+                            <li><span class="fa-li"><i class="material-icons">check</i></span>Monthly Status Reports</li>
+                          </ul>
+                          <a href="#" class="btn btn-block btn-primary text-uppercase">Button</a>
                         </div>
+                      </div>
                     </div>
 
-                    <div className="card">
-                        {/* <img className="card-img-top" src="..." alt="Card image cap"  /> */}
-                        <div className="card-body">
-                        <h5 className="card-title">Card title</h5>
-                        <p className="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This card has even longer content than the first to show that equal height action.</p>
-                        <p className="card-text"><small className="text-muted">Last updated 3 mins ago</small></p>
+                   
+                    <div class="col-lg-4">
+                      <div class="card mb-5 mb-lg-0">
+                        <div class="card-body">
+                          <h5 class="card-title text-muted text-uppercase text-center">Full Detailing</h5>
+                          <h6 class="card-price text-center">$9<span class="period">/month</span></h6>
+                          <hr/>
+                          <ul class="fa-ul">
+                            <li><span class="fa-li"><i class="material-icons">check</i></span><strong>5 Users</strong></li>
+                            <li><span class="fa-li"><i class="material-icons">check</i></span>50GB Storage</li>
+                            <li><span class="fa-li"><i class="material-icons">check</i></span>Unlimited Public Projects</li>
+                            <li><span class="fa-li"><i class="material-icons">check</i></span>Community Access</li>
+                            <li><span class="fa-li"><i class="material-icons">check</i></span>Unlimited Private Projects</li>
+                            <li><span class="fa-li"><i class="material-icons">check</i></span>Dedicated Phone Support</li>
+                            <li><span class="fa-li"><i class="material-icons">check</i></span>Free Subdomain</li>
+                            <li class="text-muted"><span class="fa-li"><i class="fas fa-times"></i></span>Monthly Status Reports</li>
+                          </ul>
+                          <a href="#" class="btn btn-block btn-primary text-uppercase">Button</a>
                         </div>
+                      </div>
                     </div>
+                    
 
-                </div>  {/* end of card-group */}
+
+
+                  </div>
+                </div>
+                
+              </section>
                 
             
-            </div>  // end of container
+            // </div>  // end of container
         )
     }
 }

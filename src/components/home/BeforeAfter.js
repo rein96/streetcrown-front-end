@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
-import img1 from '../../images/img1.jpg'
-import img2 from '../../images/img2.jpg'
+import img1 from '../../images/hrv-before.jpg'
+import img2 from '../../images/hrv-after.jpg'
 
 import '../../css/beerslider.css'
 
@@ -8,30 +8,38 @@ class BeforeAfter extends Component {
 
     render() {
         return (
+
             <div className="container mt-4">
                 <center> <h2> Before and After </h2> </center>
-                <div id="beer-slider" className="beer-slider shadow-lg" style={{ borderRadius: '15px' }} data-beer-label="before">
-                        <img src={img1}  alt="before"  />
-                    <div className="beer-reveal" data-beer-label="after">
-                        <img src={img2}  alt="after"   />
+                <center>
+                <div id="beer-slider" className="beer-slider shadow-lg" style={{ borderRadius: '15px' }} data-beer-label="after" >
+                        <img src={img2} style={{ width : '800px' }}  alt="before"  />
+                    <div className="beer-reveal" data-beer-label="before">
+                        <img src={img1}  alt="after"   />
                     </div>
                 </div>
+                </center>
 
                 <br/><br/>
 
             </div>
 
+            // PAKE TULISAN "BEFORE AFTER"
+            // <div className="container mt-4">
+            //     <center> <h2> Before and After </h2> </center>
+            //     <div id="beer-slider" className="beer-slider shadow-lg" style={{ borderRadius: '15px' }} data-beer-label="before">
+            //             <img src={img1}  alt="before"  />
+            //         <div className="beer-reveal" data-beer-label="after">
+            //             <img src={img2}  alt="after"   />
+            //         </div>
+            //     </div>
 
-        // <div class="container">
-        //     <div id="beer-slider" class="beer-slider" data-beer-label="before">
-        //       <img src={img1}  alt="before"   />
-        //       <div class="beer-reveal" data-beer-label="after">
-        //         <img src={img2}  alt="after"  />
-        //     </div>
-        // </div>
+            //     <br/><br/>
 
-        // </div>
-          
+            // </div>
+
+
+
         )
     }
 }

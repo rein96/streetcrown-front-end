@@ -3,7 +3,7 @@ import { connect } from  'react-redux'
 import { Redirect } from 'react-router-dom'
 import Swal from 'sweetalert2'
 
-import { getTransaction, uploadProof, specificTransaction } from '../actions/index'
+import { getTransaction, uploadProof, specificTransaction, proofImageNotificationMail } from '../actions/index'
 
 
 const paymentStyle = {
@@ -45,6 +45,16 @@ class TransactionUser extends Component {
             'aria-label': 'Upload your profile picture'
             }
         })
+
+        // Maximal 1 mB proof image
+        if( file.size > 1000000 ){
+            return Swal.fire({
+                title: 'Error!',
+                text: 'File size is too large, maximal 1 MB (MegaBytes)',
+                type: 'error',
+                confirmButtonText: 'Cool'
+            })
+        }
         
         if (file) {
             const reader = new FileReader()
@@ -70,6 +80,7 @@ class TransactionUser extends Component {
 
             await this.props.uploadProof(formData)
             await this.getUserTransaction()
+            await this.props.proofImageNotificationMail()
         }
     }
 
@@ -261,4 +272,4 @@ const mapStateToProps = state => {
 
 
 
-export default connect(mapStateToProps, { getTransaction, uploadProof, specificTransaction })(TransactionUser)
+export default connect(mapStateToProps, { getTransaction, uploadProof, specificTransaction, proofImageNotificationMail })(TransactionUser)

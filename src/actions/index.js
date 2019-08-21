@@ -296,10 +296,55 @@ export const deleteProduct = (productID) => {
 }
 
 // EDIT PRODUCT
-export const editProduct = (productID) => {
+export const editProduct = (productID, name, category, price, description) => {
     return async () => {
         try {
-            
+            const res = await axios.patch(`/editproduct/${productID}`, {
+                name, category, price, description
+            })
+            return res.data
+        } catch (err) {
+            console.error(err)
+        }
+    }
+}
+
+
+
+
+// DELETE PRODUCT IMAGE (PRE-EDIT)
+export const deleteProductImage = (id) => {
+    return async () => {
+        try {
+            const res = await axios.delete(`/deleteproductimage/${id}`)
+            return res.data
+        } catch (err) {
+            console.error(err)
+        }
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// EDIT PRODUCT IMAGE
+export const editProductImage = (id, formData) => {
+    return async () => {
+        try {
+            const res = await axios.post(`/editproductimage/${id}`, formData )
+            return res.data
         } catch (err) {
             console.error(err)
         }
@@ -569,4 +614,17 @@ export const deleteTransaction = (id, proof_of_payment) => {
     }
 }
 
+
+export const proofImageNotificationMail = () => {
+
+    return async () => {
+
+        try {
+            await axios.post('/notifadmins')
+
+        } catch (err) {
+            console.error(err)
+        }
+    }
+}
 

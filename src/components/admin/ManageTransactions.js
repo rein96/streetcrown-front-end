@@ -150,7 +150,8 @@ class ManageTransactions extends Component {
     };
 
     rejectTransactionBtn = async (id, proof_of_payment) => {
-        const { value: text } = await Swal.fire({
+        // previous problem using const, the value cannot be changed whenever text = 'No message'
+        let { value: text } = await Swal.fire({
             input: 'textarea',
             title: 'Rejection message',
             text: 'Tell the user why you reject this transaction (Note: It will delete the proof of payment image)',
@@ -164,8 +165,12 @@ class ManageTransactions extends Component {
             showCancelButton: true
           })
 
+          console.log(text)
+          console.log(typeof(text))
+
           //text force to null
-          if(text === undefined){
+          if(text.length == 0){
+              console.log('text kosoong kann')
               text = 'No message' 
           } 
           const resdata = await this.props.rejectTransaction(id, proof_of_payment, text)
