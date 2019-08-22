@@ -628,3 +628,20 @@ export const proofImageNotificationMail = () => {
     }
 }
 
+
+//////////////////////////////////////////////////////////////////////////////////////////
+//  CAR-DETAILING ROUTER
+
+
+export const getDetailingData = (urlcode) => {
+    // cdid = cardetailing_id
+    return async () => {
+
+        try {
+            const res = await axios.get(`/cardetailing/${urlcode}`)
+            return res.data
+        } catch (err) {
+            console.error(err)
+        }
+    }
+}

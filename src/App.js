@@ -20,6 +20,7 @@ import ManageUsers from './components/admin/ManageUsers'
 import EditProduct from './components/admin/EditProduct'
 import CarDetailing from './components/services/CarDetailing'
 import MotorcycleDetailing from './components/services/MotorcycleDetailing'
+import BookingForm from './components/services/BookingForm'
 
 import { keepLogin } from './actions/index'
 import HomeModal from './components/home/HomeModal'
@@ -62,6 +63,7 @@ class App extends Component {
                     {/* Services */}
                     <Route path='/cardetailing' component={CarDetailing} />
                     <Route path='/motorcycledetailing' component={MotorcycleDetailing} />
+                    <Route path='/bookingform/:servicename' component={BookingForm} />
                     {/* User */}
                     <Route path='/profile' component={Profile} />
                     <Route path='/cart' component={Cart} />

@@ -33,7 +33,7 @@ class HomeModal extends Component {
                 <ModalHeader toggle={this.toggle}>Contact Us</ModalHeader>
                 <ModalBody>
                     <center>
-
+                        {/* REFERENCE OTHER LINK : https://wa.me/628561333111?text=Saya%20tertarik%20untuk%20membeli%20mobil%20Anda */}
                         <div className="m-2">
                             <a href="https://api.whatsapp.com/send?phone=628999993164&text=Halo%20StreetCrown!" target="_blank" rel="noopener noreferrer" >
                                 <img src="https://image.flaticon.com/icons/svg/134/134937.svg" alt="Whatsapp-icon" style={{ width: "40px" }} />

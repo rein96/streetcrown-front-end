@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { Link } from 'react-router-dom'
 
 import '../../css/services.css'
 
@@ -52,7 +53,9 @@ class CarDetailing extends Component {
                             <li><span class="fa-li"><i class="material-icons">check</i></span><strong>Unlimited</strong> Free Subdomains</li>
                             <li><span class="fa-li"><i class="material-icons">check</i></span>Monthly Status Reports</li>
                           </ul>
-                          <a href="#" class="btn btn-block btn-primary text-uppercase">Button</a>
+                          <Link to='/bookingform/nano-ceramic-coating' >
+                            <a href="#" class="btn btn-block btn-primary text-uppercase">Button</a>
+                          </Link>
                         </div>
                       </div>
                     </div>
