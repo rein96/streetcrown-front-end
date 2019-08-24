@@ -179,13 +179,13 @@ export const addAddress = (newAddress, objectUser) => {
     return async dispatch => {
 
         try {
-            await axios.post(`/addaddress/${objectUser.id}`, { address: newAddress } )
+            const resdata = await axios.post(`/addaddress/${objectUser.id}`, { address: newAddress } )
+            console.log(resdata)
 
             // Select addresses to get user_id and id of address column
             const resSelectAddreses = await axios.get(`/getaddress/${objectUser.id}`)
 
             console.log(resSelectAddreses.data);    // updated
-
 
             cookie.remove('streetcrownUser')
 
@@ -639,6 +639,22 @@ export const getDetailingData = (urlcode) => {
 
         try {
             const res = await axios.get(`/cardetailing/${urlcode}`)
+            return res.data
+        } catch (err) {
+            console.error(err)
+        }
+    }
+}
+
+
+export const carDetailingBooking = (user_id, car_detailing_id, car_brand, car_name, car_size, location_type, location_address, booking_date, contact_number, car_year, car_color) => {
+
+    return async () => {
+
+        try {
+            const res = await axios.post('/cardetailingbooking/', {
+                user_id, car_detailing_id, car_brand, car_name, car_size, location_type, location_address, booking_date, contact_number, car_year, car_color
+            })
             return res.data
         } catch (err) {
             console.error(err)
