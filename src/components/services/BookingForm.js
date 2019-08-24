@@ -10,7 +10,8 @@ class BookingForm extends Component {
     state = {
         priceData : {},  // original_price_blabla + final_price_blabla
         detailingName : '',
-        isHomeService : false
+        isHomeService : false,
+        booking_price : 0
     }
 
     async componentWillMount(){
@@ -75,10 +76,27 @@ class BookingForm extends Component {
         console.log(this.selectedDate.value)
     }
 
-    // showPriceBasedOnSize = () => {
-    //     console.log(this.selectedSize.value)
-    //     const { final_price_small }
-    // }
+    showPriceBasedOnSize = async () => {
+        console.log(this.selectedSize.value)
+        var selectedSize = this.selectedSize.value   // 0, Small, Medium, Large, Extra Large
+        const { final_price_Small, final_price_Medium, final_price_Large, final_price_XL } = this.state.priceData
+        if( selectedSize === '0'){
+            await this.setState(  { booking_price : 0 } )
+
+        } else if (selectedSize === 'Small'){
+            await this.setState(  { booking_price : final_price_Small } )
+
+        } else if (selectedSize === 'Medium'){
+            await this.setState(  { booking_price : final_price_Medium } )
+
+        } else if (selectedSize === 'Large'){
+            await this.setState(  { booking_price : final_price_Large } )
+            
+        } else if (selectedSize === 'XL'){
+            await this.setState(  { booking_price : final_price_XL } )
+        }
+        alert(this.state.booking_price)
+    }
 
     bookingButton = async () => {
         var carbrand = (this.carbrand.value).toUpperCase()
@@ -91,7 +109,7 @@ class BookingForm extends Component {
             return alert('Please input the car name')
         }
 
-        var selectedSize = this.selectedSize.value  // 0, S, M L, XL
+        var selectedSize = this.selectedSize.value  // 0, Small, Medium, Large, Extra Large
         var selectedLocationType = this.selectedLocationType.value  // 'Home' or 'Workshop'
 
         if(selectedLocationType == 'Home'){
@@ -143,7 +161,7 @@ class BookingForm extends Component {
               }).then((result) => {
                 if (result.value) {
                     // window.open("https://api.whatsapp.com/send?phone=628999993164&text=Halo%20StreetCrown!" )
-                    window.open(`https://api.whatsapp.com/send?phone=628999993164&text=Halo%20StreetCrown%2C%20aku%20barusan%20booking%20dari%20website%20StreetCrown%20nih%20!%0ABerikut%20informasi%20bookingnya%20%3A%0AMobil%20%3A%20${carbrand}%20${carname}%0APaket%20%20%3A%20${this.state.priceData.name}%20-%20${selectedSize}%0AHarga%20%3A%202800000%0ATanggal%20Booking%20%3A%20${selectedDate}%0ALokasi%20%3A%20${selectedAddress}%0A%0ASilahkan%20transfer%20DP%20min%2010%25%20dari%20harga%20yang%20disepakati%20ke%20rek%20bca%206050145997%20a%2Fn%20william%20gani.%20Harap%20konfirmasi%20bukti%20transfer.%20%0A%0AJika%20ada%20pembatalan%2C%20bisa%20reschedule%20(berlaku%20max%201bln%20dr%20tgl%20DP).%20Lebih%20dr%20tgl%20DP%20dianggap%20customer%20membatalkan%20transaksi%20dan%20DP%20hangus.%0A%0ABest%20Regards%2C%0AStreetcrown` )
+                    window.open(`https://api.whatsapp.com/send?phone=628999993164&text=Halo%20StreetCrown%2C%20aku%20barusan%20booking%20dari%20website%20StreetCrown%20nih%20!%0ABerikut%20informasi%20bookingnya%20%3A%0AMobil%20%3A%20${carbrand}%20${carname}%0APaket%20%20%3A%20${this.state.priceData.name}%20-%20${selectedSize}%0AHarga%20%3A%20${this.state.booking_price}%0ATanggal%20Booking%20%3A%20${selectedDate}%0ALokasi%20%3A%20${selectedAddress}%0A%0ASilahkan%20transfer%20DP%20min%2010%25%20dari%20harga%20yang%20disepakati%20ke%20rek%20bca%206050145997%20a%2Fn%20william%20gani.%20Harap%20konfirmasi%20bukti%20transfer.%20%0A%0AJika%20ada%20pembatalan%2C%20bisa%20reschedule%20(berlaku%20max%201bln%20dr%20tgl%20DP).%20Lebih%20dr%20tgl%20DP%20dianggap%20customer%20membatalkan%20transaksi%20dan%20DP%20hangus.%0A%0ABest%20Regards%2C%0AStreetcrown` )
                 }
               })
         }
@@ -204,10 +222,10 @@ class BookingForm extends Component {
                                     
                                     <select className="custom-select radius-custom" name='selectedSize' ref={ input => this.selectedSize = input } onChange={ () => this.showPriceBasedOnSize() } >
                                         <option value={0} className="radius-custom">Not Sure</option>
-                                        <option value={'S'} className="radius-custom">Small</option>
-                                        <option value={'M'} className="radius-custom">Medium</option>
-                                        <option value={'L'} className="radius-custom">Large</option>
-                                        <option value={'XL'} className="radius-custom">Xtra Large</option>
+                                        <option value={'Small'} className="radius-custom">Small</option>
+                                        <option value={'Medium'} className="radius-custom">Medium</option>
+                                        <option value={'Large'} className="radius-custom">Large</option>
+                                        <option value={'XL'} className="radius-custom">Extra Large / Supercar</option>
                                     </select>
                                 </form>
                                 <small class="form-text text-muted"> Don't worry if you are not sure what size your car, we will check again and correct the size and the price.</small>
