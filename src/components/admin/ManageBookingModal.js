@@ -1,6 +1,15 @@
 import React, { Component } from 'react'
+import { connect } from 'react-redux'
+import Swal from 'sweetalert2'
+
+import Spinner from '../Spinner'
+import { editDetailingBooking } from '../../actions/index'
 
 class ManageBookingModal extends Component {
+
+    state = {
+        loading: false
+    }
 
     categoryOptions = (car_size) => {
         const categories = ['0','Small','Medium','Large','XL']
@@ -29,6 +38,29 @@ class ManageBookingModal extends Component {
         } 
 
         return (`${yyyy}-${mm}-${dd}`) // Solved : 2019-08-22
+    }
+
+    editProductButton = async () => {
+        const carbrand = this.carbrand.value
+        const carname = this.carname.value
+        const caryear = this.caryear.value
+        const carcolor = this.carcolor.value
+        const carsize = this.carsize.value
+        const address = this.address.value
+        const bookingprice = this.bookingprice.value
+        const selectedDate = this.selectedDate.value
+
+        await this.setState({ loading : true })
+
+        // console.log(carbrand, carname, caryear, carcolor, carsize, address, bookingprice, selectedDate)
+        const resdata = await this.props.editDetailingBooking(this.props.editBooking.id, carbrand, carname, caryear, carcolor, carsize, address, bookingprice, selectedDate)
+        console.log(resdata)    // affectedRows
+
+        if(resdata.affectedRows) {
+            this.setState({ loading : false })
+            Swal.fire('Edit success!', 'Hooray !' ,'success')
+            window.location.reload()
+        }
     }
 
 
@@ -74,7 +106,7 @@ class ManageBookingModal extends Component {
 
                                     Car Size : 
                                     <form className="input-group">
-                                        <select class="custom-select" name="selectedCategory" ref={input => this.selectedCategoryEdit = input} >
+                                        <select class="custom-select" name="carsize" ref={input => this.carsize = input} >
                                             {this.categoryOptions(car_size)}
                                         </select>
                                     </form>
@@ -101,7 +133,10 @@ class ManageBookingModal extends Component {
                                         <br/>
                                     </form>
 
-                                    <button onClick={this.editProductButton} className="btn btn-outline-danger btn-block mt-5">Edit</button>
+                                    {   this.state.loading === true ? <Spinner /> : 
+                                        <button onClick={this.editProductButton} className="btn btn-outline-danger btn-block mt-5">Edit</button> 
+                                    }
+                                    
 
                                 </div>
                             </div>
@@ -118,4 +153,4 @@ class ManageBookingModal extends Component {
     }
 }
 
-export default ManageBookingModal
+export default connect(null, { editDetailingBooking } )(ManageBookingModal)

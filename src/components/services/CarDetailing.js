@@ -6,9 +6,7 @@ import '../../css/services.css'
 class CarDetailing extends Component {
     render() {
         return (
-            // <div className="container mt-5 mb-5">
-
-            
+            // <div className="container mt-5 mb-5">          
 
             <section class="pricing py-5">
 
@@ -16,10 +14,11 @@ class CarDetailing extends Component {
                   <div class="row">
                    
                     <div class="col-lg-4">
+                      <br/>
                       <div class="card mb-5 mb-lg-0">
                         <div class="card-body">
-                          <h5 class="card-title text-muted text-uppercase text-center">Quick Polish</h5>
-                          <h6 class="card-price text-center">$0<span class="period">/month</span></h6>
+                          {/* <h5 class="card-title text-muted text-uppercase text-center">Quick Polish</h5> */}
+                          <h6 class="card-price text-center"> <b>QUICK POLISH</b> </h6>
                           <hr />
                           <ul class="fa-ul">
                             <li><span class="fa-li"><i class="material-icons">check</i></span>Single User</li>
@@ -31,7 +30,9 @@ class CarDetailing extends Component {
                             <li class="text-muted"><span class="fa-li"><i class="fas fa-times"></i></span>Free Subdomain</li>
                             <li class="text-muted"><span class="fa-li"><i class="fas fa-times"></i></span>Monthly Status Reports</li>
                           </ul>
-                          <a href="#" class="btn btn-block btn-primary text-uppercase">Button</a>
+                          <Link to='/bookingform/quick-polish'>
+                            <button href="#" class="btn btn-block btn-primary text-uppercase">Button</button>                          
+                          </Link>
                         </div>
                       </div>
                     </div>
@@ -54,7 +55,7 @@ class CarDetailing extends Component {
                             <li><span class="fa-li"><i class="material-icons">check</i></span>Monthly Status Reports</li>
                           </ul>
                           <Link to='/bookingform/nano-ceramic-coating' >
-                            <a href="#" class="btn btn-block btn-primary text-uppercase">Button</a>
+                            <button href="#" class="btn btn-block btn-primary text-uppercase">Button</button>
                           </Link>
                         </div>
                       </div>
@@ -62,10 +63,11 @@ class CarDetailing extends Component {
 
                    
                     <div class="col-lg-4">
+                      <br/>
                       <div class="card mb-5 mb-lg-0">
                         <div class="card-body">
-                          <h5 class="card-title text-muted text-uppercase text-center">Full Detailing</h5>
-                          <h6 class="card-price text-center">$9<span class="period">/month</span></h6>
+                          {/* <h5 class="card-title text-muted text-uppercase text-center">Full Detailing</h5> */}
+                          <h6 class="card-price text-center"> <b>FULL DETAILING</b> </h6>
                           <hr/>
                           <ul class="fa-ul">
                             <li><span class="fa-li"><i class="material-icons">check</i></span><strong>5 Users</strong></li>
@@ -77,7 +79,9 @@ class CarDetailing extends Component {
                             <li><span class="fa-li"><i class="material-icons">check</i></span>Free Subdomain</li>
                             <li class="text-muted"><span class="fa-li"><i class="fas fa-times"></i></span>Monthly Status Reports</li>
                           </ul>
-                          <a href="#" class="btn btn-block btn-primary text-uppercase">Button</a>
+                          <Link to='/bookingform/full-detailing'>
+                            <button href="#" class="btn btn-block btn-primary text-uppercase">Button</button>
+                          </Link>
                         </div>
                       </div>
                     </div>

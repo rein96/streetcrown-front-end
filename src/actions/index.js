@@ -683,3 +683,40 @@ export const getAllBooking = () => {
         }
     }
 }
+
+export const editDetailingBooking = ( id, car_brand, car_name, car_year, car_color, car_size, location_address, booking_price, booking_date ) => {
+    return async () => {
+        try {
+            const res = await axios.patch(`/booking/${id}`, {
+                car_brand, car_name, car_year, car_color, car_size, location_address, booking_price, booking_date
+            })
+            return res.data
+        } catch (err) {
+            console.error(err)
+        }
+    }
+}
+
+export const updateBookingStatus = (id, booking_status) => {
+    return async () => {
+        try {
+            console.log(booking_status)
+            const res = await axios.patch(`/bookingstatus/${id}`, { booking_status })
+            return res.data
+        } catch (err) {
+            console.error(err)
+        }
+    }
+}
+
+export const deleteBooking = (id) => {
+    return async () => {
+        try {
+            const res = await axios.delete(`/booking/${id}`)
+            return res.data
+        } catch (err) {
+            console.error(err)
+        }
+    }
+}
+

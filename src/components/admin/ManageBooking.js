@@ -1,7 +1,9 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
+import Swal from 'sweetalert2'
 
-import { getAllBooking } from '../../actions/index'
+import Spinner from '../Spinner'
+import { getAllBooking, updateBookingStatus, deleteBooking } from '../../actions/index'
 
 import '../../css/managebookings.css'
 import ManageBookingModal from './ManageBookingModal'
@@ -10,14 +12,74 @@ class ManageBooking extends Component {
 
     state = {
         allBooking : [],
-        editBooking : []
+        editBooking : [],
+        loading : false
     }
 
-    async componentDidMount(){
+    componentDidMount(){
+        this.getBookingData()
+    }
+
+    getBookingData = async () => {
+        await this.setState( { loading : true } )
         const resdata = await this.props.getAllBooking()
         console.log(resdata)
-        await this.setState( { allBooking : resdata } )
+        await this.setState( { allBooking : resdata, loading : false } )
         console.log(this.state.allBooking)
+    }
+
+    setStatus = async (id, defaultStatus) => {
+        	
+        /* inputOptions can be an object or Promise */
+        const inputOptions = {
+            Booking : 'Booking',
+            Completed : 'Completed',
+            Cancel : 'Cancel'
+        }
+        
+        const { value: status } = await Swal.fire({
+            title: 'Select status',
+            input: 'radio',
+            inputOptions: inputOptions,
+            inputValue: defaultStatus,
+            inputValidator: (value) => {
+                if (!value) {
+                    return 'You need to choose something!'
+                }
+            }
+        })
+        
+        if (status) {
+            const resdata = await this.props.updateBookingStatus(id, status)
+            console.log(resdata)
+            Swal.fire({ html: 'Status changed to = ' + status })
+            this.getBookingData()
+        }
+    }
+
+    deleteButton = async (id) => {
+        Swal.fire({
+            title: 'Are you sure?',
+            text: "Once it has deleted, it cannot be reverted !",
+            type: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Delete it !'
+          }).then( async (result) => {
+            if (result.value === true) {
+
+            const res = await this.props.deleteBooking(id)
+            console.log(res)
+                if ( res.affectedRows ) {
+                    Swal.fire( 'Deleted successfully !')
+    
+                    this.getBookingData()
+                } else {
+                    alert('Error huhuhu')
+                }
+            }
+        })
     }
 
     renderBookingByLocation = (inputByAddress) => {
@@ -33,34 +95,52 @@ class ManageBooking extends Component {
         }
 
         let render = arrayBooking.map( booking => {
+
+            let { booking_status, id, booking_date_formatted, username, email, contact_number, car_brand, car_name, car_size, location_type, location_address, booking_price, car_color, car_year, name  } = booking
+
+            var status_style = ''
+            if( booking_status === 'Booking') {
+                status_style = 'btn-primary'
+            } else if ( booking_status === 'Completed' ) {
+                status_style = 'btn-success'
+            } else if (booking_status === 'Cancel') {
+                status_style = 'btn-danger'
+            }
+
             return (
-                <tr key={booking.id}>
-                    <th scope='col'> <p>{booking.booking_date_formatted}</p> </th>
+                <tr key={id}>
+                    <th scope='col'> <p>{booking_date_formatted}</p> </th>
                     <th scope='col'>
-                         <p>{booking.username}</p> 
-                         <p style={{ fontSize : '9px' }}>{booking.email}</p> 
-                         <p>{booking.contact_number}</p> 
+                         <p>{username}</p> 
+                         <p style={{ fontSize : '8px' }}>{email}</p> 
+                         <p>{contact_number}</p> 
                     </th>
-                    <th scope='col'> <p>{booking.car_brand}</p> </th>
-                    <th scope='col'> <p>{booking.car_name}</p> </th>
-                    <th scope='col'> <p>{booking.car_size}</p> </th>
-                    <th scope='col'> <p>{booking.location_type}</p> </th>
-                    <th scope='col'> <p>{booking.location_address}</p> </th>
-                    <th scope='col'> <p>{booking.booking_price}</p> </th>
-                    <th scope='col'> <p>{booking.booking_status}</p> </th>
+                    <th scope='col'> <p>{name}</p> </th>
+                    <th scope='col'> <p>{car_brand}</p> </th>
+                    <th scope='col'> <p>{car_name}</p> </th>
+                    <th scope='col'> <p>{car_size}</p> </th>
+                    <th scope='col'> <p>{location_type}</p> </th>
+                    <th scope='col'> <p>{location_address}</p> </th>
+                    { 
+                        typeof(booking_price) === 'number' ? 
+                        <th scope='col'> <p> { (booking_price).toLocaleString() }</p> </th> : 
+                        <th> <p> No Data </p></th> 
+                    }  
                     <th scope='col'>
-                        <p> Color : {booking.car_color}</p>
-                        <p> Year : {booking.car_year}</p>
+                        <button className={"btn btn-sm " + status_style } onClick={ () => this.setStatus(id, booking_status) }> {booking_status} </button>
+                    </th>
+                    <th scope='col'>
+                        <p> Color : {car_color}</p>
+                        <p> Year : {car_year}</p>
                     </th>
                     <th scope='col'> 
-                        {/* <button className="btn btn-sm btn-warning" onClick={ () => this.editButton(booking.id) }>Edit</button>  */}
-                        <button className="btn btn-sm btn-warning"
+                        <button className="btn btn-sm btn-outline-warning"
                                 // style={{ width: '60px' }}
                                 data-toggle="modal" 
                                 data-target="#editBookingModal"
                                 onClick={ async () => await this.setState( { editBooking : booking } ) } > &nbsp; Edit &nbsp; </button>
                                 <br/><br/>
-                        <button className="btn btn-sm btn-danger" onClick={ () => this.deleteButton(booking.id) }>Delete</button>
+                        <button className="btn btn-sm btn-outline-danger" onClick={ () => this.deleteButton(id) }>Delete</button>
                     </th>
                 </tr>
             )
@@ -86,12 +166,15 @@ class ManageBooking extends Component {
 
                     <div className="table-responsive">
 
+                        { this.state.loading === true && <Spinner />  }
+
                         <h4> Sunter Pulo Kecil </h4>
                         <table className="table table-hover mx-auto w-auto mb-5" style={{ margin: 'auto' }}>
                                 <thead>
                                     <tr>
                                         <th scope="col">DATE</th>
                                         <th scope="col">CUSTOMER</th>
+                                        <th scope="col">DETAILING</th>
                                         <th scope="col">BRAND</th>
                                         <th scope="col">NAME</th>
                                         <th scope="col">SIZE</th>
@@ -113,6 +196,7 @@ class ManageBooking extends Component {
                                     <tr>
                                         <th scope="col">DATE</th>
                                         <th scope="col">CUSTOMER</th>
+                                        <th scope="col">DETAILING</th>
                                         <th scope="col">BRAND</th>
                                         <th scope="col">NAME</th>
                                         <th scope="col">SIZE</th>
@@ -134,6 +218,7 @@ class ManageBooking extends Component {
                                     <tr>
                                         <th scope="col">DATE</th>
                                         <th scope="col">CUSTOMER</th>
+                                        <th scope="col">DETAILING</th>
                                         <th scope="col">BRAND</th>
                                         <th scope="col">NAME</th>
                                         <th scope="col">SIZE</th>
@@ -162,4 +247,4 @@ const mapStateToProps = state => ({
     objectUser: state.auth
 })
 
-export default connect(mapStateToProps, { getAllBooking })(ManageBooking)
+export default connect(mapStateToProps, { getAllBooking, updateBookingStatus, deleteBooking })(ManageBooking)
