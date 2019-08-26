@@ -22,7 +22,7 @@ class Admin extends Component {
                     {/* <ManageProducts /> */}
                         <div className="card m-5 shadow-lg" style={{ borderRadius: '20px' }} >
                             <Link to='/manageproducts'>
-                                <img className="card-img-top" src={nanoCoating} style={borderTop} alt="Card image cap" />
+                                <img className="card-img-top" src={drivers} style={borderTop} alt="Card image cap" />
                                 <div className="card-body">
                                     <center>
                                         <button className="card-title btn btn-danger">Manage Products</button>
@@ -46,12 +46,13 @@ class Admin extends Component {
                         </div>
                     {/* <ManageUsers /> */}
                         <div className="card m-5 shadow-lg" style={{ borderRadius: '20px' }} >
-                            <Link to='/manageusers'>
-                                <img className="card-img-top" src={drivers} style={borderTop} alt="Card image cap" />
+                            <Link to='/managebooking'>
+                                <img className="card-img-top" src={nanoCoating} style={borderTop} alt="Card image cap" />
+                                {/* https://unsplash.com/photos/9n1USijYJZ4 */}
                                 <div className="card-body">
                                     <center>
-                                        <button className="card-title btn btn-danger">Manage Users</button>
-                                        <p className="card-text text-body"> See registered users. </p>
+                                        <button className="card-title btn btn-danger">Manage Booking</button>
+                                        <p className="card-text text-body"> Add, Edit, Delete, See Detailing Booking. </p>
                                     </center>
                                 </div>
                             </Link>

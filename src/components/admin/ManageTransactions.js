@@ -325,23 +325,30 @@ class ManageTransactions extends Component {
                     </h2>
                     <br/>
 
-                    <table className="table table-hover mb-5">
-                            <thead>
-                                <tr>
-                                    {/* <th scope="col">ID</th> */}
-                                    <th scope="col">DATE</th>
-                                    <th scope="col">USER</th>
-                                    <th scope="col">DESTINATION</th>
-                                    <th scope="col">PAYMENT PROOF</th>
-                                    <th scope="col">ACTION</th>
-                                </tr>   
-                            </thead>
+                    { this.state.loading === true ? <Spinner /> : '' }
 
-                            {/* render all transaction */}
-                            { this.state.loading === true ?  <Spinner /> : <tbody> {this.renderTransactions()}  </tbody> }                                                       
+                    <div className="table-responsive">
 
-                            
-                    </table>
+                    
+                        <table className="table table-hover mx-auto w-auto mb-5" style={{ margin: 'auto' }}>
+                                <thead>
+                                    <tr>
+                                        {/* <th scope="col">ID</th> */}
+                                        <th scope="col">DATE</th>
+                                        <th scope="col">USER</th>
+                                        <th scope="col">DESTINATION</th>
+                                        <th scope="col">PAYMENT PROOF</th>
+                                        <th scope="col">ACTION</th>
+                                    </tr>   
+                                </thead>
+
+                                {/* render all transaction */}
+                                <tbody> {this.renderTransactions()}  </tbody>                                                      
+
+                                
+                        </table>
+                    </div>
+
                 </center>
 
 

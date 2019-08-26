@@ -77,16 +77,18 @@ export const onLogout = () => {
 export const updateAvatar = (formData, objectUser) => {
     return async dispatch => {
         // formData = Object {}
-        const res = await axios.post('/users/avatar', formData)
+        const { id, name, username, email, phone_number, is_admin, avatar, addresses } = objectUser
+        const res = await axios.patch(`/users/avatar/${id}`, formData)
+        console.log(res.data)
 
         cookie.remove('streetcrownUser')
 
-        const { id, name, username, email, phone_number, is_admin, avatar, addresses } = objectUser
+
 
         cookie.set('streetcrownUser', {id, name, username, email, phone_number, is_admin, addresses, avatar: res.data.filename} )
 
 
-        alert(res.data.message)       
+        console.log(res.data.message)       
 
         dispatch({
             type: 'UPLOAD_AVATAR',
@@ -98,16 +100,24 @@ export const updateAvatar = (formData, objectUser) => {
 // DELETE AVATAR (avatar on database change to null, and delete .jpg on userAvatar folder)
 export const deleteAvatar = ( objectUser ) => {
     return async dispatch => {
-        const { id, name, username, email, phone_number, is_admin, avatar, addresses } = objectUser
-        const res = await axios.delete('/users/avatar', { username } )
 
-        cookie.remove('streetcrownUser')
+        try {
+            const { id, name, username, email, phone_number, is_admin, avatar, addresses } = objectUser
+            const res = await axios.delete(`/users/avatar/${id}` )
+            console.log(res.data)
+    
+            cookie.remove('streetcrownUser')
+    
+            cookie.set('streetcrownUser', { id, name, username, email, phone_number, is_admin, addresses, avatar: null } )
+    
+            dispatch({
+                type: 'DELETE_AVATAR',
+            })
+            
+        } catch (err) {
+            console.error(err)
+        }
 
-        cookie.set('streetcrownUser', { id, name, username, email, phone_number, is_admin, addresses, avatar: null } )
-
-        dispatch({
-            type: 'DELETE_AVATAR',
-        })
     }
 }
 
@@ -655,6 +665,18 @@ export const carDetailingBooking = (user_id, car_detailing_id, car_brand, car_na
             const res = await axios.post('/cardetailingbooking/', {
                 user_id, car_detailing_id, car_brand, car_name, car_size, location_type, location_address, booking_date, contact_number, car_year, car_color
             })
+            return res.data
+        } catch (err) {
+            console.error(err)
+        }
+    }
+}
+
+
+export const getAllBooking = () => {
+    return async () => {
+        try {
+            const res = await axios.get('/allbooking')
             return res.data
         } catch (err) {
             console.error(err)

@@ -16,7 +16,7 @@ import TransactionUser from './components/TransactionUser'
 import Admin from './components/admin/Admin'
 import ManageProducts from './components/admin/ManageProducts'
 import ManageTransactions from './components/admin/ManageTransactions'
-import ManageUsers from './components/admin/ManageUsers'
+import ManageBooking from './components/admin/ManageBooking'
 import EditProduct from './components/admin/EditProduct'
 import CarDetailing from './components/services/CarDetailing'
 import MotorcycleDetailing from './components/services/MotorcycleDetailing'
@@ -73,7 +73,7 @@ class App extends Component {
                     <Route path='/admin' component={Admin} />
                     <Route path='/manageproducts' component={ManageProducts} />
                     <Route path='/managetransactions' component={ManageTransactions} />
-                    <Route path='/manageusers' component={ManageUsers} />
+                    <Route path='/managebooking' component={ManageBooking} />
                     <Route path='/editproduct/:productID' component={EditProduct} />
 
                 </Switch>

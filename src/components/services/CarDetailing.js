@@ -40,8 +40,8 @@ class CarDetailing extends Component {
                     <div class="col-lg-4">
                       <div class="card">
                         <div class="card-body">
-                          <h5 class="card-title text-muted text-uppercase text-center">Nano Ceramic Coating</h5>
-                          <h6 class="card-price text-center">$49<span class="period">/month</span></h6>
+                          <h5 class="card-title text-center"> <i class="material-icons" style={hotStyle}>whatshot</i> <span className="badge badge-pill badge-danger" > BEST CHOICE !  </span>  <i class="material-icons" style={hotStyle}>whatshot</i> </h5>
+                          <h6 class="card-price text-center"> <b>NANO CERAMIC COATING</b> </h6>
                           <hr/>
                           <ul class="fa-ul">
                             <li><span class="fa-li"><i class="material-icons">check</i></span><strong>Unlimited Users</strong></li>
@@ -94,6 +94,10 @@ class CarDetailing extends Component {
             // </div>  // end of container
         )
     }
+}
+
+const hotStyle = {
+  color : '#d9534f'  
 }
 
 export default CarDetailing

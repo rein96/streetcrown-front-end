@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Link} from 'react-router-dom'
+import { Link, withRouter } from 'react-router-dom'
 import { connect } from 'react-redux'
 import Swal from 'sweetalert2'
 
@@ -45,7 +45,7 @@ class BookingForm extends Component {
     renderAddress = () => {
         let render = this.props.objectUser.addresses.map( address => {
             return (
-                <option value={address.address} className="radius-custom">{address.address}</option>
+                <option value={address.address} className="radius-custom" key={address.id}>{address.address}</option>
             )
         })
 
@@ -54,7 +54,6 @@ class BookingForm extends Component {
 
     minDate = () => {
         var today = new Date()
-        console.log(today)
         var dd = today.getDate()
         var mm  = today.getMonth() + 1  // January is 0 index | getMonth = 0-11 index
         var yyyy = today.getFullYear()
@@ -67,7 +66,7 @@ class BookingForm extends Component {
         if (dd < 10) {
             dd = '0' + dd
         }
-        console.log(`${yyyy}-${mm}-${dd}`) 
+        // console.log(`${yyyy}-${mm}-${dd}`) 
 
         return (`${yyyy}-${mm}-${dd}`) // Solved : 2019-08-22
     }
@@ -81,7 +80,7 @@ class BookingForm extends Component {
         var selectedSize = this.selectedSize.value   // 0, Small, Medium, Large, Extra Large
         const { final_price_Small, final_price_Medium, final_price_Large, final_price_XL } = this.state.priceData
         if( selectedSize === '0'){
-            await this.setState(  { booking_price : 0 } )
+            await this.setState(  { booking_price : '-' } )
 
         } else if (selectedSize === 'Small'){
             await this.setState(  { booking_price : final_price_Small } )
@@ -99,6 +98,22 @@ class BookingForm extends Component {
     }
 
     bookingButton = async () => {
+        if(this.props.objectUser.username == '') {
+            const result = await Swal.fire({
+                title: 'Login First!',
+                text: "To book our service, user should login first.",
+                type: 'warning',
+                // showCancelButton: true,
+                confirmButtonColor: '#5cb85c',
+                // cancelButtonColor: '#f9f9f9',
+                confirmButtonText: 'Login Now!'
+              })
+
+            if (result.value) {
+                return this.props.history.push('/login')
+            }
+        }
+
         var carbrand = (this.carbrand.value).toUpperCase()
         var carname = this.carname.value.toUpperCase()
         if(carbrand == ''){
@@ -160,7 +175,6 @@ class BookingForm extends Component {
                 confirmButtonText: 'WhatsApp Now!'
               }).then((result) => {
                 if (result.value) {
-                    // window.open("https://api.whatsapp.com/send?phone=628999993164&text=Halo%20StreetCrown!" )
                     window.open(`https://api.whatsapp.com/send?phone=628999993164&text=Halo%20StreetCrown%2C%20aku%20barusan%20booking%20dari%20website%20StreetCrown%20nih%20!%0ABerikut%20informasi%20bookingnya%20%3A%0AMobil%20%3A%20${carbrand}%20${carname}%0APaket%20%20%3A%20${this.state.priceData.name}%20-%20${selectedSize}%0AHarga%20%3A%20${this.state.booking_price}%0ATanggal%20Booking%20%3A%20${selectedDate}%0ALokasi%20%3A%20${selectedAddress}%0A%0ASilahkan%20transfer%20DP%20min%2010%25%20dari%20harga%20yang%20disepakati%20ke%20rek%20bca%206050145997%20a%2Fn%20william%20gani.%20Harap%20konfirmasi%20bukti%20transfer.%20%0A%0AJika%20ada%20pembatalan%2C%20bisa%20reschedule%20(berlaku%20max%201bln%20dr%20tgl%20DP).%20Lebih%20dr%20tgl%20DP%20dianggap%20customer%20membatalkan%20transaksi%20dan%20DP%20hangus.%0A%0ABest%20Regards%2C%0AStreetcrown` )
                 }
               })
@@ -182,7 +196,7 @@ class BookingForm extends Component {
                             </a>
                     </div> */}
 
-                    <Link to='/cart' >
+                    <Link to='/cardetailing' >
                         <button className="btn btn-outline-info m-2" > Back To Car Detailing Menu </button>
                     </Link>
 
@@ -235,8 +249,8 @@ class BookingForm extends Component {
                                 <label>Home Service / Workshop</label>
                                 <form className="input-group">
                                     <select className="custom-select radius-custom" name='selectedAddress' ref={ input => this.selectedLocationType = input } onChange={ () => this.checkHomeService() } >
-                                            <option value={['Workshop','Sunter Pulo Kecil']} className="radius-custom">Workshop : Sunter Pulo Kecil Jakarta Utara</option>
-                                            <option value={['Workshop','Bandung']} className="radius-custom">Workshop : Taman Kopo Indah Bandung</option>
+                                            <option value={['Workshop','Sunter Pulo Kecil']} className="radius-custom">Workshop : Sunter Pulo Kecil No.18 (Jakarta Utara)</option>
+                                            <option value={['Workshop','Taman Kopo Indah']} className="radius-custom">Workshop : Taman Kopo Indah No.10 (Bandung)</option>
                                             <option value={'Home'} className="radius-custom">Home Service</option>
                                     </select>
                                 </form>
@@ -377,4 +391,4 @@ const mapStateToProps = state => ({
     objectUser : state.auth
 })
 
-export default connect( mapStateToProps, { getDetailingData, addAddress, carDetailingBooking } )(BookingForm)
+export default withRouter(connect( mapStateToProps, { getDetailingData, addAddress, carDetailingBooking } )(BookingForm))

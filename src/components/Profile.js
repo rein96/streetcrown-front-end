@@ -25,7 +25,7 @@ class Profile extends Component {
         this.props.deleteAvatar(this.props.objectUser)
     }
 
-    uploadAvatar = () => {
+    uploadAvatar = async () => {
         // console.log(this.avatar.files);
         /*  [Array]
             files: 
@@ -37,18 +37,28 @@ class Profile extends Component {
             type: "image/jpeg"
             webkitRelativePath: ""
         */
-       this.props.deleteAvatar(this.props.objectUser)
-
-       const formData = new FormData()
-       
        const newAvatar = this.avatar.files[0]
        console.log(newAvatar);
 
-       formData.append('username', this.props.objectUser.username)
-       formData.append('avatar', newAvatar )
-    //    console.log(formData)
+       if(newAvatar) {
 
-       this.props.updateAvatar(formData, this.props.objectUser)
+            if(newAvatar.size > 1000000){
+                return alert('Maximum size is 1 MB !')
+            }
+
+            const formData = new FormData()
+
+            formData.append('username', this.props.objectUser.username)
+            formData.append('avatar', newAvatar )
+
+            
+            if( this.props.objectUser.avatar !== null ) {
+                await this.props.deleteAvatar(this.props.objectUser)
+            }
+
+            await this.props.updateAvatar(formData, this.props.objectUser)
+
+       }
     }
 
     addAddress = () => {
@@ -93,12 +103,12 @@ class Profile extends Component {
                         
                         <div className="row">
                             <div className="col">
-                                { avatar === null ? <img src={avatar_default} alt="avatar_default" style={ { width: "200px" } } /> : <img src={`http://localhost:2019/users/avatar/${avatar}`} style={ { width: "200px", borderRadius: "150px" } }  alt="Please choose your avatar" key={ new Date() } />  }
+                                { avatar === null ? <img src={avatar_default} alt="avatar_default" style={ { width: "200px" } } /> : <img src={`http://localhost:2019/users/avatar/${avatar}`} style={ { width: "200px", borderRadius: "150px" } } alt="avatar" key={ new Date() } />  }
                                 
 
-                                <input type='file' className="custom-file" ref={input => this.avatar = input}  /> 
+                                <input type='file' className="custom-file" ref={input => this.avatar = input} onChange={ () => this.uploadAvatar() }  /> 
 
-                                <button className="btn btn-primary" onClick={this.uploadAvatar} >{ avatar === null ? 'Upload Avatar' : 'Change Avatar'}</button>
+                                {/* <button className="btn btn-primary" onClick={this.uploadAvatar} >{ avatar === null ? 'Upload Avatar' : 'Change Avatar'}</button> */}
 
                                 {/* if user has an avatar, Button Delete Avatar will be appeared */}
                                 {  avatar !== null ? <button className="btn btn-danger" onClick={this.deleteAvatar} >Delete Avatar</button> : ''  }
