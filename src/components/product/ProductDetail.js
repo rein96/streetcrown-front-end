@@ -1,10 +1,10 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import axios from '../config/axios';
+import axios from '../../config/axios';
 import { Link, withRouter } from 'react-router-dom'
 import Swal from 'sweetalert2'
 
-import { addCart, getCarts, updateQuantity } from '../actions/index'
+import { addCart, getCarts, updateQuantity } from '../../actions/index'
 
 const imageStyle = {
     width: '300px'

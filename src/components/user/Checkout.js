@@ -3,12 +3,12 @@ import { connect } from  'react-redux'
 import { Link, Redirect } from 'react-router-dom'
 import Swal from 'sweetalert2'
 
-import { getCarts, addAddress, postCheckout, patchCartStatus } from '../actions/index'
+import { getCarts, addAddress, postCheckout, patchCartStatus } from '../../actions/index'
 
-import payment_bca from '../images/payment-bca.png'
-import payment_gopay from '../images/payment-gopay.png'
-import payment_jenius from '../images/payment-jenius.png'
-import payment_ovo from '../images/payment-ovo.jpg'
+import payment_bca from '../../images/payment-bca.png'
+import payment_gopay from '../../images/payment-gopay.png'
+import payment_jenius from '../../images/payment-jenius.png'
+import payment_ovo from '../../images/payment-ovo.jpg'
 
 const verticalCenter = {
     minHeight: '100vh',

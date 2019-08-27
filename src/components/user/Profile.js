@@ -1,10 +1,10 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
-import { updateAvatar, deleteAvatar, editProfile, addAddress, getAddresses, deleteAddress } from '../actions/index' 
+import { updateAvatar, deleteAvatar, editProfile, addAddress, getAddresses, deleteAddress } from '../../actions/index' 
 // import axios from '../config/axios';
 
-import avatar_default from '../images/avatar_default.png'
+import avatar_default from '../../images/avatar_default.png'
 
 class Profile extends Component {
 

@@ -2,9 +2,9 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
 
-import { getProducts } from '../actions/index'
+import { getProducts } from '../../actions/index'
 
-import '../css/products.css'
+import '../../css/products.css'
 
 const borderRadius = {
     // width : '300px',

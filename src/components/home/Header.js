@@ -15,10 +15,10 @@ import {
     DropdownMenu,
     DropdownItem } from 'reactstrap';
 
-import { onLogout, getCarts } from '../actions/index'
+import { onLogout, getCarts } from '../../actions/index'
     
-import streetcrown_logo from '../images/streetcrown-logo.png'
-import avatar_default from '../images/avatar_default.png'
+import streetcrown_logo from '../../images/streetcrown-logo.png'
+import avatar_default from '../../images/avatar_default.png'
 
 
 class Header extends React.Component {

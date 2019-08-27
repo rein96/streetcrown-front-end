@@ -3,11 +3,11 @@ import { connect } from  'react-redux'
 import { Link, Redirect } from 'react-router-dom'
 import Swal from 'sweetalert2'
 
-import quantityIcon from '../images/quantity-icon.png'
+import quantityIcon from '../../images/quantity-icon.png'
 
-import { getCarts, deleteCart, changeQuantity } from '../actions/index'
+import { getCarts, deleteCart, changeQuantity } from '../../actions/index'
 
-import '../css/cart.css'
+import '../../css/cart.css'
 
 const backStyle = {
     fontSize : '39px',

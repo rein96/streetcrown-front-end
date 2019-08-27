@@ -3,7 +3,7 @@ import { connect } from  'react-redux'
 import { Redirect } from 'react-router-dom'
 import Swal from 'sweetalert2'
 
-import { getTransaction, uploadProof, specificTransaction, proofImageNotificationMail } from '../actions/index'
+import { getTransaction, uploadProof, specificTransaction, proofImageNotificationMail } from '../../actions/index'
 
 
 const paymentStyle = {
