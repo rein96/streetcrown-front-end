@@ -45,18 +45,19 @@ class TransactionUser extends Component {
             'aria-label': 'Upload your profile picture'
             }
         })
-
-        // Maximal 1 mB proof image
-        if( file.size > 1000000 ){
-            return Swal.fire({
-                title: 'Error!',
-                text: 'File size is too large, maximal 1 MB (MegaBytes)',
-                type: 'error',
-                confirmButtonText: 'Cool'
-            })
-        }
         
         if (file) {
+            // Error : Maximal 1 mB proof image
+            if( file.size > 1000000 ){
+                return Swal.fire({
+                    title: 'Error!',
+                    text: 'File size is too large, maximal 1 MB (MegaBytes)',
+                    type: 'error',
+                    confirmButtonText: 'Cool'
+                })
+            }
+
+            // Success
             const reader = new FileReader()
             reader.onload = (e) => {
             Swal.fire({
@@ -205,6 +206,20 @@ class TransactionUser extends Component {
             return <Redirect to='/' />
         }
 
+        // if there is no transaction
+        if (this.state.transactionArray.length === 0) {
+            return (
+                <div className="container mt-5">
+                    <center>
+                        <h2> There is no transaction log. </h2>
+                    </center>
+
+                    <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
+                </div>
+            )
+        }
+
+        // initial render return
         return (
             <div className="container">
                 <center>
@@ -215,6 +230,8 @@ class TransactionUser extends Component {
                      </h2>
 
                      {this.renderTransaction()}
+
+                     <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
                 </center>
 
 

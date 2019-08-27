@@ -77,6 +77,7 @@ class Cart extends Component {
             inputPlaceholder: 'Quantity',
             showCancelButton: true,
             inputValidator: async (quantity) => {
+                if(quantity <= 0) { return alert('Woah, the quantity must be higher than 0 ! :D') }
                 if(quantity == cartQuantityPrev) { return alert('You just inputted the same value :D') }
           
                 const resdata = await this.props.changeQuantity(cartID, quantity)
@@ -139,11 +140,12 @@ class Cart extends Component {
                 return (
                     <div>
                         <center>
+                            <br/><br/>
                             <h2> There is no product on your cart  </h2>
                             <Link to='/products' >
                                 <button className="btn btn-success">Shop Now!</button>
                             </Link>
-
+                            <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
                         </center>
                     </div>
                 )

@@ -17,46 +17,62 @@ class Admin extends Component {
             <div>
                 <center> <h1 className="font-weight-bold mt-4"> Dashboard Admin <i class="material-icons" style={adminStyle} >verified_user</i> </h1> </center>
 
-                <div className="card-group mb-5">
+                <div className="mb-5">
+                    <div className="row">
 
-                    {/* <ManageProducts /> */}
-                        <div className="card m-5 shadow-lg" style={{ borderRadius: '20px' }} >
-                            <Link to='/manageproducts'>
-                                <img className="card-img-top" src={drivers} style={borderTop} alt="Card image cap" />
-                                <div className="card-body">
-                                    <center>
-                                        <button className="card-title btn btn-danger">Manage Products</button>
-                                        <p className="card-text text-body">Add, Edit, Delete Product.</p>
-                                    </center>
-                                </div>
-                            </Link>
+                        {/* <ManageProducts /> */}
+                        <div className="col-12 col-sm-12 col-md-12 col-lg-4">
+
+                            <div className="card m-5 shadow-lg" style={{ borderRadius: '20px' }} >
+                                <Link to='/manageproducts'>
+                                    <img className="card-img-top" src={drivers} style={borderTop} alt="Card image cap" />
+                                    <div className="card-body">
+                                        <center>
+                                            <button className="card-title btn btn-danger">Manage Products</button>
+                                            <p className="card-text text-body">Add, Edit, Delete Product.</p>
+                                        </center>
+                                    </div>
+                                </Link>
+                            </div>
+
                         </div>
-                        
-                    {/* <ManageTransactions /> */}
-                        <div className="card m-5 shadow-lg" style={{ borderRadius: '20px' }} >
-                            <Link to='/managetransactions'>
-                                <img className="card-img-top" src={transactionImage} style={borderTop} alt="Card image cap"/>
-                                <div className="card-body">
-                                    <center>
-                                        <button className="card-title btn btn-danger">Manage Transactions</button>
-                                        <p className="card-text text-body"> Add resi number, check payment proof, transaction detail, reject and complete a payment. </p>
-                                    </center>
-                                </div>
-                            </Link>
+
+                        {/* <ManageTransactions /> */}
+                        <div className="col-12 col-sm-12 col-md-12 col-lg-4">
+                                                
+                            <div className="card m-5 shadow-lg" style={{ borderRadius: '20px' }} >
+                                <Link to='/managetransactions'>
+                                    <img className="card-img-top" src={transactionImage} style={borderTop} alt="Card image cap"/>
+                                    <div className="card-body">
+                                        <center>
+                                            <button className="card-title btn btn-danger">Manage Transactions</button>
+                                            <p className="card-text text-body"> Add resi number, check payment proof, transaction detail, reject and complete a payment. </p>
+                                        </center>
+                                    </div>
+                                </Link>
+                            </div>
+
                         </div>
-                    {/* <ManageUsers /> */}
-                        <div className="card m-5 shadow-lg" style={{ borderRadius: '20px' }} >
-                            <Link to='/managebooking'>
-                                <img className="card-img-top" src={nanoCoating} style={borderTop} alt="Card image cap" />
-                                {/* https://unsplash.com/photos/9n1USijYJZ4 */}
-                                <div className="card-body">
-                                    <center>
-                                        <button className="card-title btn btn-danger">Manage Booking</button>
-                                        <p className="card-text text-body"> Add, Edit, Delete, See Detailing Booking. </p>
-                                    </center>
-                                </div>
-                            </Link>
+
+                        {/* <ManageUsers /> */}
+                        <div className="col-12 col-sm-12 col-md-4 col-lg-4">
+                                                
+                            <div className="card m-5 shadow-lg" style={{ borderRadius: '20px' }} >
+                                <Link to='/managebooking'>
+                                    <img className="card-img-top" src={nanoCoating} style={borderTop} alt="Card image cap" />
+                                    {/* https://unsplash.com/photos/9n1USijYJZ4 */}
+                                    <div className="card-body">
+                                        <center>
+                                            <button className="card-title btn btn-danger">Manage Booking</button>
+                                            <p className="card-text text-body"> Add, Edit, Delete, See Detailing Booking. </p>
+                                        </center>
+                                    </div>
+                                </Link>
+                            </div>
+
                         </div>
+
+                    </div>
 
                 </div>
 
