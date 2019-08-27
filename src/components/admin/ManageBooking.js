@@ -24,6 +24,9 @@ class ManageBooking extends Component {
         await this.setState( { loading : true } )
         const resdata = await this.props.getAllBooking()
         console.log(resdata)
+        // if there is no booking record = sqlMessage = return 0
+        if(resdata.sqlMessage){ return }
+
         await this.setState( { allBooking : resdata, loading : false } )
         console.log(this.state.allBooking)
     }
@@ -151,6 +154,15 @@ class ManageBooking extends Component {
     render() {
         if (this.props.objectUser.is_admin === 0 || this.props.objectUser.username === '') {
             return <h1>Access Denied</h1>
+        }
+
+        if (this.state.allBooking.length === 0) { 
+            return (
+                <div>
+                    <center> <h3> No Booking Data</h3> </center>
+                    <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
+                </div>
+            )
         }
 
         return (

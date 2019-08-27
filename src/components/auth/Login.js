@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import { Link, Redirect } from 'react-router-dom'
 import {connect} from 'react-redux'
-import Swal from 'sweetalert2'
 
 import {onLogin} from '../../actions/index'
 
@@ -17,9 +16,12 @@ class Login extends Component {
     onButtonClick = async () => {
         const data_email = this.email.value
         const data_password = this.password.value
+        if(data_email.length === 0) { return alert('Please input your email') } 
+        if(data_password.length === 0) { return alert('Please input your password') } 
 
         const resdata = await this.props.onLogin(data_email, data_password)
-        // console.log(resdata)
+        console.log(resdata)
+        if(resdata === undefined){ return console.log('login failed') }
         if(resdata.username){
             window.location.reload()
             // const Toast = Swal.mixin({

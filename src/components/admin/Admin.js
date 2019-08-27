@@ -55,7 +55,7 @@ class Admin extends Component {
                         </div>
 
                         {/* <ManageUsers /> */}
-                        <div className="col-12 col-sm-12 col-md-4 col-lg-4">
+                        <div className="col-12 col-sm-12 col-md-12 col-lg-4">
                                                 
                             <div className="card m-5 shadow-lg" style={{ borderRadius: '20px' }} >
                                 <Link to='/managebooking'>
