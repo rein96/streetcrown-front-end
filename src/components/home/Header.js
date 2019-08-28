@@ -75,11 +75,12 @@ class Header extends React.Component {
                             <Link className="nav-link" to="/cart" style={{ color: "white" }}> <span className="badge badge-light round"> {this.countQuantityCart()} </span>  </Link>
                         </NavItem>
                         <NavItem>
-                            <Link className="nav-link" to="/cart" style={{ color: "white" }}><i class="material-icons">shopping_cart</i></Link>
+                            <Link className="nav-link" to="/cart" style={{ color: "white" }}><i className="material-icons">shopping_cart</i></Link>
                         </NavItem>
                         <UncontrolledDropdown nav inNavbar>
                             <DropdownToggle nav caret style={{ color: "white" }}>
-                                Hello {this.props.objectUser.username}  { this.props.objectUser.avatar === null ? <img src={avatar_default} alt="avatar_default" style={ { width: "30px" } } /> : <img src={`http://localhost:2019/users/avatar/${this.props.objectUser.avatar}`} style={ { width: "30px", borderRadius: "200px" } }   alt="avatar" key={ new Date() } />  } 
+                                Hello <span style={{ color : '#d9534f'}}> <b> {this.props.objectUser.username} </b> </span>  
+                                { this.props.objectUser.avatar === null ? <img src={avatar_default} alt="avatar_default" style={ { width: "30px" } } /> : <img src={`http://localhost:2019/users/avatar/${this.props.objectUser.avatar}`} style={ { width: "30px", borderRadius: "200px" } }   alt="avatar" key={ new Date() } />  } 
                             </DropdownToggle>
 
                             <DropdownMenu right>
@@ -93,7 +94,7 @@ class Header extends React.Component {
 
                             {/* if user === admin, it will appear admin dashboard dropdown */}
                             { this.props.objectUser.is_admin === 1 && <Link className="dropdown-item" to="/admin">
-                                <DropdownItem>Admin <i class="material-icons" style={{ color: '#428bca' }} >verified_user</i> </DropdownItem>
+                                <DropdownItem>Admin <i className="material-icons" style={{ color: '#428bca' }} >verified_user</i> </DropdownItem>
                             </Link> }
                             {/* <span className="badge badge-pill badge-primary">Admin</span> */}
 

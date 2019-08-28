@@ -27,11 +27,11 @@ class ManageProducts extends Component {
     };
 
     addProduct = async () => {
-        const productName = this.productName.value
-        const productCategory = this.selectedCategory.value
-        const productPrice = this.productPrice.value
-        const productDescription = this.productDescription.value
-        const productPicture = this.productPicture.files[0]
+        let productName = this.productName.value
+        let productCategory = this.selectedCategory.value
+        let productPrice = this.productPrice.value
+        let productDescription = this.productDescription.value
+        let productPicture = this.productPicture.files[0]
 
         const formData = new FormData()
 
@@ -44,6 +44,10 @@ class ManageProducts extends Component {
 
         await this.props.addProduct(formData)
         await this.props.getProducts()
+
+        this.productName.value = ''
+        this.productPrice.value = ''
+        this.productDescription.value = ''
     }
 
     deleteProductButton = async (productID) => {
@@ -70,9 +74,9 @@ class ManageProducts extends Component {
             return (
                 <tr key={id}>
                     {/* <th scope="col">{product.id}</th> */}
-                    <th scope="col">{name}</th>
+                    <th scope="col"><p>{name}</p></th>
                     <th scope="col">{category}</th>
-                    <th scope="col">{description}</th>
+                    <th scope="col"><p>{description}</p></th>
                     <th scope="col">{price}</th>
                     <th scope="col">
                         <img src={`http://localhost:2019/products/${image}`} style={{ width: "150px" }} />

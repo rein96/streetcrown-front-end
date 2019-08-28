@@ -27,7 +27,7 @@ class TransactionUser extends Component {
 
     getUserTransaction = async () => {
         const { id } = this.props.objectUser
-        const transactionArray = await this.props.getTransaction(id)
+        var transactionArray = await this.props.getTransaction(id)
 
         this.setState( { transactionArray } )
         console.log(transactionArray)
@@ -79,7 +79,7 @@ class TransactionUser extends Component {
             formData.append('id', transactionID ) // checkout id
             formData.append('payment', file )
 
-            await this.props.uploadProof(formData)
+            await this.props.uploadProof(formData)  // success no error
             await this.getUserTransaction()
             await this.props.proofImageNotificationMail()
         }
@@ -91,7 +91,7 @@ class TransactionUser extends Component {
 
         console.log(productsArray);
 
-        this.setState( { modalTransaction : productsArray } )
+        await this.setState( { modalTransaction : productsArray } )
         this.setState( { price_total } )
     };
 
@@ -101,15 +101,15 @@ class TransactionUser extends Component {
             return (
                 <tr key={transaction.product_id} >
                     <th scope="col">
-                        <img src={`http://localhost:2019/products/${transaction.image}`}  className="card-img" alt={transaction.name} style={{ width: "100px" }} />
+                        <img src={`http://localhost:2019/products/${transaction.image}`}  className="card-img" alt={transaction.product_name} style={{ width: "100px" }} />
                         
                     </th>
                     <th scope="col">
-                        <span> {transaction.name} </span>
+                        <span> {transaction.product_name} </span>
                     </th>
                     <th scope="col"> <span>{transaction.quantity}</span> </th>
-                    <th scope="col"> <span>{ (transaction.price).toLocaleString() }</span> </th>
-                    <th scope="col"> <span>{ (transaction.price*transaction.quantity).toLocaleString() }</span> </th>
+                    <th scope="col"> <span>{ (transaction.product_price).toLocaleString() }</span> </th>
+                    <th scope="col"> <span>{ (transaction.product_price*transaction.quantity).toLocaleString() }</span> </th>
                 </tr>
             )
         })
@@ -185,7 +185,8 @@ class TransactionUser extends Component {
                                 <h5> Recipient Name: {order_recipient} </h5>
                                 <h5> {order_address} </h5>
                                 <h5> {order_phone_number} </h5>
-                                <h5> {order_resi_number} </h5>
+                                <br/><br/>
+                                <h5> Resi Number : {order_resi_number === null ? <span> 'Not uploaded yet by admin' </span> : <span> {order_resi_number}</span> } </h5>
                             </h5>
 
                         </div>

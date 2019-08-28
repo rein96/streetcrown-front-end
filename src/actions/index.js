@@ -461,7 +461,17 @@ export const patchCartStatus = (user_id) => {
     }
 }
 
+export const deleteCartsAfterCheckout = (user_id) => {
+    return async () => {
+        try {
+            const res = await axios.delete(`/deletecarts/${user_id}`)
+            console.log(res.data)
 
+        } catch (err) {
+            console.error(err)
+        }
+    }
+}
 
 ////////////////////////////////////////////////////////////////////////////////////
 // CHECKOUT

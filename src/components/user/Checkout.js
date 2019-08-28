@@ -3,12 +3,12 @@ import { connect } from  'react-redux'
 import { Link, Redirect } from 'react-router-dom'
 import Swal from 'sweetalert2'
 
-import { getCarts, addAddress, postCheckout, patchCartStatus } from '../../actions/index'
+import { getCarts, addAddress, postCheckout, deleteCartsAfterCheckout } from '../../actions/index'
 
-import payment_bca from '../../images/payment-bca.png'
+import payment_bca from '../../images/payment-bca.jpg'
 import payment_gopay from '../../images/payment-gopay.png'
 import payment_jenius from '../../images/payment-jenius.png'
-import payment_ovo from '../../images/payment-ovo.jpg'
+import payment_ovo from '../../images/payment-ovo.png'
 
 const verticalCenter = {
     minHeight: '100vh',
@@ -49,7 +49,7 @@ class Checkout extends Component {
     renderAddress = () => {
         let render = this.props.objectUser.addresses.map( address => {
             return (
-                <option value={address.address} className="radius-custom">{address.address}</option>
+                <option value={address.address} className="radius-custom" key={address.id} >{address.address}</option>
             )
         })
 
@@ -88,7 +88,8 @@ class Checkout extends Component {
 
         console.log(statusCheckout)
         if(statusCheckout.insertId){
-            await this.props.patchCartStatus( id )
+            // await this.props.patchCartStatus( id )
+            await this.props.deleteCartsAfterCheckout(objectUser.id)
             await this.props.getCarts(this.props.objectUser)
             Swal.fire(
                 'Checkout Success!',
@@ -169,15 +170,44 @@ class Checkout extends Component {
                         </form>
                     </div>
 
-
-
-                    {/* Upload Transaction Proof :
-                    <input type='file' className="custom-file" ref={input => this.transactionImage = input} required />  */}
-
-
-
-
                     <button className="btn btn-success btn-block radius-custom" onClick={ () => this.submitCheckout() } >SUBMIT</button>
+
+                    <br/><br/>
+
+                    <div class="card-group">
+                        <div class="card">
+                            <img src={payment_bca} className="card-img-top mx-auto" style={{ height: '65px' }} alt="..." />
+                            <div className="card-body">
+                                <h5 className="card-title">BCA</h5>
+                                <p className="card-text">a/n Reinhart Andreas 789789456451</p>
+                                </div>
+
+                        </div>
+                        <div className="card">
+                            <img src={payment_gopay} className="card-img-top mx-auto" style={{ height: '65px' }} alt="..."  />
+                            <div className="card-body">
+                                <h5 className="card-title">GO-PAY</h5>
+                                <p className="card-text">a/n Reinhart Andreas 789789456451</p>
+                                </div>
+
+                        </div>
+                        <div className="card">
+                            <img src={payment_jenius} className="card-img-top mx-auto" style={{ height: '65px' }} alt="..."  />
+                            <div className="card-body">
+                                <h5 className="card-title">Jenius</h5>
+                                <p className="card-text">a/n Reinhart Andreas 789789456451</p>
+                                </div>
+
+                        </div>
+                        <div className="card">
+                            <img src={payment_ovo} className="card-img-top mx-auto" style={{ height: '65px' }} alt="..."  />
+                            <div className="card-body">
+                                <h5 className="card-title">OVO</h5>
+                                <p className="card-text">a/n Reinhart Andreas 789789456451</p>
+                                </div>
+
+                        </div>
+                    </div>
 
 
                     <br/><br/><br/>
@@ -229,4 +259,4 @@ const mapStateToProps = state => {
     }
 }
 
-export default connect( mapStateToProps, { getCarts, addAddress, postCheckout, patchCartStatus } )(Checkout);
+export default connect( mapStateToProps, { getCarts, addAddress, postCheckout, deleteCartsAfterCheckout } )(Checkout);

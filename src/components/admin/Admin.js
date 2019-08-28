@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom'
 
 import transactionImage from '../../images/transaction.png'
 import nanoCoating from '../../images/nano-coating.png'
-import drivers from '../../images/drivers.png'
+import manageProducts from '../../images/manageproducts.jpg'
 
 class Admin extends Component {
     render() {
@@ -25,7 +25,7 @@ class Admin extends Component {
 
                             <div className="card m-5 shadow-lg" style={{ borderRadius: '20px' }} >
                                 <Link to='/manageproducts'>
-                                    <img className="card-img-top" src={drivers} style={borderTop} alt="Card image cap" />
+                                    <img className="card-img-top" src={manageProducts} style={borderTop} alt="Card image cap" />
                                     <div className="card-body">
                                         <center>
                                             <button className="card-title btn btn-danger">Manage Products</button>

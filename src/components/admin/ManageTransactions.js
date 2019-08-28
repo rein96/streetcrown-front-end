@@ -217,15 +217,15 @@ class ManageTransactions extends Component {
             return (
                 <tr key={transaction.product_id} >
                     <th scope="col">
-                        <img src={`http://localhost:2019/products/${transaction.image}`}  className="card-img" alt={transaction.name} style={{ width: "100px" }} />
+                        <img src={`http://localhost:2019/products/${transaction.image}`}  className="card-img" alt={transaction.product_name} style={{ width: "100px" }} />
                         
                     </th>
                     <th scope="col">
-                        <span> {transaction.name} </span>
+                        <span> {transaction.product_name} </span>
                     </th>
                     <th scope="col"> <span>{transaction.quantity}</span> </th>
-                    <th scope="col"> <span>{ (transaction.price).toLocaleString() }</span> </th>
-                    <th scope="col"> <span>{ (transaction.price*transaction.quantity).toLocaleString() }</span> </th>
+                    <th scope="col"> <span>{ (transaction.product_price).toLocaleString() }</span> </th>
+                    <th scope="col"> <span>{ (transaction.product_price*transaction.quantity).toLocaleString() }</span> </th>
                 </tr>
             )
         })
