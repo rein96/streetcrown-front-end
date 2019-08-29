@@ -6,6 +6,7 @@ import HomeCarousel from './HomeCarousel'
 import ProductServices from './ProductServices'
 import Location from './Location'
 import BeforeAfter from './BeforeAfter'
+import BeforeAfter2 from './BeforeAfter2'
 
 
 
@@ -19,6 +20,7 @@ class Home extends React.Component {
                 <HomeCarousel />
                 <ProductServices />
                 <BeforeAfter />
+                <BeforeAfter2 />
                 <Location />
 
                 {/* imported to App.js */}

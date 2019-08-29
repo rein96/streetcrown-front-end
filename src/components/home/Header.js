@@ -71,12 +71,15 @@ class Header extends React.Component {
           <NavbarToggler onClick={this.toggle} />
                 <Collapse isOpen={this.state.isOpen} navbar>
                     <Nav className="ml-auto" navbar>
+
                         <NavItem>
                             <Link className="nav-link" to="/cart" style={{ color: "white" }}> <span className="badge badge-light round"> {this.countQuantityCart()} </span>  </Link>
                         </NavItem>
+
                         <NavItem>
                             <Link className="nav-link" to="/cart" style={{ color: "white" }}><i className="material-icons">shopping_cart</i></Link>
                         </NavItem>
+                        
                         <UncontrolledDropdown nav inNavbar>
                             <DropdownToggle nav caret style={{ color: "white" }}>
                                 Hello <span style={{ color : '#d9534f'}}> <b> {this.props.objectUser.username} </b> </span>  
@@ -141,15 +144,21 @@ class Header extends React.Component {
                     
                   <NavItem>
                       <NavLink>
-                        <Link to='/register' > <span style={{ color: "white" }}> Register </span> </Link>
+                        <Link to='/cardetailing' > <span style={{ color: "white" }}> Detailing Booking </span> </Link>
                       </NavLink>
                   </NavItem>
 
-                    <NavItem>
+                  <NavItem>
                       <NavLink>
-                        <Link to='/login'> <span style={{ color: "white" }}> Login </span> </Link>
+                        <span style={{ color: "white" }}> Contact Us </span>
                       </NavLink>
-                    </NavItem>
+                  </NavItem>
+
+                  <NavItem>
+                    <NavLink>
+                      <Link to='/login'> <span style={{ color: "white" }}> Login </span> </Link>
+                    </NavLink>
+                  </NavItem>
                     {/* <UncontrolledDropdown nav inNavbar>
                       <DropdownToggle nav caret>
                         Options

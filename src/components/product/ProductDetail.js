@@ -147,7 +147,7 @@ class ProductDetail extends Component {
                             <br/><br/>
                             
                             <h3> Description </h3>
-                            <p> {description} </p>
+                            <p style={{ whiteSpace : "pre-line" }} > {description} </p>
 
                             <br/>
                             <h5> Quantity </h5>

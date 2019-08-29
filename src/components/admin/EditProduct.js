@@ -1,12 +1,8 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { Redirect, withRouter } from 'react-router-dom'
+import { Redirect, withRouter, Link } from 'react-router-dom'
 
 import { editProduct, editProductImage, deleteProductImage } from '../../actions/index'
-
-const imageStyle = {
-    width: '200px'
-}
 
 class EditProduct extends Component {
 
@@ -100,6 +96,13 @@ class EditProduct extends Component {
                 <div>
                     {/* Edit Product */}
                     <div className='jumbotron container'>
+
+                        <Link to='/manageproducts' >
+                            <i className="material-icons shadow" style={backStyle}>arrow_back</i>
+                        </Link>
+                        
+                        <br/><br/>
+                        
                         <h1>Edit Product</h1>
                         <div>
                             <img src={`http://localhost:2019/products/${image}`} style={imageStyle}  />
@@ -143,6 +146,17 @@ class EditProduct extends Component {
             return <Redirect to='/manageproducts' />
         } 
     }
+}
+
+const backStyle = {
+    fontSize : '39px',
+    backgroundColor : '#d9534f',    // bootstrap danger #hex
+    color:'white',
+    borderRadius: '50%'
+}
+
+const imageStyle = {
+    width: '200px'
 }
 
 const mapStateToProps = state => ({

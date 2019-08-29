@@ -3,13 +3,9 @@ import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
 import { addProduct, getProducts, deleteProduct, editProduct } from '../../actions/index'
 
+import Spinner from '../Spinner'
 
 class ManageProducts extends Component {
-
-    // state = {
-    //     // editProductObj: {}
-    //     id:0 , name: '', category: '', description: '', price: 0, image : ''
-    // }
 
     async componentDidMount() {
         await this.props.getProducts()
@@ -29,9 +25,16 @@ class ManageProducts extends Component {
     addProduct = async () => {
         let productName = this.productName.value
         let productCategory = this.selectedCategory.value
-        let productPrice = this.productPrice.value
+        let productPrice = this.productPrice.value      //string
         let productDescription = this.productDescription.value
         let productPicture = this.productPicture.files[0]
+        console.log(productDescription)
+
+        if(productName.length === 0) { return alert('Please input the product name') }
+        if(productPrice.length === 0) { return alert('Please input the product price') }
+        if(productDescription.length === 0) { return alert('Please input the description') }
+        if(productPicture === undefined) { return alert('Please Choose File to upload a product image')}
+        if(productPicture.size > 1000000 ) { return alert('Maximal Product Image size is 1 MB') }
 
         const formData = new FormData()
 
@@ -54,19 +57,6 @@ class ManageProducts extends Component {
        await this.props.deleteProduct(productID)
        await this.props.getProducts()
     }
-
-    // LAH KOK MESTI ASYNC AWAIT ???
-    // editProductModal = async (id, name, category, description, price, image) => {
-
-    //     await this.setState( { id, name, category, description, price : parseFloat(price), image } )
-
-    //     await this.setState( { price } )
-
-    //     console.log(id, name, category, description, price, image)
-
-    //     console.log(this.state.price)
-        
-    // }
 
     renderProductList = () => {
         let render = this.props.productsSTATE.map(product => {
@@ -163,6 +153,7 @@ class ManageProducts extends Component {
 
                         {/* List Products */}
                         <h3 className=" text-center">Product List</h3>
+                        { this.props.productsSTATE.length === 0 && <Spinner /> }
                         <table className="table table-hover mb-5">
                             <thead>
                                 <tr>
@@ -184,56 +175,6 @@ class ManageProducts extends Component {
                         </table>
 
                     </div>      {/* end div col */}
-
-
-    {/* MODAL IS STILL BUGGED WHENEVER CATCH DEFAULTVALUE */}
-    {/* <div className="modal fade" id="editProductModal" tabIndex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div className="modal-dialog modal-xl" role="document">
-        <div className="modal-content">
-            <div className="modal-header">
-                <h5 className="modal-title" id="exampleModalLabel">Edit Product</h5>
-                <button type="button" className="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div className="modal-body">
-            <div className="form-row">
-
-
-    Name :
-    <form className="input-group">
-        <input defaultValue={this.state.name}  placeholder="Product Name" ref={input => this.productNameEdit = input} className="form-control mb-2" type="text" required/>
-    </form>
-
-    Category : 
-    <form className="input-group">
-        <select defaultValue={this.state.category} class="custom-select" name="selectedCategory" ref={input => this.selectedCategoryEdit = input} >
-            {this.categoryOptions()}
-        </select>
-    </form>
-
-    Price :
-    <form className="input-group">
-        <input placeholder="Product Price" ref={input => this.productPriceEdit = input}  defaultValue={this.state.price} className="form-control mb-2" type="number" required />
-    </form>
-
-    Description :
-    <form className="input-group">
-        <input type="text" placeholder="Product Description" ref={input => this.productDescriptionEdit = input} className="form-control mb-2" style={{ height: "100px" }} defaultValue={this.state.description} />
-    </form>
-
-
-<button onClick={this.editProductButton} className="btn btn-outline-danger btn-block mt-5">Edit</button>
-
-</div>
-
-                            </div>
-                            <div className="modal-footer">
-                                <button type="button" className="btn btn-danger" data-dismiss="modal">Close</button>
-                            </div>
-                        </div>
-                    </div>
-                </div> */}
                     
                 </div>  {/* end div row */}
 

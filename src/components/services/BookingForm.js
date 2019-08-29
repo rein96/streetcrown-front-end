@@ -5,6 +5,8 @@ import Swal from 'sweetalert2'
 
 import { getDetailingData, addAddress, carDetailingBooking } from '../../actions/index'
 
+import comparisonSize from '../../images/comparison-car-size.png'
+
 class BookingForm extends Component {
 
     state = {
@@ -15,6 +17,7 @@ class BookingForm extends Component {
     }
 
     async componentWillMount(){
+        window.scrollTo(0, 0);
         let servicename = this.props.match.params.servicename
         if(servicename) {
             const resdata = await this.props.getDetailingData(servicename)
@@ -28,7 +31,7 @@ class BookingForm extends Component {
     checkHomeService = () => {
         console.log(this.selectedLocationType.value)
         // console.log(typeof(this.selectedLocationType.value))
-        if(this.selectedLocationType.value == 'Home'){
+        if(this.selectedLocationType.value === 'Home'){
             this.setState( { isHomeService : true } )
         } else {
             this.setState( { isHomeService : false } )
@@ -75,6 +78,13 @@ class BookingForm extends Component {
         console.log(this.selectedDate.value)
     }
 
+    imageModal = () => {
+        Swal.fire({
+            imageUrl: comparisonSize,
+            imageAlt: 'payment-image',
+          })
+    };
+
     // NOT USED
     showPriceBasedOnSize = async () => {
         console.log(this.selectedSize.value)
@@ -99,7 +109,7 @@ class BookingForm extends Component {
     }
 
     bookingButton = async () => {
-        if(this.props.objectUser.username == '') {
+        if(this.props.objectUser.username === '') {
             const result = await Swal.fire({
                 title: 'Login First!',
                 text: "To book our service, user should login first.",
@@ -117,20 +127,20 @@ class BookingForm extends Component {
 
         var carbrand = (this.carbrand.value).toUpperCase()
         var carname = this.carname.value.toUpperCase()
-        if(carbrand == ''){
+        if(carbrand === ''){
             return alert('Please input the car brand')
         }
 
-        if(carname == ''){
+        if(carname === ''){
             return alert('Please input the car name')
         }
 
         var selectedSize = this.selectedSize.value  // 0, Small, Medium, Large, Extra Large
         var selectedLocationType = this.selectedLocationType.value  // 'Home' or 'Workshop'
 
-        if(selectedLocationType == 'Home'){
+        if(selectedLocationType === 'Home'){
             var selectedAddress = this.selectedAddress.value    // Read address from user
-            if(selectedAddress == '') {
+            if(selectedAddress === '') {
                 return alert('You must input an address for home service, please add new one !')
             }            
         } else {
@@ -144,10 +154,10 @@ class BookingForm extends Component {
         var caryear = this.caryear.value
         var carcolor = this.carcolor.value
 
-        if(caryear == ''){
+        if(caryear === ''){
             caryear = 'No info'
         }
-        if(carcolor == ''){
+        if(carcolor === ''){
             carcolor = 'No info'
         }
 
@@ -202,6 +212,8 @@ class BookingForm extends Component {
                         <button className="btn btn-outline-info m-2" > Back To Car Detailing Menu </button>
                     </Link>
 
+                    <br/><br/>
+
                     <center> 
                         <h3> 
                             <i className="material-icons" style={ bookStyle }>book</i> Booking Form <i className="material-icons" style={ bookStyle }>book</i>   <br/><br/>
@@ -245,6 +257,11 @@ class BookingForm extends Component {
                                     </select>
                                 </form>
                                 <small class="form-text text-muted"> Don't worry if you are not sure what size your car, we will check again and correct the size and the price.</small>
+
+                                {/* COMPARISON SIZE IMAGE */}
+                                <button className="btn btn-link" onClick={ () => this.imageModal() }>
+                                    <img  src={comparisonSize} alt="comparison car size" className="img-fluid mt-3 mb-5 shadow-lg" />
+                                </button>
                             </div>
 
                             <div className="form-group">

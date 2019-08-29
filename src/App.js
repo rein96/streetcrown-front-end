@@ -21,6 +21,7 @@ import EditProduct from './components/admin/EditProduct'
 import CarDetailing from './components/services/CarDetailing'
 import MotorcycleDetailing from './components/services/MotorcycleDetailing'
 import BookingForm from './components/services/BookingForm'
+import ScrollToTop from './components/ScrollToTop'
 
 import { keepLogin } from './actions/index'
 import HomeModal from './components/home/HomeModal'
@@ -33,7 +34,6 @@ class App extends Component {
 
     // fires immediately before the initial render -> cookie
     componentWillMount() {
-        window.scrollTo(0, 0);
         var user = cookie.get('streetcrownUser')
 
         console.log('user (streetcrownUser cookie):')
@@ -45,37 +45,37 @@ class App extends Component {
         }
     }
 
-    // Initialize cookie componentDidMount() {}  
-
     render() {
         return (
             <BrowserRouter>
                 <Header />
 
                 <Switch>
-                    <Route path='/' exact component={Home}  />
-                    {/* Auth */}
-                    <Route path='/login' component={Login}  />
-                    <Route path='/register' component={Register} />
-                    {/* Products */}
-                    <Route path='/products' component={Products} />
-                    <Route path='/productdetail/:productID' component={ProductDetail} />
-                    {/* Services */}
-                    <Route path='/cardetailing' component={CarDetailing} />
-                    <Route path='/motorcycledetailing' component={MotorcycleDetailing} />
-                    <Route path='/bookingform/:servicename' component={BookingForm} />
-                    {/* User */}
-                    <Route path='/profile' component={Profile} />
-                    <Route path='/cart' component={Cart} />
-                    <Route path='/checkout' component={Checkout} />
-                    <Route path='/transaction' component={TransactionUser} />
-                    {/* Admin */}
-                    <Route path='/admin' component={Admin} />
-                    <Route path='/manageproducts' component={ManageProducts} />
-                    <Route path='/managetransactions' component={ManageTransactions} />
-                    <Route path='/managebooking' component={ManageBooking} />
-                    <Route path='/editproduct/:productID' component={EditProduct} />
+                    <ScrollToTop>
+                        <Route path='/' exact component={Home}  />
+                        {/* Auth */}
+                        <Route path='/login' component={Login}  />
+                        <Route path='/register' component={Register} />
+                        {/* Products */}
+                        <Route path='/products' component={Products} />
+                        <Route path='/productdetail/:productID' component={ProductDetail} />
+                        {/* Services */}
+                        <Route path='/cardetailing' component={CarDetailing} />
+                        <Route path='/motorcycledetailing' component={MotorcycleDetailing} />
+                        <Route path='/bookingform/:servicename' component={BookingForm} />
+                        {/* User */}
+                        <Route path='/profile' component={Profile} />
+                        <Route path='/cart' component={Cart} />
+                        <Route path='/checkout' component={Checkout} />
+                        <Route path='/transaction' component={TransactionUser} />
+                        {/* Admin */}
+                        <Route path='/admin' component={Admin} />
+                        <Route path='/manageproducts' component={ManageProducts} />
+                        <Route path='/managetransactions' component={ManageTransactions} />
+                        <Route path='/managebooking' component={ManageBooking} />
+                        <Route path='/editproduct/:productID' component={EditProduct} />
 
+                    </ScrollToTop>
                 </Switch>
                 <Footer  />
                 <HomeModal />
@@ -83,7 +83,6 @@ class App extends Component {
             
             </BrowserRouter>
         )
-
     }
 }
 

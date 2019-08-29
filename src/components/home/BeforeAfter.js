@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import img1 from '../../images/hrv-before.jpg'
 import img2 from '../../images/hrv-after.jpg'
 
+
 import '../../css/beerslider.css'
 
 class BeforeAfter extends Component {
@@ -11,13 +12,15 @@ class BeforeAfter extends Component {
 
             <div className="container mt-4">
                 <center> <h2> Before and After </h2> </center>
-                <center>
+                <center> <br/>
+
                 <div id="beer-slider" className="beer-slider shadow-lg" style={{ borderRadius: '15px' }} data-beer-label="after" >
                         <img src={img2} style={{ width : '800px' }}  alt="before"  />
                     <div className="beer-reveal" data-beer-label="before">
                         <img src={img1}  alt="after"   />
                     </div>
                 </div>
+
                 </center>
 
                 <br/><br/>

@@ -25,7 +25,7 @@ class Admin extends Component {
 
                             <div className="card m-5 shadow-lg" style={{ borderRadius: '20px' }} >
                                 <Link to='/manageproducts'>
-                                    <img className="card-img-top" src={manageProducts} style={borderTop} alt="Card image cap" />
+                                    <img className="card-img-top" src={manageProducts} style={borderTop} alt="Card cap" />
                                     <div className="card-body">
                                         <center>
                                             <button className="card-title btn btn-danger">Manage Products</button>
@@ -42,7 +42,7 @@ class Admin extends Component {
                                                 
                             <div className="card m-5 shadow-lg" style={{ borderRadius: '20px' }} >
                                 <Link to='/managetransactions'>
-                                    <img className="card-img-top" src={transactionImage} style={borderTop} alt="Card image cap"/>
+                                    <img className="card-img-top" src={transactionImage} style={borderTop} alt="Card cap"/>
                                     <div className="card-body">
                                         <center>
                                             <button className="card-title btn btn-danger">Manage Transactions</button>
@@ -59,7 +59,7 @@ class Admin extends Component {
                                                 
                             <div className="card m-5 shadow-lg" style={{ borderRadius: '20px' }} >
                                 <Link to='/managebooking'>
-                                    <img className="card-img-top" src={nanoCoating} style={borderTop} alt="Card image cap" />
+                                    <img className="card-img-top" src={nanoCoating} style={borderTop} alt="Card cap" />
                                     {/* https://unsplash.com/photos/9n1USijYJZ4 */}
                                     <div className="card-body">
                                         <center>

@@ -6,7 +6,8 @@ import Spinner from '../Spinner'
 import { getAllBooking, updateBookingStatus, deleteBooking } from '../../actions/index'
 
 import '../../css/managebookings.css'
-import ManageBookingModal from './ManageBookingModal'
+// import AddBookingModal from './AddBookingModal';
+import EditBookingModal from './EditBookingModal';
 
 class ManageBooking extends Component {
 
@@ -247,7 +248,9 @@ class ManageBooking extends Component {
                         
                     </div>
 
-                    <ManageBookingModal editBooking = {this.state.editBooking} />
+                    {/* <AddBookingModal /> */}
+                    <EditBookingModal editBooking = {this.state.editBooking} />
+                    
                     
                 </center>
             </div>

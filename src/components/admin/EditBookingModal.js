@@ -5,7 +5,7 @@ import Swal from 'sweetalert2'
 import Spinner from '../Spinner'
 import { editDetailingBooking } from '../../actions/index'
 
-class ManageBookingModal extends Component {
+class EditBookingModal extends Component {
 
     state = {
         loading: false
@@ -14,11 +14,11 @@ class ManageBookingModal extends Component {
     categoryOptions = (car_size) => {
         const categories = ['0','Small','Medium','Large','XL']
         let result = categories.map( (category) => {
-            if(car_size == category){
+            if(car_size === category){
                 return <option value={car_size} selected>{car_size}</option>
             }
             return (
-                <option value={category}>{category}</option>
+                <option key={category.id} value={category}>{category}</option>
             )
         })
 
@@ -47,17 +47,18 @@ class ManageBookingModal extends Component {
         const carcolor = this.carcolor.value
         const carsize = this.carsize.value
         const address = this.address.value
-        const bookingprice = this.bookingprice.value
+        var bookingprice = this.bookingprice.value
         const selectedDate = this.selectedDate.value
+        if(bookingprice === ''){ bookingprice = 0 }
 
-        await this.setState({ loading : true })
+        this.setState({ loading : true })
 
         // console.log(carbrand, carname, caryear, carcolor, carsize, address, bookingprice, selectedDate)
         const resdata = await this.props.editDetailingBooking(this.props.editBooking.id, carbrand, carname, caryear, carcolor, carsize, address, bookingprice, selectedDate)
         console.log(resdata)    // affectedRows
 
         if(resdata.affectedRows) {
-            this.setState({ loading : false })
+            await this.setState({ loading : false })
             Swal.fire('Edit success!', 'Hooray !' ,'success')
             window.location.reload()
         }
@@ -67,13 +68,14 @@ class ManageBookingModal extends Component {
     render() {
         console.log(this.props.editBooking)
 
-        const { booking_date, car_brand, car_name, car_size, location_type, location_address, booking_price, contact_number, car_color, car_year } = this.props.editBooking
+        const {  car_brand, car_name, car_size, location_address, booking_price, car_color, car_year } = this.props.editBooking
+        // { booking_date, car_brand, car_name, car_size, location_type, location_address, booking_price, contact_number, car_color, car_year }
 
         return (
             <div>
 
                 <div className="modal fade" id="editBookingModal" tabIndex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                    <div className="modal-dialog modal-xl" role="document">
+                    <div className="modal-dialog modal-l" role="document">
                         <div className="modal-content">
                             <div className="modal-header">
                                 <h5 className="modal-title" id="exampleModalLabel">Edit Product</h5>
@@ -124,8 +126,7 @@ class ManageBookingModal extends Component {
                                     Booking Date (The default value is today)
                                     <form className="input-group">
                                         <input type="date" name="date" id="date" 
-                                                ref={ input => this.selectedDate = input } 
-                                                // onChange={ () => {this.setDate()} }
+                                                ref={ input => this.selectedDate = input }
                                                 style={{ width: '300px', height: '30px' }}
                                                 className="radius-custom"
                                                 defaultValue={ this.minDate() }
@@ -153,4 +154,4 @@ class ManageBookingModal extends Component {
     }
 }
 
-export default connect(null, { editDetailingBooking } )(ManageBookingModal)
+export default connect(null, { editDetailingBooking } )(EditBookingModal)
