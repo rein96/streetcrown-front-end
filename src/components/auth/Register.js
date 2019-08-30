@@ -1,15 +1,19 @@
 import React, { Component } from 'react'
 import { Link, Redirect } from 'react-router-dom'
+import ReCAPTCHA from "react-google-recaptcha";
 import axios from '../../config/axios'
 import {connect} from 'react-redux'
 
+
 import '../../css/auth.css'
 
+// const recaptchaRef = React.createRef();
 
 class Register extends Component {
 
     state = {
-        register : false
+        register : false,
+        recaptcha : ''
     }
 
     pressEnter = (event) => {
@@ -27,10 +31,13 @@ class Register extends Component {
 
         // console.log(data_name,data_username,data_email,data_phone_number,data_password,data_retype_password);
         // name minimum 3, username minimum 3, email, phone_number ?, password minimum 6 string
-
+        if(data_name.length <= 3){ return alert('Please input minimum 3 characters for name :)') }
+        if(data_username.length <= 3){ return alert('Please input minimum 3 characters for username :)') }
         if(data_password !== data_retype_password) {
             return alert('Password is not match :(');
         }
+
+        if(this.state.recaptcha === '') { return alert('Please verify that you are not a robot !') }
 
         try {
             const res = await axios.post('/users', {
@@ -63,9 +70,12 @@ class Register extends Component {
         }
     }
 
+    onChangeRecaptcha = (value) => {
+        console.log("Captcha value:", value)
+        this.setState( { recaptcha : value } )
+    }
 
     render() {
-        console.log(this.state.register)
 
         // if user has already logged in, cannot access register form
         if (this.props.objectUser.username !== '') {
@@ -132,7 +142,7 @@ class Register extends Component {
                                                 <form className="input-group">
                                                     <input ref={input => this.password = input} className="form-control" type="password" placeholder="Password" minimum="1" required  />
                                                 </form>
-                                                <small class="form-text text-muted">Don't worry, your password is hashed.</small>
+                                                <small class="form-text text-muted">Minimum 6 characters. Don't worry, your password is hashed.</small>
                                             </div>
     
                                             <div class="form-group">
@@ -140,11 +150,24 @@ class Register extends Component {
                                                 <form className="input-group">
                                                     <input ref={input => this.retype_password = input} className="form-control" type="password" placeholder="Re-Type Password" required />
                                                 </form>
-                                                <small class="form-text text-muted">Don't worry, your password is hashed.</small>
+                                                <small class="form-text text-muted">Minimum 6 characters. Don't worry, your password is hashed.</small>
                                             </div>
+                                            
+                                            <center>
+
+                                            <ReCAPTCHA
+                                                ref={ input => this.recaptchaRef = input }
+                                                sitekey="6LfM0bUUAAAAAIr8RfeawSezD-ma0Uow0flOP0Dy"
+                                                onChange={this.onChangeRecaptcha}
+                                                theme="light"
+                                                size="normal"
+                                            />
+                                            <br/>
+                                            </center>
     
                                         </form>
-                                            <button className="btn btn-success btn-block" onClick={this.onButtonClick}>Register</button>
+                                            <button className="btn btn-danger btn-block radius-custom" onClick={this.onButtonClick}>Register</button>
+                                            <br/>
     
                                             <p className="lead">Do you have an account ? <Link to="/login">Login Now!</Link></p>
                                     </div>

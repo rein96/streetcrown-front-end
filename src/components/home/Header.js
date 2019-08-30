@@ -126,11 +126,13 @@ class Header extends React.Component {
             <div>
               <Navbar color="dark" dark expand="md">
                 <NavbarBrand> 
-                  <Link to='/'> <img src={streetcrown_logo} width="100px" />  </Link> 
+                  {/* <Link to='/'> <img src={streetcrown_logo} width="100px" />  </Link>  */}
+                  <a href="/"> <img src={streetcrown_logo} width="100px" /> </a> 
                 </NavbarBrand>
 
                 <NavbarBrand href="/">
-                <Link to='/'><span style={{ color: "white" }}> StreetCrown </span></Link> 
+                {/* <Link to='/'><span style={{ color: "white" }}> StreetCrown </span></Link>  */}
+                <a href="/"> <span style={{ color: "white" }}> StreetCrown </span> </a> 
                 </NavbarBrand>
 
 
@@ -146,15 +148,15 @@ class Header extends React.Component {
                     
                   <NavItem>
                       <NavLink>
-                        <Link to='/cardetailing' > <span style={{ color: "white" }}> Detailing Booking </span> </Link>
+                        <Link to='/cardetailing' > <span style={{ color: "white" }}> Booking </span> </Link>
                       </NavLink>
                   </NavItem>
 
-                  <NavItem>
+                  {/* <NavItem>
                       <NavLink>
                         <span style={{ color: "white" }}> Contact Us </span>
                       </NavLink>
-                  </NavItem>
+                  </NavItem> */}
 
                   <NavItem>
                     <NavLink>

@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { Link, Redirect } from 'react-router-dom'
 import {connect} from 'react-redux'
+import Swal from 'sweetalert2'
 
 import {onLogin} from '../../actions/index'
 
@@ -23,18 +24,18 @@ class Login extends Component {
         console.log(resdata)
         if(resdata === undefined){ return console.log('login failed') }
         if(resdata.username){
-            window.location.reload()
-            // const Toast = Swal.mixin({
-            //     toast: true,
-            //     position: 'top-end',
-            //     showConfirmButton: false,
-            //     timer: 3000
-            //   })
+            const Toast = Swal.mixin({
+                toast: true,
+                position: 'top-end',
+                showConfirmButton: false,
+                timer: 3000
+              })
               
-            //   Toast.fire({
-            //     type: 'success',
-            //     title: 'Signed in successfully'
-            //   })
+              Toast.fire({
+                type: 'success',
+                title: 'Signed in successfully'
+              })
+            window.location.reload()
         }
         
     }
@@ -78,9 +79,10 @@ class Login extends Component {
     
                                         </form>
                                             
-                                            <button className="btn btn-success btn-block radius-custom" onClick={ () => this.onButtonClick()}>Login</button>
+                                            <button className="btn btn-danger btn-block radius-custom" onClick={ () => this.onButtonClick()}>Login</button>
+                                            <br/>
     
-                                            <p className="lead">Don't have an account ? <Link to="/register">Register Now!</Link></p>
+                                            <p className="lead">Don't have an account ? <Link to="/register"> Register Now !  </Link></p>
     
                                         </div>
                                         

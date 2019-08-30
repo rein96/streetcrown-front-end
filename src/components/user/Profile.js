@@ -183,7 +183,7 @@ class Profile extends Component {
                             </div>
                             <div className="form-group">
                                 <label htmlFor="age">Phone Number</label>
-                                <input ref={input => this.phone_number = input} type="number" className="form-control" id="age" defaultValue={phone_number}/>
+                                <input ref={input => this.phone_number = input} type="text" className="form-control" id="age" defaultValue={phone_number}/>
                             </div>
 
                         </form>
