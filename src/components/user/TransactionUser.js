@@ -5,14 +5,6 @@ import Swal from 'sweetalert2'
 
 import { getTransaction, uploadProof, specificTransaction, proofImageNotificationMail } from '../../actions/index'
 
-
-const paymentStyle = {
-    fontSize : '40px',
-    // color: "#5cb85c"
-}
-
-
-
 class TransactionUser extends Component {
 
     state = {
@@ -101,7 +93,12 @@ class TransactionUser extends Component {
             return (
                 <tr key={transaction.product_id} >
                     <th scope="col">
-                        <img src={`http://localhost:2019/products/${transaction.image}`}  className="card-img" alt={transaction.product_name} style={{ width: "100px" }} />
+                        <img src={`http://localhost:2019/products/${transaction.image}`}  
+                            className="card-img" 
+                            alt={transaction.product_name} 
+                            style={{ width: "100px" }}
+                            onError={ (e) => 
+                                e.target.src = 'https://bitsofco.de/content/images/2018/12/broken-1.png' } />
                         
                     </th>
                     <th scope="col">
@@ -280,6 +277,13 @@ class TransactionUser extends Component {
         )
     }
 }
+
+const paymentStyle = {
+    fontSize : '40px',
+    color: "#DC3545",
+    verticalAlign : 'middle'
+}
+
 
 const mapStateToProps = state => {
     return {

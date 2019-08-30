@@ -341,15 +341,10 @@ class BookingForm extends Component {
                         </div> {/* End of col OPTIONAL */}
 
                 </div>  {/* End of row */}
-
-
-                    
-
-
               
                 <br/>
 
-                <button className="btn btn-success btn-block radius-custom" onClick={ () => this.bookingButton() } >BOOK NOW !</button>
+                <button className="btn btn-danger btn-block radius-custom text-white"  onClick={ () => this.bookingButton() } >BOOK NOW !</button>
 
 
                     <br/><br/><br/>
@@ -402,8 +397,9 @@ const verticalCenter = {
 }
 
 const bookStyle = {
-    color:"#5cb85c", 
-    fontSize:"40px"
+    color:"#DC3545", 
+    fontSize:"40px",
+    verticalAlign : 'middle'
 }
 
 const mapStateToProps = state => ({

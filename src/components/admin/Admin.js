@@ -2,11 +2,24 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
 
+import { countUsers } from '../../actions/index'
+
 import transactionImage from '../../images/transaction.png'
 import nanoCoating from '../../images/nano-coating.png'
 import manageProducts from '../../images/manageproducts.jpg'
 
 class Admin extends Component {
+
+    state = {
+        countUsers : 0
+    }
+
+    async componentDidMount(){
+        const resdata = await this.props.countUsers()
+        console.log(resdata)
+        this.setState( { countUsers : resdata.countUsers } )
+    } 
+
     render() {
 
         if (this.props.objectUser.is_admin === 0 || this.props.objectUser.username === '') {
@@ -16,6 +29,14 @@ class Admin extends Component {
         return (
             <div>
                 <center> <h1 className="font-weight-bold mt-4"> Dashboard Admin <i class="material-icons" style={adminStyle} >verified_user</i> </h1> </center>
+
+                <div className="mt-3">
+                    <center>
+                        <Link to='/manageusers' >
+                            <button className="btn btn-dark"> <i class="material-icons" style={{ verticalAlign : 'middle' }}>person</i> {this.state.countUsers} Registered Users </button>
+                        </Link>
+                    </center>
+                </div>
 
                 <div className="mb-5">
                     <div className="row">
@@ -98,4 +119,4 @@ const mapStateToProps = state => {
     }
 }
 
-export default connect(mapStateToProps)(Admin);
+export default connect(mapStateToProps, { countUsers })(Admin);

@@ -86,6 +86,17 @@ class ManageBooking extends Component {
         })
     }
 
+    whatsappUser = (phone_number) => {
+        // 08999993164 -> 628999993164
+        let splitArray = phone_number.split('')
+        splitArray.splice(0,1,"6","2")
+        console.log(splitArray)
+        let whatsappFormat = splitArray.join('')
+        console.log(whatsappFormat)
+
+        window.open(`https://api.whatsapp.com/send?phone=${whatsappFormat}`)
+    }
+
     renderBookingByLocation = (inputByAddress) => {
 
         if(inputByAddress == 'Home') {
@@ -120,11 +131,9 @@ class ManageBooking extends Component {
                          <p>{contact_number}</p> 
                     </th>
                     <th scope='col'> <p>{name}</p> </th>
-                    <th scope='col'> <p>{car_brand}</p> </th>
-                    <th scope='col'> <p>{car_name}</p> </th>
+                    <th scope='col'> <p>{car_brand}</p> <p>{car_name}</p> </th>
                     <th scope='col'> <p>{car_size}</p> </th>
-                    <th scope='col'> <p>{location_type}</p> </th>
-                    <th scope='col'> <p>{location_address}</p> </th>
+                    <th scope='col'> <p>{location_type}</p> <p>{location_address}</p> </th>
                     { 
                         typeof(booking_price) === 'number' ? 
                         <th scope='col'> <p> { (booking_price).toLocaleString() }</p> </th> : 
@@ -137,7 +146,10 @@ class ManageBooking extends Component {
                         <p> Color : {car_color}</p>
                         <p> Year : {car_year}</p>
                     </th>
-                    <th scope='col'> 
+                    <th scope='col'>
+                        <button className="btn btn-link" onClick={ () => this.whatsappUser(contact_number)}>
+                            <img src="https://image.flaticon.com/icons/svg/134/134937.svg" alt="Whatsapp-icon" style={{ width: "30px" }} />
+                        </button> 
                         <button className="btn btn-sm btn-outline-warning"
                                 // style={{ width: '60px' }}
                                 data-toggle="modal" 
@@ -171,9 +183,9 @@ class ManageBooking extends Component {
                 <center>
                     <br/>
                     <h2 className="mt-3"> 
-                        <i class="material-icons" style={{ fontSize: '30px' }}>face</i>
+                        <i class="material-icons" style={faceStyle}>face</i>
                             &nbsp; Detailing Booking Log  &nbsp;
-                        <i class="material-icons" style={{ fontSize: '30px' }}>face</i> 
+                        <i class="material-icons" style={faceStyle}>face</i> 
                     </h2>
                     <br/>
 
@@ -189,10 +201,10 @@ class ManageBooking extends Component {
                                         <th scope="col">CUSTOMER</th>
                                         <th scope="col">DETAILING</th>
                                         <th scope="col">BRAND</th>
-                                        <th scope="col">NAME</th>
+                                        {/*  */}
                                         <th scope="col">SIZE</th>
                                         <th scope="col">LOCATION</th>
-                                        <th scope="col">ADDRESS</th>
+                                        {/* <th scope="col">ADDRESS</th> */}
                                         <th scope="col">PRICE</th>
                                         <th scope="col">STATUS</th>
                                         <th scope="col">DESCRIPTION</th>
@@ -211,10 +223,10 @@ class ManageBooking extends Component {
                                         <th scope="col">CUSTOMER</th>
                                         <th scope="col">DETAILING</th>
                                         <th scope="col">BRAND</th>
-                                        <th scope="col">NAME</th>
+                                        {/*  */}
                                         <th scope="col">SIZE</th>
                                         <th scope="col">LOCATION</th>
-                                        <th scope="col">ADDRESS</th>
+                                        {/* <th scope="col">ADDRESS</th> */}
                                         <th scope="col">PRICE</th>
                                         <th scope="col">STATUS</th>
                                         <th scope="col">DESCRIPTION</th>
@@ -233,10 +245,10 @@ class ManageBooking extends Component {
                                         <th scope="col">CUSTOMER</th>
                                         <th scope="col">DETAILING</th>
                                         <th scope="col">BRAND</th>
-                                        <th scope="col">NAME</th>
+                                        {/*  */}
                                         <th scope="col">SIZE</th>
                                         <th scope="col">LOCATION</th>
-                                        <th scope="col">ADDRESS</th>
+                                        {/* <th scope="col">ADDRESS</th> */}
                                         <th scope="col">PRICE</th>
                                         <th scope="col">STATUS</th>
                                         <th scope="col">DESCRIPTION</th>
@@ -256,6 +268,12 @@ class ManageBooking extends Component {
             </div>
         )
     }
+}
+
+const faceStyle = {
+    fontSize : '40px',
+    // color: "#DC3545",
+    verticalAlign : 'middle'
 }
 
 const mapStateToProps = state => ({

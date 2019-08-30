@@ -159,6 +159,25 @@ export const editProfile = (newName, newEmail, newPhonenumber, objectUser) => {
     }
 }
 
+
+// COUNT ALL REGISTERD USERS
+export const countUsers = () => {
+
+    return async () => {
+        const res = await axios.get('/countusers/')
+        return res.data
+    }
+}
+
+// COUNT ALL REGISTERD USERS
+export const getAllUsers = () => {
+
+    return async () => {
+        const res = await axios.get('/allusers/')
+        return res.data
+    }
+}
+
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // ADDRESS ROUTE
 

@@ -7,12 +7,6 @@ import { getAllTransactions, specificTransaction, addResiNumber, deleteResiNumbe
 
 import '../../css/transactiondetail.css'
 
-const paymentStyle = {
-    fontSize : '40px',
-    // color: "#5cb85c"
-}
-
-
 class ManageTransactions extends Component {
 
     state = {
@@ -217,7 +211,12 @@ class ManageTransactions extends Component {
             return (
                 <tr key={transaction.product_id} >
                     <th scope="col">
-                        <img src={`http://localhost:2019/products/${transaction.image}`}  className="card-img" alt={transaction.product_name} style={{ width: "100px" }} />
+                        <img src={`http://localhost:2019/products/${transaction.image}`} 
+                            className="card-img" 
+                            alt={transaction.product_name} 
+                            style={{ width: "100px" }}
+                            onError={ (e) => 
+                                e.target.src = 'https://bitsofco.de/content/images/2018/12/broken-1.png' } />
                         
                     </th>
                     <th scope="col">
@@ -320,7 +319,7 @@ class ManageTransactions extends Component {
                     <br/>
                     <h2 className="mt-3"> 
                             <i class="material-icons" style={paymentStyle} >payment</i>
-                                User Transactions
+                                &nbsp; User Transactions &nbsp;
                             <i class="material-icons" style={paymentStyle}>payment</i>  
                     </h2>
                     <br/>
@@ -394,6 +393,12 @@ class ManageTransactions extends Component {
             </div>  // end initial render()
         )
     }
+}
+
+const paymentStyle = {
+    fontSize : '40px',
+    // color: "#DC3545",
+    verticalAlign : 'middle'
 }
 
 const mapStateToProps = state => ({

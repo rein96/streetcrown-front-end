@@ -212,14 +212,13 @@ footer{
 
 @media (min-width: 1200px) {
 	.carousel-inner img {
-		width: 30%;
-		height: 100%;
-		object-fit:cover;
-		height:300px !important;
+		/* width: 30%;
+		height: 100%; */
+		/* object-fit:cover; */
+		height:500px !important;
 
 		width:100% !important;
         min-width:100 !important;
-        height: auto;
 	}
 }
 
@@ -269,4 +268,12 @@ color: red;
 	padding: 1rem;
 	text-align: center;
   } */
+
+.background-odd {
+	background-color: #F2F2F2
+}
+
+.background-even {
+	background-color: #343A40
+}
 
