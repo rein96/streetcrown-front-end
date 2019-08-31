@@ -24,6 +24,7 @@ class Login extends Component {
         console.log(resdata)
         if(resdata === undefined){ return console.log('login failed') }
         if(resdata.username){
+            window.location.reload()
             const Toast = Swal.mixin({
                 toast: true,
                 position: 'top-end',
@@ -35,7 +36,6 @@ class Login extends Component {
                 type: 'success',
                 title: 'Signed in successfully'
               })
-            window.location.reload()
         }
         
     }

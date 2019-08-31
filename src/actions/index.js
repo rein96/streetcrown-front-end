@@ -65,11 +65,18 @@ export const keepLogin = (objectUser) => {
 
 // LOGOUT USER
 export const onLogout = () => {
-    // remove cookie here
-    cookie.remove('streetcrownUser')
+   
 
-    return{
-        type:'LOGOUT'
+    return async (dispatch) => {
+        try {
+             // remove cookie here
+            await cookie.remove('streetcrownUser')
+            dispatch({
+                type: 'LOGOUT'
+            })
+        } catch (err) {
+            console.error(err)
+        }
     }
 }
 
@@ -701,6 +708,38 @@ export const carDetailingBooking = (user_id, car_detailing_id, car_brand, car_na
     }
 }
 
+export const carDetailingBooking_Guest = (name, car_detailing_id, car_brand, car_name, car_size, location_type, location_address, booking_date, contact_number, car_year, car_color) => {
+
+    return async () => {
+
+        try {
+            const res = await axios.post('/cardetailingguestbooking/', {
+                name, car_detailing_id, car_brand, car_name, car_size, location_type, location_address, booking_date, contact_number, car_year, car_color
+            })
+            return res.data
+        } catch (err) {
+            console.error(err)
+        }
+    }
+
+}
+
+export const addBookingManually_Guest = (name, car_detailing_id, car_brand, car_name, car_size, location_type, location_address, booking_date, contact_number, car_year, car_color) => {
+
+    return async () => {
+
+        try {
+            const res = await axios.post('/addbookingmanually', {
+                name, car_detailing_id, car_brand, car_name, car_size, location_type, location_address, booking_date, contact_number, car_year, car_color
+            })
+            return res.data
+        } catch (err) {
+            console.error(err)
+        }
+    }
+
+}
+
 
 export const getAllBooking = () => {
     return async () => {
@@ -713,10 +752,37 @@ export const getAllBooking = () => {
     }
 }
 
+export const getAllBooking_Guest = () => {
+    return async () => {
+        try {
+            const res = await axios.get('/allguestbooking')
+            console.log(res.data)
+            return res.data
+        } catch (err) {
+            console.error(err)
+        }
+    }
+}
+
+
+
 export const editDetailingBooking = ( id, car_brand, car_name, car_year, car_color, car_size, location_address, booking_price, booking_date ) => {
     return async () => {
         try {
             const res = await axios.patch(`/booking/${id}`, {
+                car_brand, car_name, car_year, car_color, car_size, location_address, booking_price, booking_date
+            })
+            return res.data
+        } catch (err) {
+            console.error(err)
+        }
+    }
+}
+
+export const editDetailingBooking_Guest = ( id, car_brand, car_name, car_year, car_color, car_size, location_address, booking_price, booking_date ) => {
+    return async () => {
+        try {
+            const res = await axios.patch(`/guestbooking/${id}`, {
                 car_brand, car_name, car_year, car_color, car_size, location_address, booking_price, booking_date
             })
             return res.data
@@ -738,6 +804,18 @@ export const updateBookingStatus = (id, booking_status) => {
     }
 }
 
+export const updateBookingStatus_Guest = (id, booking_status) => {
+    return async () => {
+        try {
+            console.log(booking_status)
+            const res = await axios.patch(`/guestbookingstatus/${id}`, { booking_status })
+            return res.data
+        } catch (err) {
+            console.error(err)
+        }
+    }
+}
+
 export const deleteBooking = (id) => {
     return async () => {
         try {
@@ -748,4 +826,29 @@ export const deleteBooking = (id) => {
         }
     }
 }
+
+export const deleteBooking_Guest = (id) => {
+    return async () => {
+        try {
+            const res = await axios.delete(`/guestbooking/${id}`)
+            return res.data
+        } catch (err) {
+            console.error(err)
+        }
+    }
+}
+
+export const getDetailingServices = () => {
+    return async () => {
+        try {
+            const res = await axios.get('/detailingservices')
+            return res.data
+        } catch (err) {
+            console.error(err)
+        }
+    }
+}
+
+
+
 

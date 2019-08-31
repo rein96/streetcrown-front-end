@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { connect } from  'react-redux'
 import { Redirect } from 'react-router-dom'
 import Swal from 'sweetalert2'
+import payment from '../../images/payment.png'
 
 import { getTransaction, uploadProof, specificTransaction, proofImageNotificationMail } from '../../actions/index'
 
@@ -229,7 +230,13 @@ class TransactionUser extends Component {
 
                      {this.renderTransaction()}
 
-                     <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
+                    <br/><br/><br/>
+                     <center>
+                         <h5> Please transfer to one of these accounts </h5>
+                        <img src={payment} alt="payment choices" className="img-fluid radius-custom" style={{ width: '400px' }} />
+                    </center>
+
+                     <br/><br/><br/><br/><br/>
                 </center>
 
 

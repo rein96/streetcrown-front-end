@@ -4,8 +4,6 @@ import { Link } from 'react-router-dom'
 import cardetailinggroup from '../../images/car-detailing-group.jpg'
 import detailingequipment from '../../images/detailing-equipment-group.jpg'
 import motorcycledetailing from '../../images/motorcycle-detailing-group.jpg'
-// import motorcycle from '../../images/motorcycle-detailing.png'
-// import productsBottles from '../../images/products-bottles.png'
 
 
 class ProductServices extends Component {
@@ -18,9 +16,9 @@ class ProductServices extends Component {
 
                     <div className="row">
 
-                        <div className="col-12 col-sm-12 col-md-12 col-lg-4  mt-2">
+                        <div className="col-12 col-sm-12 col-md-12 col-lg-4 mt-2 coba">
                             <Link to='/motorcycledetailing'>
-                                <img className="card-img shadow-lg coba" style={{ borderRadius : '15px' }} src={motorcycledetailing} alt="Motorcycle Detailing" />
+                                <img className="card-img shadow-lg" style={{ borderRadius : '15px' }} src={motorcycledetailing} alt="Motorcycle Detailing" />
                                 <div className="card-img-overlay h-100 d-flex align-items-end justify-content-between">
                                     <div className="text-white font-weight-bold"> 
                                         {/* <h4> Motorcycle Detailing </h4>  */}
@@ -34,9 +32,9 @@ class ProductServices extends Component {
                         </div>
 
 
-                        <div className="col-12 col-sm-12 col-md-12 col-lg-4 mt-2">
+                        <div className="col-12 col-sm-12 col-md-12 col-lg-4 mt-2 coba">
                             <Link to='/cardetailing'>
-                                <img className="card-img shadow-lg coba" style={{ borderRadius : '15px' }} src={cardetailinggroup} alt="Car Detailing" />
+                                <img className="card-img shadow-lg" style={{ borderRadius : '15px' }} src={cardetailinggroup} alt="Car Detailing" />
                                 <div className="card-img-overlay h-100 d-flex align-items-end justify-content-between">
                                     <div className="text-white font-weight-bold"> 
                                         {/* <h4> Car Detailing </h4>  */}
@@ -50,9 +48,9 @@ class ProductServices extends Component {
                         </div>
                         
                         
-                        <div className=" col-12 col-sm-12 col-md-12 col-lg-4  mt-2">
+                        <div className=" col-12 col-sm-12 col-md-12 col-lg-4  mt-2 coba">
                             <Link to='/products'>
-                                <img className="card-img shadow-lg coba" style={{ borderRadius : '15px' }} src={detailingequipment} alt="Detailing Equipment"/>
+                                <img className="card-img shadow-lg" style={{ borderRadius : '15px' }} src={detailingequipment} alt="Detailing Equipment"/>
                                 <div className="card-img-overlay h-100 d-flex align-items-end justify-content-between">
 
                                     <div className="text-white font-weight-bold">

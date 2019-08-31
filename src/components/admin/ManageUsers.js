@@ -12,8 +12,7 @@ class ManageUsers extends Component {
     }
 
     async componentDidMount(){
-        this.getUsers()
-         
+        this.getUsers()         
     }
 
     getUsers = async () => {

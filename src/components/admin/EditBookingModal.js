@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import Swal from 'sweetalert2'
 
 import Spinner from '../Spinner'
-import { editDetailingBooking } from '../../actions/index'
+import { editDetailingBooking, editDetailingBooking_Guest } from '../../actions/index'
 
 class EditBookingModal extends Component {
 
@@ -54,7 +54,12 @@ class EditBookingModal extends Component {
         this.setState({ loading : true })
 
         // console.log(carbrand, carname, caryear, carcolor, carsize, address, bookingprice, selectedDate)
-        const resdata = await this.props.editDetailingBooking(this.props.editBooking.id, carbrand, carname, caryear, carcolor, carsize, address, bookingprice, selectedDate)
+        if(this.props.editBookingType === 'registered'){
+            var resdata = await this.props.editDetailingBooking(this.props.editBooking.id, carbrand, carname, caryear, carcolor, carsize, address, bookingprice, selectedDate)
+        }
+        else if (this.props.editBookingType === 'guest'){
+            var resdata = await this.props.editDetailingBooking_Guest(this.props.editBooking.id, carbrand, carname, caryear, carcolor, carsize, address, bookingprice, selectedDate)
+        }
         console.log(resdata)    // affectedRows
 
         if(resdata.affectedRows) {
@@ -68,7 +73,7 @@ class EditBookingModal extends Component {
     render() {
         console.log(this.props.editBooking)
 
-        const {  car_brand, car_name, car_size, location_address, booking_price, car_color, car_year } = this.props.editBooking
+        const { car_brand, car_name, car_size, location_address, booking_price, car_color, car_year } = this.props.editBooking
         // { booking_date, car_brand, car_name, car_size, location_type, location_address, booking_price, contact_number, car_color, car_year }
 
         return (
@@ -154,4 +159,4 @@ class EditBookingModal extends Component {
     }
 }
 
-export default connect(null, { editDetailingBooking } )(EditBookingModal)
+export default connect(null, { editDetailingBooking, editDetailingBooking_Guest } )(EditBookingModal)

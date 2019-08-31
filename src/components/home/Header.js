@@ -1,5 +1,5 @@
 import React from 'react';
-import {Link} from 'react-router-dom';
+import {Link, withRouter} from 'react-router-dom';
 import { connect } from 'react-redux'
 import {
     Button,
@@ -19,6 +19,9 @@ import { onLogout, getCarts } from '../../actions/index'
     
 import streetcrown_logo from '../../images/streetcrown-logo.png'
 import avatar_default from '../../images/avatar_default.png'
+import cookies from 'universal-cookie'
+
+const cookie = new cookies()
 
 
 class Header extends React.Component {
@@ -52,6 +55,14 @@ class Header extends React.Component {
       return totalQuantity
     }
 
+    logoutButton = async () => {
+      await this.props.onLogout()
+      await cookie.remove('streetcrownUser')
+      return (
+        this.props.history.push('/')
+      )
+    }
+
 
     render() {
       
@@ -75,11 +86,11 @@ class Header extends React.Component {
                     <Nav className="ml-auto" navbar>
 
                         <NavItem>
-                            <Link className="nav-link" to="/cart" style={{ color: "white" }}> <span className="badge badge-light round"> {this.countQuantityCart()} </span>  </Link>
+                            <Link className="nav-link" to="/cart" style={{ color: "white" }}> <span className="badge badge-light round wobble"> {this.countQuantityCart()} </span>  </Link>
                         </NavItem>
 
                         <NavItem>
-                            <Link className="nav-link" to="/cart" style={{ color: "white" }}><i className="material-icons">shopping_cart</i></Link>
+                            <Link className="nav-link" to="/cart" style={{ color: "white" }}><i className="material-icons wobble">shopping_cart</i></Link>
                         </NavItem>
                         
                         <UncontrolledDropdown nav inNavbar>
@@ -109,7 +120,7 @@ class Header extends React.Component {
                                 <DropdownItem>Edit Profile</DropdownItem>
                             </Link> */}
                             <DropdownItem divider />
-                            <Button className="dropdown-item" onClick={ () => this.props.onLogout() } >
+                            <Button className="dropdown-item" onClick={ () => this.logoutButton() } >
                                 Log out
                             </Button>
                             
@@ -198,4 +209,4 @@ const mapStateToProps = state => {
   }
 }
 
-export default connect(mapStateToProps, { onLogout, getCarts })(Header);
+export default withRouter(connect(mapStateToProps, { onLogout, getCarts })(Header));

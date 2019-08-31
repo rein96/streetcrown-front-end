@@ -3,7 +3,7 @@ import { Link, withRouter } from 'react-router-dom'
 import { connect } from 'react-redux'
 import Swal from 'sweetalert2'
 
-import { getDetailingData, addAddress, carDetailingBooking } from '../../actions/index'
+import { getDetailingData, addAddress, carDetailingBooking, carDetailingBooking_Guest } from '../../actions/index'
 
 import comparisonSize from '../../images/comparison-car-size.png'
 
@@ -109,23 +109,29 @@ class BookingForm extends Component {
     }
 
     bookingButton = async () => {
-        if(this.props.objectUser.username === '') {
-            const result = await Swal.fire({
-                title: 'Login First!',
-                text: "To book our service, user should login first.",
-                type: 'warning',
-                // showCancelButton: true,
-                confirmButtonColor: '#5cb85c',
-                // cancelButtonColor: '#f9f9f9',
-                confirmButtonText: 'Login Now!'
-              })
+        // if(this.props.objectUser.username === '') {
+        //     const result = await Swal.fire({
+        //         title: 'Login First!',
+        //         text: "To book our service, user should login first.",
+        //         type: 'warning',
+        //         // showCancelButton: true,
+        //         confirmButtonColor: '#5cb85c',
+        //         // cancelButtonColor: '#f9f9f9',
+        //         confirmButtonText: 'Login Now!'
+        //       })
 
-            if (result.value) {
-                return this.props.history.push('/login')
-            }
+        //     if (result.value) {
+        //         return this.props.history.push('/login')
+        //     }
+        // }
+
+        // guestname variable will be appear for guest mode (not logged-in user)
+        if( this.props.objectUser.username === '' ) {
+            var guestname = this.guestname.value
+            if(guestname.length < 3) { return alert('Please input your name(non-registered user) at least 3 characters.') }
         }
 
-        var carbrand = (this.carbrand.value).toUpperCase()
+        var carbrand = this.carbrand.value.toUpperCase()
         var carname = this.carname.value.toUpperCase()
         if(carbrand === ''){
             return alert('Please input the car brand')
@@ -171,9 +177,16 @@ class BookingForm extends Component {
         console.log(selectedAddress)
         console.log(selectedDate, caryear, carcolor)
         console.log(contactNumber)
-        const resdata = await this.props.carDetailingBooking(
-            this.props.objectUser.id, this.state.priceData.id, carbrand, carname, selectedSize, selectedLocationType,
-             selectedAddress, selectedDate, contactNumber, caryear, carcolor)
+
+        if(guestname){ 
+            var resdata = await this.props.carDetailingBooking_Guest( guestname, this.state.priceData.id, carbrand, carname, selectedSize, selectedLocationType,
+                selectedAddress, selectedDate, contactNumber, caryear, carcolor)
+        } else {
+            var resdata = await this.props.carDetailingBooking(
+                this.props.objectUser.id, this.state.priceData.id, carbrand, carname, selectedSize, selectedLocationType,
+                 selectedAddress, selectedDate, contactNumber, caryear, carcolor)
+        }
+
         console.log(resdata)
         if(resdata.insertId){
             Swal.fire({
@@ -218,7 +231,10 @@ class BookingForm extends Component {
                         <h3> 
                             <i className="material-icons" style={ bookStyle }>book</i> Booking Form <i className="material-icons" style={ bookStyle }>book</i>   <br/><br/>
                             <b> {this.state.detailingName} </b> 
-                        </h3>  
+                        </h3> 
+
+                        {/* GUEST MODE OR REGISTERED */}
+                        <h5> { this.props.objectUser.username !== '' ? <span className="badge badge-success"> Registered Account Form </span> : <span className="badge badge-info"> Guest Form </span> } </h5> 
                     </center>
 
 
@@ -227,6 +243,19 @@ class BookingForm extends Component {
                         <div className="col-12 col-sm-12 col-lg-6">
 
                             <h3> Required Form </h3>
+
+                            {/* GUEST MODE OR REGISTERED */}
+                            { this.props.objectUser.username === '' ?
+                                <div className="form-group">
+                                    <label>Name (Non-registered user)</label>
+                                    <form className="input-group">
+                                        <input ref={input => this.guestname = input} className="form-control radius-custom" type="text" placeholder="Your name"  required />
+                                    </form>
+                                    <small class="form-text text-muted">Required</small>
+                                </div> : '' 
+                            }
+
+                            
 
                             <div className="form-group">
                                 <label>Car Brand</label>
@@ -406,4 +435,4 @@ const mapStateToProps = state => ({
     objectUser : state.auth
 })
 
-export default withRouter(connect( mapStateToProps, { getDetailingData, addAddress, carDetailingBooking } )(BookingForm))
+export default withRouter(connect( mapStateToProps, { getDetailingData, addAddress, carDetailingBooking, carDetailingBooking_Guest } )(BookingForm))

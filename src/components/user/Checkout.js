@@ -5,10 +5,7 @@ import Swal from 'sweetalert2'
 
 import { getCarts, addAddress, postCheckout, deleteCartsAfterCheckout } from '../../actions/index'
 
-import payment_bca from '../../images/payment-bca.jpg'
-import payment_gopay from '../../images/payment-gopay.png'
-import payment_jenius from '../../images/payment-jenius.png'
-import payment_ovo from '../../images/payment-ovo.png'
+import payment from '../../images/payment.png'
 
 const verticalCenter = {
     minHeight: '100vh',
@@ -170,44 +167,16 @@ class Checkout extends Component {
                         </form>
                     </div>
 
+                    
+                    <center>
+                        <img src={payment} alt="payment choices" className="img-fluid radius-custom" style={{ width: '400px' }} />
+                    </center>
+
+                    <br/>
+
                     <button className="btn btn-success btn-block radius-custom" onClick={ () => this.submitCheckout() } >SUBMIT</button>
 
                     <br/><br/>
-
-                    <div class="card-group">
-                        <div class="card">
-                            <img src={payment_bca} className="card-img-top mx-auto" style={{ height: '65px' }} alt="..." />
-                            <div className="card-body">
-                                <h5 className="card-title">BCA</h5>
-                                <p className="card-text">a/n Reinhart Andreas 789789456451</p>
-                                </div>
-
-                        </div>
-                        <div className="card">
-                            <img src={payment_gopay} className="card-img-top mx-auto" style={{ height: '65px' }} alt="..."  />
-                            <div className="card-body">
-                                <h5 className="card-title">GO-PAY</h5>
-                                <p className="card-text">a/n Reinhart Andreas 789789456451</p>
-                                </div>
-
-                        </div>
-                        <div className="card">
-                            <img src={payment_jenius} className="card-img-top mx-auto" style={{ height: '65px' }} alt="..."  />
-                            <div className="card-body">
-                                <h5 className="card-title">Jenius</h5>
-                                <p className="card-text">a/n Reinhart Andreas 789789456451</p>
-                                </div>
-
-                        </div>
-                        <div className="card">
-                            <img src={payment_ovo} className="card-img-top mx-auto" style={{ height: '65px' }} alt="..."  />
-                            <div className="card-body">
-                                <h5 className="card-title">OVO</h5>
-                                <p className="card-text">a/n Reinhart Andreas 789789456451</p>
-                                </div>
-
-                        </div>
-                    </div>
 
 
                     <br/><br/><br/>

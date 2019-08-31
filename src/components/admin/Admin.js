@@ -75,7 +75,7 @@ class Admin extends Component {
 
                         </div>
 
-                        {/* <ManageUsers /> */}
+                        {/* <ManageBooking /> */}
                         <div className="col-12 col-sm-12 col-md-12 col-lg-4">
                                                 
                             <div className="card m-5 shadow-lg" style={{ borderRadius: '20px' }} >
@@ -90,12 +90,46 @@ class Admin extends Component {
                                     </div>
                                 </Link>
                             </div>
-
+                            
                         </div>
 
                     </div>
 
                 </div>
+
+
+                {/* <div className="modal fade" id="managebooking" tabIndex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div className="modal-dialog modal-l" role="document">
+                        <div className="modal-content">
+                            <div className="modal-header">
+                                <h5 className="modal-title" id="exampleModalLabel">Edit Product</h5>
+                                <button type="button" className="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div className="modal-body">
+                                <div className="form-row">
+                                    <Link to="/managebookingregistered" >
+                                        <button className="btn btn-outline-danger"> 
+                                            Registered Account Detailing Booking     
+                                        </button>
+                                    
+                                    </Link>
+
+                                    <Link to="/managebookingguest" >
+                                        <button className="btn btn-outline-danger">
+                                            Guest Detaling Booking                                        
+                                        </button>                                
+                                    </Link>
+                                </div>
+                            </div>
+
+                            <div className="modal-footer">
+                                <button type="button" className="btn btn-danger" data-dismiss="modal">Close</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>  */}
 
                 <br/><br/><br/>
 

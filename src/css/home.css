@@ -65,6 +65,18 @@ animation-iteration-count: 1;
 }
 
 
+/* HOVER CARD PRODUCSERVICES.JS 3 CARDS */
+.coba {
+	transition: transform .2s;
+}
+
+.coba:hover {
+	-ms-transform: scale(1.4); /* IE 9 */
+	-webkit-transform: scale(1.4); /* Safari 3-8 */
+	transform: scale(1.4);
+	filter: brightness(120%);
+}
+
 
 /* Floating Button Whatsapp */
 .float{
@@ -96,6 +108,7 @@ animation-iteration-count: 1;
 	margin-top:5px;
 	font-size:30px;
 }
+
 
 
 

@@ -10,6 +10,8 @@ class CarDetailing extends Component {
 
             <section class="pricing py-5">
 
+              <center> <h3> <b> Car Detailing Booking Form </b> </h3> </center>
+
                 <div class="container">
                   <div class="row">
                    
@@ -39,7 +41,7 @@ class CarDetailing extends Component {
 
 
                     <div class="col-lg-4">
-                      <div class="card">
+                      <div class="card wobble">
                         <div class="card-body">
                           <h5 class="card-title text-center"> <i class="material-icons" style={hotStyle}>whatshot</i> <span className="badge badge-pill badge-danger" > BEST CHOICE !  </span>  <i class="material-icons" style={hotStyle}>whatshot</i> </h5>
                           <h6 class="card-price text-center"> <b>NANO CERAMIC COATING</b> </h6>
