@@ -17,7 +17,6 @@ class BookingForm extends Component {
     }
 
     async componentWillMount(){
-        window.scrollTo(0, 0);
         let servicename = this.props.match.params.servicename
         if(servicename) {
             const resdata = await this.props.getDetailingData(servicename)
@@ -160,6 +159,27 @@ class BookingForm extends Component {
         var caryear = this.caryear.value
         var carcolor = this.carcolor.value
 
+        // DATE
+        var today = new Date()
+        // var dd = today.getDate()
+        // var mm  = today.getMonth() + 1  // January is 0 index | getMonth = 0-11 index
+        var yyyy = today.getFullYear()
+
+        var splitDate = selectedDate.split('-')
+        // console.log(splitDate)
+
+        if(splitDate[0] < yyyy ) {
+            return alert(`Minimum Year is ${yyyy}`)
+        }
+
+        // if(splitDate[1] < mm ) {
+        //     return alert(`Minimum Month is ${mm} `)
+        // }
+
+        // if(splitDate[2] < dd ) {
+        //     return alert(`Minimum Date is ${dd}`)
+        // }
+
         if(caryear === ''){
             caryear = 'No info'
         }
@@ -251,7 +271,7 @@ class BookingForm extends Component {
                                     <form className="input-group">
                                         <input ref={input => this.guestname = input} className="form-control radius-custom" type="text" placeholder="Your name"  required />
                                     </form>
-                                    <small class="form-text text-muted">Required</small>
+                                    <small className="form-text text-muted">Required</small>
                                 </div> : '' 
                             }
 
@@ -262,7 +282,7 @@ class BookingForm extends Component {
                                 <form className="input-group">
                                     <input ref={input => this.carbrand = input} className="form-control radius-custom" type="text" placeholder="Example : Toyota, Mercedes-Benz, BMW"  required />
                                 </form>
-                                <small class="form-text text-muted">Required</small>
+                                <small className="form-text text-muted">Required</small>
                             </div>
 
                             <div className="form-group">
@@ -270,7 +290,7 @@ class BookingForm extends Component {
                                 <form className="input-group">
                                     <input ref={input => this.carname = input} className="form-control radius-custom" type="text" placeholder="Example : Land-cruiser, C200, X1"  required />
                                 </form>
-                                <small class="form-text text-muted">Required</small>
+                                <small className="form-text text-muted">Required</small>
                             </div>
 
                             <div className="form-group">
@@ -285,7 +305,7 @@ class BookingForm extends Component {
                                         <option value={'XL'} className="radius-custom">Extra Large / Supercar</option>
                                     </select>
                                 </form>
-                                <small class="form-text text-muted"> Don't worry if you are not sure what size your car, we will check again and correct the size and the price.</small>
+                                <small className="form-text text-muted"> Don't worry if you are not sure what size your car, we will check again and correct the size and the price.</small>
 
                                 {/* COMPARISON SIZE IMAGE */}
                                 <button className="btn btn-link" onClick={ () => this.imageModal() }>
@@ -302,7 +322,7 @@ class BookingForm extends Component {
                                             <option value={'Home'} className="radius-custom">Home Service</option>
                                     </select>
                                 </form>
-                                <small class="form-text text-muted">Required</small>
+                                <small className="form-text text-muted">Required</small>
                             </div>
 
                             {/* Show Add Address UI for Home Service */}
@@ -340,7 +360,7 @@ class BookingForm extends Component {
                                 <form className="input-group">
                                     <input ref={input => this.contactNumber = input} defaultValue={this.props.objectUser.phone_number} className="form-control radius-custom" type="text" placeholder="Whatsapp Number is recommended"  required />
                                 </form>
-                                <small class="form-text text-muted">Recommendation : Whatsapp Number</small>
+                                <small className="form-text text-muted">Recommendation : Whatsapp Number</small>
                             </div>
 
                         </div>   {/* END OF COL REQUIRED */}
@@ -355,7 +375,7 @@ class BookingForm extends Component {
                             <form className="input-group">
                                 <input ref={input => this.caryear = input} className="form-control radius-custom" type="text" placeholder="(Optional) Example : 1996, 2011, 2019"  />
                             </form>
-                            <small class="form-text text-muted">Optional</small>
+                            <small className="form-text text-muted">Optional</small>
                         </div>
 
                         <div className="form-group">
@@ -363,7 +383,7 @@ class BookingForm extends Component {
                             <form className="input-group">
                                 <input ref={input => this.carcolor = input} className="form-control radius-custom" type="text" placeholder="(Optional) Example : Black, Grey, White"  />
                             </form>
-                            <small class="form-text text-muted">Optional</small>
+                            <small className="form-text text-muted">Optional</small>
                         </div>
 
 

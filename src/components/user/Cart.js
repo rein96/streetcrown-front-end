@@ -115,7 +115,7 @@ class Cart extends Component {
 
                                 <p className="card-text"> Rp {(cart.price).toLocaleString()} / Unit </p>
                                 <p className="card-text"> Rp {(cart.quantity*cart.price).toLocaleString()} </p>
-                                <button className="btn btn-outline-danger"  onClick={ () => this.deleteCartButton(cart.id) } > <i class="fa fa-trash-o"></i> </button> 
+                                <button className="btn btn-outline-danger"  onClick={ () => this.deleteCartButton(cart.id) } > <i className="fa fa-trash-o"></i> </button> 
 
                             </div>
 

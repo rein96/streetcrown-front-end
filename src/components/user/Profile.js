@@ -64,6 +64,8 @@ class Profile extends Component {
     addAddress = () => {
         const newAddress = this.address.value
 
+        if(newAddress === '') { return alert('Please insert your address') }
+
         this.props.addAddress(newAddress, this.props.objectUser)
 
         this.address.value = '';
@@ -84,9 +86,6 @@ class Profile extends Component {
     deleteAddress = (addressId) => {
         this.props.deleteAddress(addressId, this.props.objectUser)
     }
-
-
-
 
     render() {
 
@@ -117,7 +116,7 @@ class Profile extends Component {
                             </div>
 
                             <div className="col">
-                                { is_admin === 1 ? <span class="badge badge-success">admin</span> : '' }
+                                { is_admin === 1 ? <span className="badge badge-success">admin</span> : '' }
 
                                 <h4> Name : {name} </h4>
                                 <h5> Username    : {username}</h5>

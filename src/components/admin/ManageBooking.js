@@ -26,7 +26,7 @@ class ManageBooking extends Component {
                                     {/* <img className="card-img-top" src={manageProducts} style={borderTop} alt="Card cap" /> */}
                                     <div className="card-body">
                                         <center>
-                                            <button className="card-title btn btn-danger">Manage Booking Registered Account  <i class="material-icons" style={ emoticon } >verified_user</i> </button>
+                                            <button className="card-title btn btn-danger">Manage Booking Registered Account  <i className="material-icons" style={ emoticon } >verified_user</i> </button>
                                             {/* <p className="card-text text-body">Add, Edit, Delete Product.</p> */}
                                         </center>
                                     </div>
@@ -43,7 +43,7 @@ class ManageBooking extends Component {
                                     {/* <img className="card-img-top" src={transactionImage} style={borderTop} alt="Card cap"/> */}
                                     <div className="card-body">
                                         <center>
-                                            <button className="card-title btn btn-danger">Manage Booking Guest <i class="material-icons" style={ emoticon }>person_outline</i> </button>
+                                            <button className="card-title btn btn-danger">Manage Booking Guest <i className="material-icons" style={ emoticon }>person_outline</i> </button>
                                             {/* <p className="card-text text-body"> Add resi number, check payment proof, transaction detail, reject and complete a payment. </p> */}
                                         </center>
                                     </div>

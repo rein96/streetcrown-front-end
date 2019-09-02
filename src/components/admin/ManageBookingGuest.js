@@ -183,9 +183,9 @@ class ManageBookingGuest extends Component {
                 <center>
                     <br/>
                     <h2 className="mt-3"> 
-                        <i class="material-icons" style={faceStyle}>face</i>
+                        <i className="material-icons" style={faceStyle}>face</i>
                             &nbsp; <span className="badge badge-info">Guest</span> Detailing Booking Log   &nbsp;
-                        <i class="material-icons" style={faceStyle}>face</i> 
+                        <i className="material-icons" style={faceStyle}>face</i> 
                     </h2>
                     <br/>
 
@@ -211,7 +211,7 @@ class ManageBookingGuest extends Component {
                                         <th scope="col">ACTION</th>
                                     </tr>   
                                 </thead>
-                                <tbody> {this.renderBookingByLocation('Sunter Pulo Kecil')}  </tbody>      
+                                <tbody>{this.renderBookingByLocation('Sunter Pulo Kecil')}</tbody>      
                                 
                         </table>
 
@@ -233,7 +233,7 @@ class ManageBookingGuest extends Component {
                                         <th scope="col">ACTION</th>
                                     </tr>   
                                 </thead>
-                                <tbody> {this.renderBookingByLocation('Taman Kopo Indah')}  </tbody>      
+                                <tbody>{this.renderBookingByLocation('Taman Kopo Indah')}</tbody>      
                                 
                         </table>
                         
@@ -255,7 +255,7 @@ class ManageBookingGuest extends Component {
                                         <th scope="col">ACTION</th>
                                     </tr>   
                                 </thead>
-                                <tbody> {this.renderBookingByLocation('Home')}  </tbody>      
+                                <tbody>{this.renderBookingByLocation('Home')}</tbody>      
                         </table>
                         
                     </div>

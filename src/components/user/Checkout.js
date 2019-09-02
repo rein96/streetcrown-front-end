@@ -138,7 +138,7 @@ class Checkout extends Component {
 
 
                     <div className="form-group">
-                        <label for="uname1">Address</label>
+                        <label htmlFor="uname1">Address</label>
                         <form className="input-group">
 
                             <select className="custom-select radius-custom" name='selectedAddress' ref={ input => this.selectedAddress = input } >

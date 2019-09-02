@@ -71,9 +71,9 @@ animation-iteration-count: 1;
 }
 
 .coba:hover {
-	-ms-transform: scale(1.4); /* IE 9 */
-	-webkit-transform: scale(1.4); /* Safari 3-8 */
-	transform: scale(1.4);
+	-ms-transform: scale(1.2); /* IE 9 */
+	-webkit-transform: scale(1.2); /* Safari 3-8 */
+	transform: scale(1.2);
 	filter: brightness(120%);
 }
 
@@ -200,26 +200,39 @@ footer{
 
 		width:100% !important;
         min-width:100 !important;
-        height: auto;
+		height: auto;
+		margin: 0 auto;
 	}
 }
 @media (min-width: 576px) {
 	.carousel-inner img {
-		width: 90%;
-		height: 100%;
+		height:300px !important;
+
+		width:100% !important;
+        min-width:100 !important;
+		height: auto;
+		margin: 0 auto;
 	}
 }
 
 @media (min-width: 768px) {
 	.carousel-inner img {
-		width: 80%;
-		height: 100%;
+		height:400px !important;
+
+		width:90% !important;
+        min-width:100 !important;
+		height: auto;
+		margin: 0 auto;
 	}
 }
 @media (min-width: 992px) {
 	.carousel-inner img {
-		width: 70%;
-		height: 100%;
+		height:500px !important;
+
+		width:100% !important;
+		/* min-width:1000 !important; */
+		max-width: 900px; 
+		margin: 0 auto;
 	}
 }
 
@@ -231,7 +244,9 @@ footer{
 		height:500px !important;
 
 		width:100% !important;
-        min-width:100 !important;
+		/* min-width:1000 !important; */
+		max-width: 900px; 
+		margin: 0 auto;
 	}
 }
 

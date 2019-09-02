@@ -70,14 +70,14 @@ class Header extends React.Component {
       if(this.props.objectUser.username !== '') {
         return (
           <Navbar color="dark" dark expand="md">
-          <NavbarBrand> 
+          <NavbarBrand href="/"> 
             {/* <Link to='/'> <img src={streetcrown_logo} width="100px" />  </Link>  */}
-            <a href="/"> <img src={streetcrown_logo} width="100px" /> </a> 
+            <img src={streetcrown_logo} width="100px" /> 
           </NavbarBrand>
 
           <NavbarBrand href="/">
           {/* <Link to='/'><span style={{ color: "white" }}> StreetCrown </span></Link>  */}
-            <a href="/"> <span style={{ color: "white" }}> StreetCrown </span> </a> 
+            <span style={{ color: "white" }}> StreetCrown </span> 
           </NavbarBrand>
 
 

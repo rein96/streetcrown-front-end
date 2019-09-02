@@ -141,7 +141,7 @@ class AddBookingModal extends Component {
             <div>
                 {/* Whatsapp Floating Button */}
                 <Button className="fixed-button float wobble" onClick={this.toggle} style={{ zIndex : 2, backgroundColor: '#041B2D', width : '60px', height : '60px', right: '10px', bottom : '-5px' }} >
-                <center> <i class="material-icons" style={{ fontSize : '28px' }}>add</i> </center>
+                <center> <i className="material-icons" style={{ fontSize : '28px' }}>add</i> </center>
                 </Button>
 
                 {/* Modal Reactstrap */}
@@ -210,7 +210,7 @@ class AddBookingModal extends Component {
                                     <option value={'Home'} className="radius-custom">Home Service</option>
                             </select>
                         </form>
-                        <small class="form-text text-muted">Required</small>
+                        <small className="form-text text-muted">Required</small>
                     </div>
 
                     {/* Show Add Address UI for Home Service */}

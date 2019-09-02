@@ -100,7 +100,7 @@ class ManageBookingRegistered extends Component {
 
     renderBookingByLocation = (inputByAddress) => {
 
-        if(inputByAddress == 'Home') {
+        if(inputByAddress === 'Home') {
             var arrayBooking = this.state.allBooking.filter( booking => {
                 return booking.location_type.includes('Home')
             })
@@ -184,9 +184,9 @@ class ManageBookingRegistered extends Component {
                 <center>
                     <br/>
                     <h2 className="mt-3"> 
-                        <i class="material-icons" style={faceStyle}>face</i>
+                        <i className="material-icons" style={faceStyle}>face</i>
                             &nbsp; <span className="badge badge-primary">Registered</span> Detailing Booking Log   &nbsp;
-                        <i class="material-icons" style={faceStyle}>face</i> 
+                        <i className="material-icons" style={faceStyle}>face</i> 
                     </h2>
                     <br/>
 
@@ -212,7 +212,7 @@ class ManageBookingRegistered extends Component {
                                         <th scope="col">ACTION</th>
                                     </tr>   
                                 </thead>
-                                <tbody> {this.renderBookingByLocation('Sunter Pulo Kecil')}  </tbody>      
+                                <tbody>{this.renderBookingByLocation('Sunter Pulo Kecil')}</tbody>      
                                 
                         </table>
 
@@ -234,7 +234,7 @@ class ManageBookingRegistered extends Component {
                                         <th scope="col">ACTION</th>
                                     </tr>   
                                 </thead>
-                                <tbody> {this.renderBookingByLocation('Taman Kopo Indah')}  </tbody>      
+                                <tbody>{this.renderBookingByLocation('Taman Kopo Indah')}</tbody>      
                                 
                         </table>
                         
@@ -256,7 +256,7 @@ class ManageBookingRegistered extends Component {
                                         <th scope="col">ACTION</th>
                                     </tr>   
                                 </thead>
-                                <tbody> {this.renderBookingByLocation('Home')}  </tbody>      
+                                <tbody>{this.renderBookingByLocation('Home')}</tbody>      
                         </table>
                         
                     </div>

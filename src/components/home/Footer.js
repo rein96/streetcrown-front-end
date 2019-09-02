@@ -97,18 +97,13 @@ class Footer extends Component {
                             </div>
                         </div>
                         
-
                     </div>
-
-
-
-
-                        
+                
                 </div>
 
                 <center> 
-                    <small class="text-white">Copyright {new Date().getFullYear()} &copy; StreetCrown</small> <br/>  
-                    <small class="text-white">Privacy Policy   |  Terms of use</small>
+                    <small className="text-white">Copyright {new Date().getFullYear()} &copy; StreetCrown</small> <br/>  
+                    <small className="text-white">Privacy Policy   |  Terms of use</small>
                 </center>
                 </div>
             </footer>

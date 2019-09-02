@@ -177,7 +177,7 @@ class TransactionUser extends Component {
                         <div className="col-8 col-md-8">
 
                         <div className="card-body">
-                            <h5 className="card-title">
+                            <div className="card-title">
                                 <h5> Total : Rp {price_total.toLocaleString()}  </h5>
                                 <br/>
                                 <h5> Recipient Name: {order_recipient} </h5>
@@ -185,7 +185,7 @@ class TransactionUser extends Component {
                                 <h5> {order_phone_number} </h5>
                                 <br/><br/>
                                 <h5> Resi Number : {order_resi_number === null ? <span> 'Not uploaded yet by admin' </span> : <span> {order_resi_number}</span> } </h5>
-                            </h5>
+                            </div>
 
                         </div>
 
@@ -223,9 +223,9 @@ class TransactionUser extends Component {
             <div className="container">
                 <center>
                     <h2 className="mt-3"> 
-                        <i class="material-icons" style={paymentStyle} >payment</i>
+                        <i className="material-icons" style={paymentStyle} >payment</i>
                             Transaction 
-                        <i class="material-icons" style={paymentStyle}>payment</i>  
+                        <i className="material-icons" style={paymentStyle}>payment</i>  
                      </h2>
 
                      {this.renderTransaction()}

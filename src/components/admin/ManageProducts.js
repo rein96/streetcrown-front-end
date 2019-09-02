@@ -13,9 +13,9 @@ class ManageProducts extends Component {
 
     categoryOptions = () => {
         const categories = ['Exterior','Interior','Engine']
-        let result = categories.map( (category) => {
+        let result = categories.map( (category, index) => {
             return (
-                <option value={category}>{category}</option>
+                <option key={index} value={category}>{category}</option>
             )
         })
 
@@ -66,7 +66,7 @@ class ManageProducts extends Component {
                     {/* <th scope="col">{product.id}</th> */}
                     <th scope="col"><p>{name}</p></th>
                     <th scope="col">{category}</th>
-                    <th scope="col"><p>{description}</p></th>
+                    <th scope="col"><p style={{ whiteSpace : "pre-line" }}>{description}</p></th>
                     <th scope="col">{price}</th>
                     <th scope="col">
                         <img src={`http://localhost:2019/products/${image}`} style={{ width: "150px" }} />
@@ -118,7 +118,7 @@ class ManageProducts extends Component {
 
                                                     Category : 
                                                     <form className="input-group">
-                                                        <select class="custom-select" name="selectedCategory" ref={input => this.selectedCategory = input} >
+                                                        <select className="custom-select" name="selectedCategory" ref={input => this.selectedCategory = input} >
                                                             {this.categoryOptions()}
                                                         </select>
                                                     </form>

@@ -8,81 +8,81 @@ class CarDetailing extends Component {
         return (
             // <div className="container mt-5 mb-5">          
 
-            <section class="pricing py-5">
+            <section className="pricing py-5">
 
               <center> <h3> <b> Car Detailing Booking Form </b> </h3> </center>
 
-                <div class="container">
-                  <div class="row">
+                <div className="container">
+                  <div className="row">
                    
-                    <div class="col-lg-4">
+                    <div className="col-lg-4">
                       <br/>
-                      <div class="card mb-5 mb-lg-0">
-                        <div class="card-body">
-                          {/* <h5 class="card-title text-muted text-uppercase text-center">Quick Polish</h5> */}
-                          <h6 class="card-price text-center"> <b>QUICK POLISH</b> </h6>
+                      <div className="card mb-5 mb-lg-0">
+                        <div className="card-body">
+                          {/* <h5 className="card-title text-muted text-uppercase text-center">Quick Polish</h5> */}
+                          <h6 className="card-price text-center"> <b>QUICK POLISH</b> </h6>
                           <hr />
-                          <ul class="fa-ul">
-                            <li><span class="fa-li"><i class="material-icons">check</i></span>Single User</li>
-                            <li><span class="fa-li"><i class="material-icons">check</i></span>5GB Storage</li>
-                            <li><span class="fa-li"><i class="material-icons">check</i></span>Unlimited Public Projects</li>
-                            <li><span class="fa-li"><i class="material-icons">check</i></span>Community Access</li>
-                            <li class="text-muted"><span class="fa-li"><i class="fas fa-times"></i></span>Unlimited Private Projects</li>
-                            <li class="text-muted"><span class="fa-li"><i class="fas fa-times"></i></span>Dedicated Phone Support</li>
-                            <li class="text-muted"><span class="fa-li"><i class="fas fa-times"></i></span>Free Subdomain</li>
-                            <li class="text-muted"><span class="fa-li"><i class="fas fa-times"></i></span>Monthly Status Reports</li>
+                          <ul className="fa-ul">
+                            <li><span className="fa-li"><i className="material-icons">check</i></span>Single User</li>
+                            <li><span className="fa-li"><i className="material-icons">check</i></span>5GB Storage</li>
+                            <li><span className="fa-li"><i className="material-icons">check</i></span>Unlimited Public Projects</li>
+                            <li><span className="fa-li"><i className="material-icons">check</i></span>Community Access</li>
+                            <li className="text-muted"><span className="fa-li"><i className="fas fa-times"></i></span>Unlimited Private Projects</li>
+                            <li className="text-muted"><span className="fa-li"><i className="fas fa-times"></i></span>Dedicated Phone Support</li>
+                            <li className="text-muted"><span className="fa-li"><i className="fas fa-times"></i></span>Free Subdomain</li>
+                            <li className="text-muted"><span className="fa-li"><i className="fas fa-times"></i></span>Monthly Status Reports</li>
                           </ul>
                           <Link to='/bookingform/quick-polish'>
-                            <button href="#" class="btn btn-block btn-primary text-uppercase">Button</button>                          
+                            <button href="#" className="btn btn-block btn-primary text-uppercase">BOOK NOW</button>                          
                           </Link>
                         </div>
                       </div>
                     </div>
 
 
-                    <div class="col-lg-4">
-                      <div class="card wobble">
-                        <div class="card-body">
-                          <h5 class="card-title text-center"> <i class="material-icons" style={hotStyle}>whatshot</i> <span className="badge badge-pill badge-danger" > BEST CHOICE !  </span>  <i class="material-icons" style={hotStyle}>whatshot</i> </h5>
-                          <h6 class="card-price text-center"> <b>NANO CERAMIC COATING</b> </h6>
+                    <div className="col-lg-4">
+                      <div className="card wobble">
+                        <div className="card-body">
+                          <h5 className="card-title text-center"> <i className="material-icons" style={hotStyle}>whatshot</i> <span className="badge badge-pill badge-danger" > BEST CHOICE !  </span>  <i className="material-icons" style={hotStyle}>whatshot</i> </h5>
+                          <h6 className="card-price text-center"> <b>NANO CERAMIC COATING</b> </h6>
                           <hr/>
-                          <ul class="fa-ul">
-                            <li><span class="fa-li"><i class="material-icons">check</i></span><strong>Unlimited Users</strong></li>
-                            <li><span class="fa-li"><i class="material-icons">check</i></span>150GB Storage</li>
-                            <li><span class="fa-li"><i class="material-icons">check</i></span>Unlimited Public Projects</li>
-                            <li><span class="fa-li"><i class="material-icons">check</i></span>Community Access</li>
-                            <li><span class="fa-li"><i class="material-icons">check</i></span>Unlimited Private Projects</li>
-                            <li><span class="fa-li"><i class="material-icons">check</i></span>Dedicated Phone Support</li>
-                            <li><span class="fa-li"><i class="material-icons">check</i></span><strong>Unlimited</strong> Free Subdomains</li>
-                            <li><span class="fa-li"><i class="material-icons">check</i></span>Monthly Status Reports</li>
+                          <ul className="fa-ul">
+                            <li><span className="fa-li"><i className="material-icons">check</i></span><strong>Unlimited Users</strong></li>
+                            <li><span className="fa-li"><i className="material-icons">check</i></span>150GB Storage</li>
+                            <li><span className="fa-li"><i className="material-icons">check</i></span>Unlimited Public Projects</li>
+                            <li><span className="fa-li"><i className="material-icons">check</i></span>Community Access</li>
+                            <li><span className="fa-li"><i className="material-icons">check</i></span>Unlimited Private Projects</li>
+                            <li><span className="fa-li"><i className="material-icons">check</i></span>Dedicated Phone Support</li>
+                            <li><span className="fa-li"><i className="material-icons">check</i></span><strong>Unlimited</strong> Free Subdomains</li>
+                            <li><span className="fa-li"><i className="material-icons">check</i></span>Monthly Status Reports</li>
                           </ul>
                           <Link to='/bookingform/nano-ceramic-coating' >
-                            <button href="#" class="btn btn-block btn-primary text-uppercase">Button</button>
+                            <button href="#" className="btn btn-block btn-primary text-uppercase">BOOK NOW</button>
                           </Link>
                         </div>
                       </div>
                     </div>
 
                    
-                    <div class="col-lg-4">
+                    <div className="col-lg-4">
                       <br/>
-                      <div class="card mb-5 mb-lg-0">
-                        <div class="card-body">
-                          {/* <h5 class="card-title text-muted text-uppercase text-center">Full Detailing</h5> */}
-                          <h6 class="card-price text-center"> <b>FULL DETAILING</b> </h6>
+                      <div className="card mb-5 mb-lg-0">
+                        <div className="card-body">
+                          {/* <h5 className="card-title text-muted text-uppercase text-center">Full Detailing</h5> */}
+                          <h6 className="card-price text-center"> <b>FULL DETAILING</b> </h6>
                           <hr/>
-                          <ul class="fa-ul">
-                            <li><span class="fa-li"><i class="material-icons">check</i></span><strong>5 Users</strong></li>
-                            <li><span class="fa-li"><i class="material-icons">check</i></span>50GB Storage</li>
-                            <li><span class="fa-li"><i class="material-icons">check</i></span>Unlimited Public Projects</li>
-                            <li><span class="fa-li"><i class="material-icons">check</i></span>Community Access</li>
-                            <li><span class="fa-li"><i class="material-icons">check</i></span>Unlimited Private Projects</li>
-                            <li><span class="fa-li"><i class="material-icons">check</i></span>Dedicated Phone Support</li>
-                            <li><span class="fa-li"><i class="material-icons">check</i></span>Free Subdomain</li>
-                            <li class="text-muted"><span class="fa-li"><i class="fas fa-times"></i></span>Monthly Status Reports</li>
+                          <ul className="fa-ul">
+                            <li><span className="fa-li"><i className="material-icons">check</i></span><strong>5 Users</strong></li>
+                            <li><span className="fa-li"><i className="material-icons">check</i></span>50GB Storage</li>
+                            <li><span className="fa-li"><i className="material-icons">check</i></span>Unlimited Public Projects</li>
+                            <li><span className="fa-li"><i className="material-icons">check</i></span>Community Access</li>
+                            <li><span className="fa-li"><i className="material-icons">check</i></span>Unlimited Private Projects</li>
+                            <li><span className="fa-li"><i className="material-icons">check</i></span>Dedicated Phone Support</li>
+                            <li><span className="fa-li"><i className="material-icons">check</i></span>Free Subdomain</li>
+                            <li className="text-muted"><span className="fa-li"><i className="fas fa-times"></i></span>Monthly Status Reports</li>
                           </ul>
                           <Link to='/bookingform/full-detailing'>
-                            <button href="#" class="btn btn-block btn-primary text-uppercase">Button</button>
+                            <button href="#" className="btn btn-block btn-primary text-uppercase">BOOK NOW</button>
                           </Link>
                         </div>
                       </div>

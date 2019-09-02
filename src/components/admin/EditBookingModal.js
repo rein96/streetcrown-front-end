@@ -13,12 +13,12 @@ class EditBookingModal extends Component {
 
     categoryOptions = (car_size) => {
         const categories = ['0','Small','Medium','Large','XL']
-        let result = categories.map( (category) => {
+        let result = categories.map( (category, index) => {
             if(car_size === category){
-                return <option value={car_size} selected>{car_size}</option>
+                return <option key={index} value={car_size} selected>{car_size}</option>
             }
             return (
-                <option key={category.id} value={category}>{category}</option>
+                <option key={index} value={category}>{category}</option>
             )
         })
 
@@ -113,7 +113,7 @@ class EditBookingModal extends Component {
 
                                     Car Size : 
                                     <form className="input-group">
-                                        <select class="custom-select" name="carsize" ref={input => this.carsize = input} >
+                                        <select className="custom-select" name="carsize" ref={input => this.carsize = input} >
                                             {this.categoryOptions(car_size)}
                                         </select>
                                     </form>

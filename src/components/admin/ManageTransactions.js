@@ -207,9 +207,9 @@ class ManageTransactions extends Component {
 
     // Modal to see products & quantity on each transaction 
     renderTransactionDetail = () => {
-        let renderDetail = this.state.modalTransaction.map( transaction => {
+        let renderDetail = this.state.modalTransaction.map( (transaction, index) => {
             return (
-                <tr key={transaction.product_id} >
+                <tr key={index} >
                     <th scope="col">
                         <img src={`http://localhost:2019/products/${transaction.image}`} 
                             className="card-img" 
@@ -258,7 +258,7 @@ class ManageTransactions extends Component {
                         <span 
                             className={'badge badge-pill ' + order_status_style }   > {order_status} 
                         </span> <br/><br/>
-                        <button className="btn btn-outline-danger"  onClick={ () => this.deleteTransactionBtn(id, proof_of_payment) } > <i class="fa fa-trash-o"></i> </button>
+                        <button className="btn btn-outline-danger"  onClick={ () => this.deleteTransactionBtn(id, proof_of_payment) } > <i className="fa fa-trash-o"></i> </button>
                     </th>
 
                     <th scope="col">
@@ -269,14 +269,14 @@ class ManageTransactions extends Component {
                         <p> Name : {order_recipient} </p>
                         <p> Address : {order_address} </p>
                         <p> Phone : {order_phone_number} </p>
-                        <p> 
-                            Resi : { order_resi_number === null ? <button className="btn btn-info btn-sm" onClick={ () => this.addResi(id) } > Add Resi </button>      :  <p> 
+                        <div> 
+                            Resi : { order_resi_number === null ? <button className="btn btn-info btn-sm" onClick={ () => this.addResi(id) } > Add Resi </button>      :  <div> 
                                         {order_resi_number} 
                                         <button onClick={ () => this.deleteResi(id) } className="btn btn-link" style={{ color : '#d9534f' }} > 
-                                            <i class="material-icons">cancel</i> 
+                                            <i className="material-icons">cancel</i> 
                                         </button>
-                                    </p> }  
-                        </p>
+                                    </div> }  
+                        </div>
                     </th>
                     <th scope="col">
                         {proof_of_payment === null ? <p>
@@ -318,9 +318,9 @@ class ManageTransactions extends Component {
                 <center>
                     <br/>
                     <h2 className="mt-3"> 
-                            <i class="material-icons" style={paymentStyle} >payment</i>
+                            <i className="material-icons" style={paymentStyle} >payment</i>
                                 &nbsp; User Transactions &nbsp;
-                            <i class="material-icons" style={paymentStyle}>payment</i>  
+                            <i className="material-icons" style={paymentStyle}>payment</i>  
                     </h2>
                     <br/>
 
@@ -342,7 +342,7 @@ class ManageTransactions extends Component {
                                 </thead>
 
                                 {/* render all transaction */}
-                                <tbody> {this.renderTransactions()}  </tbody>                                                      
+                                <tbody>{this.renderTransactions()}</tbody>                                                      
 
                                 
                         </table>

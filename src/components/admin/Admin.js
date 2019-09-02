@@ -28,12 +28,12 @@ class Admin extends Component {
 
         return (
             <div>
-                <center> <h1 className="font-weight-bold mt-4"> Dashboard Admin <i class="material-icons" style={adminStyle} >verified_user</i> </h1> </center>
+                <center> <h1 className="font-weight-bold mt-4"> Dashboard Admin <i className="material-icons" style={adminStyle} >verified_user</i> </h1> </center>
 
                 <div className="mt-3">
                     <center>
                         <Link to='/manageusers' >
-                            <button className="btn btn-dark"> <i class="material-icons" style={{ verticalAlign : 'middle' }}>person</i> {this.state.countUsers} Registered Users </button>
+                            <button className="btn btn-dark coba"> <i className="material-icons" style={{ verticalAlign : 'middle' }}>person</i> {this.state.countUsers} Registered Users </button>
                         </Link>
                     </center>
                 </div>
@@ -44,7 +44,7 @@ class Admin extends Component {
                         {/* <ManageProducts /> */}
                         <div className="col-12 col-sm-12 col-md-12 col-lg-4">
 
-                            <div className="card m-5 shadow-lg" style={{ borderRadius: '20px' }} >
+                            <div className="card m-5 shadow-lg coba" style={{ borderRadius: '20px' }} >
                                 <Link to='/manageproducts'>
                                     <img className="card-img-top" src={manageProducts} style={borderTop} alt="Card cap" />
                                     <div className="card-body">
@@ -61,7 +61,7 @@ class Admin extends Component {
                         {/* <ManageTransactions /> */}
                         <div className="col-12 col-sm-12 col-md-12 col-lg-4">
                                                 
-                            <div className="card m-5 shadow-lg" style={{ borderRadius: '20px' }} >
+                            <div className="card m-5 shadow-lg coba" style={{ borderRadius: '20px' }} >
                                 <Link to='/managetransactions'>
                                     <img className="card-img-top" src={transactionImage} style={borderTop} alt="Card cap"/>
                                     <div className="card-body">
@@ -78,7 +78,7 @@ class Admin extends Component {
                         {/* <ManageBooking /> */}
                         <div className="col-12 col-sm-12 col-md-12 col-lg-4">
                                                 
-                            <div className="card m-5 shadow-lg" style={{ borderRadius: '20px' }} >
+                            <div className="card m-5 shadow-lg coba" style={{ borderRadius: '20px' }} >
                                 <Link to='/managebooking'>
                                     <img className="card-img-top" src={nanoCoating} style={borderTop} alt="Card cap" />
                                     {/* https://unsplash.com/photos/9n1USijYJZ4 */}

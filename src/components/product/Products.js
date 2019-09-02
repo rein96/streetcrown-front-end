@@ -6,11 +6,6 @@ import { getProducts } from '../../actions/index'
 
 import '../../css/products.css'
 
-const borderRadius = {
-    // width : '300px',
-    borderRadius: '18px'
-}
-
 class Products extends Component {
 
     state = {
@@ -32,7 +27,7 @@ class Products extends Component {
             return (
                 <div className="card col-11 col-sm-5 col-md-3 col-lg-3 m-3 shadow" key={product.id} style={ borderRadius }>
                     <center>
-                    <img src={`http://localhost:2019/products/${product.image}`} className="card-img-top shadow-lg mt-2" alt="products" style={borderRadius} />
+                    <img src={`http://localhost:2019/products/${product.image}`} className="card-img-top img-fluid shadow-lg mt-2" alt="products" style={borderRadiusPict} />
                     </center>
                     
                     <div className='card-body'>
@@ -198,6 +193,18 @@ class Products extends Component {
         )
     }
 }
+
+const borderRadius = {
+    // width : '300px',
+    borderRadius: '18px'
+}
+
+const borderRadiusPict = {
+    width : '300px',
+    borderRadius: '18px'
+}
+
+
 
 const mapStateToProps = state => {
     return{

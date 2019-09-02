@@ -25,7 +25,7 @@ class HomeModal extends Component {
             <div>
                 {/* Whatsapp Floating Button */}
                 <Button className="fixed-button wobble" onClick={this.toggle} >
-                    <i class="fa fa-whatsapp my-float"></i>
+                    <i className="fa fa-whatsapp my-float"></i>
                 </Button>
 
                 {/* Modal Reactstrap */}

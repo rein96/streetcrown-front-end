@@ -25,13 +25,13 @@ class EditProduct extends Component {
 
     categoryOptions = () => {
         const categories = ['Exterior','Interior','Engine']
-        let result = categories.map( (category) => {
+        let result = categories.map( (category, index) => {
             const defaultCategory = this.state.selectedProduct[0].category
             if(defaultCategory == category){
-                return <option value={defaultCategory} selected>{defaultCategory}</option>
+                return <option key={index} value={defaultCategory} selected>{defaultCategory}</option>
             }
             return (
-                <option value={category}>{category}</option>
+                <option key={index} value={category}>{category}</option>
             )
         })
 
@@ -118,7 +118,7 @@ class EditProduct extends Component {
                                 </div>
                                 <div className="form-group">
                                     <label htmlFor="email">Category</label>
-                                    <select class="custom-select" name="selectedCategory" ref={input => this.selectedCategory = input} >
+                                    <select className="custom-select" name="selectedCategory" ref={input => this.selectedCategory = input} >
                                         {this.categoryOptions()}
                                     </select>
                                 </div>
