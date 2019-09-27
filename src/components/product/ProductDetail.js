@@ -128,6 +128,7 @@ class ProductDetail extends Component {
         const { id, name, price, description, category, image } = this.state.selectedProduct
         return (
             <div className="jumbotron" style={verticalCenter}>
+                
                 <div className="container shadow-lg" style={{ borderRadius : '20px' }}>
                     <br/>
                 <Link to='/products' >
@@ -160,7 +161,7 @@ class ProductDetail extends Component {
 
                     </div>  {/* end of row */}
                 
-            </div>
+                </div>
 
             </div>
 

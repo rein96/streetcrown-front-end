@@ -155,30 +155,35 @@ class BookingForm extends Component {
             selectedAddress = splitArray[1]
         }
 
-        var selectedDate = this.selectedDate.value
+        var selectedDate = this.selectedDate.value  // 2019-09-03
         var caryear = this.caryear.value
         var carcolor = this.carcolor.value
 
         // DATE
         var today = new Date()
-        // var dd = today.getDate()
-        // var mm  = today.getMonth() + 1  // January is 0 index | getMonth = 0-11 index
+        var dd = today.getDate()
+        var mm  = today.getMonth() + 1  // January is 0 index | getMonth = 0-11 index
         var yyyy = today.getFullYear()
 
         var splitDate = selectedDate.split('-')
-        // console.log(splitDate)
+        console.log(splitDate)
 
         if(splitDate[0] < yyyy ) {
             return alert(`Minimum Year is ${yyyy}`)
         }
 
-        // if(splitDate[1] < mm ) {
-        //     return alert(`Minimum Month is ${mm} `)
-        // }
+        if(splitDate[1] < mm ) {
+            if( splitDate[0] < yyyy ){  // 2020 < 2019
+                return alert(`Format date is incorrect (2)`)
+            }
+        }
 
-        // if(splitDate[2] < dd ) {
-        //     return alert(`Minimum Date is ${dd}`)
-        // }
+        if(splitDate[2] < dd ) {
+            // return alert(`Minimum Date is ${dd}`)
+            if( splitDate[0] < yyyy && splitDate[1] < mm ){  // 2020 < 2019
+                return alert(`Format date is incorrect (3)`)
+            }
+        }
 
         if(caryear === ''){
             caryear = 'No info'
@@ -313,17 +318,32 @@ class BookingForm extends Component {
                                 </button>
                             </div>
 
+                            {/* Address depends on GUEST MODE OR REGISTERED ACCOUNT, GUEST MODE = WITHOUT HOME SERVICE */}
+                            { this.props.objectUser.username === '' ?                             
                             <div className="form-group">
                                 <label>Home Service / Workshop</label>
                                 <form className="input-group">
                                     <select className="custom-select radius-custom" name='selectedAddress' ref={ input => this.selectedLocationType = input } onChange={ () => this.checkHomeService() } >
                                             <option value={['Workshop','Sunter Pulo Kecil']} className="radius-custom">Workshop : Sunter Pulo Kecil No.18 (Jakarta Utara)</option>
                                             <option value={['Workshop','Taman Kopo Indah']} className="radius-custom">Workshop : Taman Kopo Indah No.10 (Bandung)</option>
-                                            <option value={'Home'} className="radius-custom">Home Service</option>
                                     </select>
                                 </form>
                                 <small className="form-text text-muted">Required</small>
-                            </div>
+                            </div> : 
+                            
+                                <div className="form-group">
+                                    <label>Home Service / Workshop</label>
+                                    <form className="input-group">
+                                        <select className="custom-select radius-custom" name='selectedAddress' ref={ input => this.selectedLocationType = input } onChange={ () => this.checkHomeService() } >
+                                                <option value={['Workshop','Sunter Pulo Kecil']} className="radius-custom">Workshop : Sunter Pulo Kecil No.18 (Jakarta Utara)</option>
+                                                <option value={['Workshop','Taman Kopo Indah']} className="radius-custom">Workshop : Taman Kopo Indah No.10 (Bandung)</option>
+                                                <option value={'Home'} className="radius-custom">Home Service</option>
+                                        </select>
+                                    </form>
+                                    <small className="form-text text-muted">Required</small>
+                                </div>
+                            }
+
 
                             {/* Show Add Address UI for Home Service */}
                             { this.state.isHomeService === true && (
@@ -427,11 +447,8 @@ class BookingForm extends Component {
                     </div>
                     <div>
 
-
-
-            </div>  {/* end container shadow */}
+                </div>  {/* end container shadow */}
             
-
             </div>  // end jumbotron
         )
     }

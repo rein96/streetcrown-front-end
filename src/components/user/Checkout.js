@@ -184,7 +184,7 @@ class Checkout extends Component {
                 {/* Modal: Add New Address */}
                     <div className="modal fade" id="modalAddress" tabIndex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
                         <div className="modal-dialog modal-dialog-centered" role="document">
-                        <div className="modal-content">
+                            <div className="modal-content">
 
                                 <div className="modal-header">
                                     <h5 className="modal-title" id="exampleModal3Label">Add New Address</h5>
@@ -192,6 +192,7 @@ class Checkout extends Component {
                                     <span aria-hidden="true">&times;</span>
                                     </button>
                                 </div>
+
                                 <div className="modal-body">
                                     <div className="form-group">
                                         <label>Address</label>
@@ -200,16 +201,15 @@ class Checkout extends Component {
                                         </form>
                                     </div>
                                 </div>
+
                                 <div className="modal-footer">
                                     <button type="button" className="btn btn-outline-secondary" data-dismiss="modal">Cancel</button>
                                     <button className="btn btn-success" onClick={this.addAddress}  data-dismiss="modal" >Add</button>
                                 </div>
-                            </div>
-                          </div>
-                      </div>
-                    </div>
-                    <div>
 
+                            </div>
+                        </div>
+                    </div>
 
 
             </div>  {/* end container shadow */}

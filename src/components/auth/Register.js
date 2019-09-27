@@ -31,8 +31,9 @@ class Register extends Component {
 
         // console.log(data_name,data_username,data_email,data_phone_number,data_password,data_retype_password);
         // name minimum 3, username minimum 3, email, phone_number ?, password minimum 6 string
-        if(data_name.length <= 3){ return alert('Please input minimum 3 characters for name :)') }
-        if(data_username.length <= 3){ return alert('Please input minimum 3 characters for username :)') }
+        console.log(data_name)
+        if(data_name.length < 3){ return alert('Please input minimum 3 characters for name :)') }
+        if(data_username.length < 3){ return alert('Please input minimum 3 characters for username :)') }
         if(data_password !== data_retype_password) {
             return alert('Password is not match :(');
         }

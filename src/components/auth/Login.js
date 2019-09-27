@@ -85,8 +85,11 @@ class Login extends Component {
                                             <p className="lead">Don't have an account ? <Link to="/register"> Register Now !  </Link></p>
     
                                         </div>
+
+                                        
                                         
                                     </div>
+                                    <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
                                 </div>
                             </div>
                         </div>

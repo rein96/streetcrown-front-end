@@ -14,7 +14,6 @@ class Products extends Component {
     }
 
     async componentDidMount() {
-        window.scrollTo(0, 0);
 
         const productArray = await this.props.getProducts()
         this.setState( { productArray } )
@@ -27,7 +26,9 @@ class Products extends Component {
             return (
                 <div className="card col-11 col-sm-5 col-md-3 col-lg-3 m-3 shadow" key={product.id} style={ borderRadius }>
                     <center>
-                    <img src={`http://localhost:2019/products/${product.image}`} className="card-img-top img-fluid shadow-lg mt-2" alt="products" style={borderRadiusPict} />
+                    <Link to={`/productdetail/${product.id}`} >
+                    <img src={`http://localhost:2019/products/${product.image}`} className="card-img-top img-fluid shadow-lg mt-2 coba" alt="products" style={borderRadiusPict} />
+                    </Link>
                     </center>
                     
                     <div className='card-body'>
