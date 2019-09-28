@@ -2,10 +2,13 @@ import React, { Component } from 'react'
 import { Link, Redirect } from 'react-router-dom'
 import {connect} from 'react-redux'
 import Swal from 'sweetalert2'
+import { GoogleLogin } from 'react-google-login';
 
-import {onLogin} from '../../actions/index'
+import {onLogin, googleLogin} from '../../actions/index'
 
 import '../../css/auth.css'
+
+// import google from '../../images/google.png'
 
 // On login-socmed branch, I want to integrate Login With SocialMedia + Login-Register manually.
 class Login extends Component {
@@ -37,9 +40,38 @@ class Login extends Component {
                 type: 'success',
                 title: 'Signed in successfully'
               })
-        }
-        
+        }   
     }
+
+    googleResponse = async (response) => {
+        console.log(response);
+
+        let { googleId, name, email, imageUrl, givenName } = response.profileObj
+
+        const resdata = await this.props.googleLogin( googleId, name, email, imageUrl, givenName)
+        console.log(resdata)
+
+        if(resdata.email){
+            const Toast = Swal.mixin({
+                toast: true,
+                position: 'top-end',
+                showConfirmButton: false,
+                timer: 4000
+            })
+            
+            Toast.fire({
+                type: 'success',
+                title: 'Signed in via Google Success!'
+            })
+            window.location.reload()
+        }
+
+    };
+
+    onFailure = (error) => {
+        // alert(JSON.stringify(error));
+        console.log('Google Authentication is cancelled by user')
+    };
 
 
     render() {
@@ -63,7 +95,27 @@ class Login extends Component {
                                         <div class="card-body">
     
                                         <form onSubmit={this.pressEnter}>
-    
+
+                                            <br/>
+                                            <GoogleLogin
+                                                // clientId={config.GOOGLE_CLIENT_ID}
+                                                clientId={'305841319276-ud1gtbhqpjedf8p6ltk9i4b8e5fduo8v.apps.googleusercontent.com'}
+                                                buttonText={<div style={centerPlease}>Login With Google</div>}
+                                                onSuccess={this.googleResponse}
+                                                onFailure={this.onFailure}
+                                                className="btn-block"
+                                                // render={renderProps => (
+                                                //     <button className="btn btn-light btn-block" onClick={renderProps.onClick} disabled={renderProps.disabled}>
+                                                //         <img src={google} alt="google" className="text-left" style={{ width: '30px' }} />Login with Google</button>
+                                                // )}
+                                            />
+
+                                            <br/><br/>
+
+                                            <center>OR</center>
+
+                                            {/* <div className="line-custom">OR</div> */}
+
                                             <div class="form-group">
                                                 <label for="uname1">Email</label>
                                                 <form className="input-group">
@@ -107,10 +159,17 @@ class Login extends Component {
     }
 }
 
+const centerPlease = {
+    // fontWeight: 'bold',
+    // fontSize: '1.5rem',
+    color: 'black',
+    fontFamily: 'Montserrat'
+}
+
 const mapStateToProps = state => {
     return {
         objectUser : state.auth // { id, name, username, email, phone_number, is_admin, avatar }
     }
 }
 
-export default connect(mapStateToProps,{ onLogin })(Login);
+export default connect(mapStateToProps,{ onLogin, googleLogin })(Login);

@@ -8,7 +8,8 @@ const init = {
     phone_number:'',
     is_admin:'',
     avatar: '',
-    addresses: []
+    addresses: [],
+    login_via : ''
 }
 
 export default (state = init, action) => {

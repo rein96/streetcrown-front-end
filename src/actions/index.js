@@ -6,7 +6,7 @@ const cookie = new cookies()
 ///////////////////////////////////////////////////////////////////////////////////
 // USER ROUTER
 
-// LOGIN USER
+// LOGIN USER (manual)
 export const onLogin = (inputEmail, inputPassword) => {
     // redux-thunk dispatch
     return async (dispatch) => {
@@ -48,6 +48,48 @@ export const onLogin = (inputEmail, inputPassword) => {
             console.log(err)
         }
     }
+}
+
+// LOGIN/REGISTER VIA GOOGLE
+export const googleLogin = ( googleId, googleName, googleEmail, imageUrl, givenName ) => {
+
+    return async (dispatch) => {
+        try {
+            const res = await axios.patch('/users/google', {
+                name : googleName,
+                email : googleEmail,
+                avatar : imageUrl,
+                social_media_id : googleId,
+                username: givenName,
+                login_via : 'google'
+            })
+
+            console.log(res.data)
+
+            const { id, name, username, email, phone_number, is_admin, avatar } = res.data
+
+            // Get addresses
+            const resAddress = await axios.get(`/getaddress/${id}`)
+
+            // console.log(resAddress.data)    // Array [ {}, {} ]
+            const addresses = resAddress.data
+
+            cookie.set('streetcrownUser', { id, name, username, email, phone_number, is_admin, avatar, addresses } )
+
+            // kirim data_user Object{} untuk 
+            dispatch({
+                type: 'LOGIN_SUCCESS',
+                payload: {
+                    id, name, username, email, phone_number, is_admin, avatar, addresses
+                }
+            });
+            return res.data
+            
+        } catch (err) {
+            console.error(err)
+        }
+    }
+    
 }
 
 // KEEP LOGIN COOKIE

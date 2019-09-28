@@ -63,6 +63,11 @@ class Header extends React.Component {
       )
     }
 
+    localAvatarError = (e) => {
+      e.target.onerror = null; 
+      e.target.src= this.props.objectUser.avatar
+    }
+
 
     render() {
       
@@ -96,7 +101,19 @@ class Header extends React.Component {
                         <UncontrolledDropdown nav inNavbar>
                             <DropdownToggle nav caret style={{ color: "white" }}>
                                 Hello <span style={{ color : '#d9534f'}}> <b> {this.props.objectUser.username} </b> </span>  
-                                { this.props.objectUser.avatar === null ? <img src={avatar_default} alt="avatar_default" style={ { width: "30px" } } /> : <img src={`http://localhost:2019/users/avatar/${this.props.objectUser.avatar}`} style={ { width: "30px", borderRadius: "200px" } }   alt="avatar" key={ new Date() } />  } 
+
+                                { 
+                                  this.props.objectUser.avatar === null ? 
+
+                                  <img src={avatar_default} alt="avatar_default" style={ { width: "30px" } } /> : 
+                                  
+                                  <img src={`http://localhost:2019/users/avatar/${this.props.objectUser.avatar}`} 
+                                        style={ { width: "30px", borderRadius: "200px" } }   
+                                        alt="avatar" 
+                                        key={ new Date() }
+                                        onError={this.localAvatarError} />  
+                                } 
+
                             </DropdownToggle>
 
                             <DropdownMenu right>
