@@ -5,6 +5,7 @@ import Swal from 'sweetalert2'
 import { GoogleLogin } from 'react-google-login';
 
 import {onLogin, googleLogin} from '../../actions/index'
+import configAPI from '../../config/configAPI'
 
 import '../../css/auth.css'
 
@@ -98,8 +99,7 @@ class Login extends Component {
 
                                             <br/>
                                             <GoogleLogin
-                                                // clientId={config.GOOGLE_CLIENT_ID}
-                                                clientId={'305841319276-ud1gtbhqpjedf8p6ltk9i4b8e5fduo8v.apps.googleusercontent.com'}
+                                                clientId={configAPI.GOOGLE_CLIENT_ID}
                                                 buttonText={<div style={centerPlease}>Login With Google</div>}
                                                 onSuccess={this.googleResponse}
                                                 onFailure={this.onFailure}
