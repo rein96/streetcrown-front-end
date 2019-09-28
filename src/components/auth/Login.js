@@ -7,6 +7,7 @@ import {onLogin} from '../../actions/index'
 
 import '../../css/auth.css'
 
+// On login-socmed branch, I want to integrate Login With SocialMedia + Login-Register manually.
 class Login extends Component {
 
     pressEnter = (event) => {
