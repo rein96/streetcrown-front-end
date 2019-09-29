@@ -72,6 +72,7 @@ class Login extends Component {
     onFailure = (error) => {
         // alert(JSON.stringify(error));
         console.log('Google Authentication is cancelled by user')
+        console.log(error)
     };
 
 
