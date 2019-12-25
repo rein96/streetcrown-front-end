@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 
+import { URL } from '../../config/url'
 import { getAllUsers } from '../../actions/index'
 
 import defaultImage from '../../images/avatar_default.png'
@@ -32,6 +33,8 @@ class ManageUsers extends Component {
         window.open(`https://api.whatsapp.com/send?phone=${whatsappFormat}`)
     }
 
+
+
     renderUsers = () => {
         let render = this.state.allUsers.map( user => {
             let { id, username, name, avatar, phone_number, created_at, email} = user
@@ -40,15 +43,15 @@ class ManageUsers extends Component {
                     <th scope='col'>
                         { avatar === null ? 
                             <img src={defaultImage} style={ { width: "50px", borderRadius: "50px" } }  />  : 
-                            <img src={`http://localhost:2019/users/avatar/${avatar}`} 
+                            <img src={`${URL}/users/avatar/${avatar}`} 
                                 style={ { width: "50px", height: "50px", borderRadius: "50%" } } 
                                 alt="avatar" 
-                                key={ new Date() } />  }
-
-                        {/* <img src={`http://localhost:2019/users/avatar/${avatar}`}
-                            style={ { width: "50px", borderRadius: "50px" } }
-                            ref={img => this.img = img} 
-                            onError={() => this.img.src = defaultImage} /> */}
+                                key={ new Date() }
+                                onError={ (e) => {
+                                    e.target.onerror = null; 
+                                    e.target.src= avatar;
+                                }} />  
+                        }
 
                         <p> {name} </p>
                     </th>

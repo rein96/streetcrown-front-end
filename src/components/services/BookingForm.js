@@ -10,14 +10,23 @@ import comparisonSize from '../../images/comparison-car-size.png'
 class BookingForm extends Component {
 
     state = {
-        priceData : {},  // original_price_blabla + final_price_blabla
+        // priceData : {},  // original_price_blabla + final_price_blabla
         detailingName : '',
         isHomeService : false,
         booking_price : 0
     }
 
     async componentWillMount(){
-        let servicename = this.props.match.params.servicename
+        let servicename = this.props.match.params.servicename   // 'nano-ceramic-coating'
+
+        // if(servicename) {
+        //     if( servicename === 'quick-polish' || servicename === 'nano-ceramic-coating' || servicename === 'full-detailing') {
+        //         this.setState({ detailingName: servicename });
+        //     } else {
+        //         return this.props.history.push('/cardetailing');
+        //     }
+        // }
+
         if(servicename) {
             const resdata = await this.props.getDetailingData(servicename)
             console.log(resdata)

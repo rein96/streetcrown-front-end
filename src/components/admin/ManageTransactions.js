@@ -3,6 +3,7 @@ import { connect } from 'react-redux'
 import Swal from 'sweetalert2'
 import Spinner from '../Spinner'
 
+import { URL } from '../../config/url';
 import { getAllTransactions, specificTransaction, addResiNumber, deleteResiNumber, finishTransaction, unfinishedTransaction, rejectTransaction, deleteTransaction } from '../../actions/index'
 
 import '../../css/transactiondetail.css'
@@ -137,7 +138,7 @@ class ManageTransactions extends Component {
 
     paymentProofModal = (proof_of_payment) => {
         Swal.fire({
-            imageUrl: `http://localhost:2019/proof/${proof_of_payment}`,
+            imageUrl: `${URL}/proof/${proof_of_payment}`,
             imageWidth: 400,
             imageAlt: 'payment-image',
           })
@@ -211,7 +212,7 @@ class ManageTransactions extends Component {
             return (
                 <tr key={index} >
                     <th scope="col">
-                        <img src={`http://localhost:2019/products/${transaction.image}`} 
+                        <img src={`${URL}/products/${transaction.image}`} 
                             className="card-img" 
                             alt={transaction.product_name} 
                             style={{ width: "100px" }}
@@ -282,7 +283,7 @@ class ManageTransactions extends Component {
                         {proof_of_payment === null ? <p>
                              User hasn't upload proof image 
                              </p> : <button className="btn btn-link" onClick={ () => this.paymentProofModal(proof_of_payment) }>
-                                <img src={`http://localhost:2019/proof/${proof_of_payment}`}  className="card-img" alt={proof_of_payment} style={{ width: "100px" }} />
+                                <img src={`${URL}/proof/${proof_of_payment}`}  className="card-img" alt={proof_of_payment} style={{ width: "100px" }} />
                              </button>  }
                     </th>
                     <th scope="col">

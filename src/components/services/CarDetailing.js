@@ -23,17 +23,17 @@ class CarDetailing extends Component {
                           <h6 className="card-price text-center"> <b>QUICK POLISH</b> </h6>
                           <hr />
                           <ul className="fa-ul">
-                            <li><span className="fa-li"><i className="material-icons">check</i></span>Single User</li>
-                            <li><span className="fa-li"><i className="material-icons">check</i></span>5GB Storage</li>
-                            <li><span className="fa-li"><i className="material-icons">check</i></span>Unlimited Public Projects</li>
-                            <li><span className="fa-li"><i className="material-icons">check</i></span>Community Access</li>
-                            <li className="text-muted"><span className="fa-li"><i className="fas fa-times"></i></span>Unlimited Private Projects</li>
-                            <li className="text-muted"><span className="fa-li"><i className="fas fa-times"></i></span>Dedicated Phone Support</li>
-                            <li className="text-muted"><span className="fa-li"><i className="fas fa-times"></i></span>Free Subdomain</li>
-                            <li className="text-muted"><span className="fa-li"><i className="fas fa-times"></i></span>Monthly Status Reports</li>
+                            <li><span className="fa-li"><i className="material-icons">check</i></span>Lorem Ipsum 1</li>
+                            <li><span className="fa-li"><i className="material-icons">check</i></span>Lorem Ipsum 2</li>
+                            <li><span className="fa-li"><i className="material-icons">check</i></span>Lorem Ipsum 3</li>
+                            <li><span className="fa-li"><i className="material-icons">check</i></span>Lorem Ipsum 4</li>
+                            <li className="text-muted"><span className="fa-li"><i className="fas fa-times"></i></span>Lorem Ipsum 5</li>
+                            <li className="text-muted"><span className="fa-li"><i className="fas fa-times"></i></span>Lorem Ipsum 6</li>
+                            <li className="text-muted"><span className="fa-li"><i className="fas fa-times"></i></span>Lorem Ipsum 7</li>
+                            <li className="text-muted"><span className="fa-li"><i className="fas fa-times"></i></span>Lorem Ipsum 8</li>
                           </ul>
                           <Link to='/bookingform/quick-polish'>
-                            <button href="#" className="btn btn-block btn-primary text-uppercase">BOOK NOW</button>                          
+                            <button href="#" className="btn btn-block btn-danger text-uppercase">BOOK NOW</button>                          
                           </Link>
                         </div>
                       </div>
@@ -47,17 +47,17 @@ class CarDetailing extends Component {
                           <h6 className="card-price text-center"> <b>NANO CERAMIC COATING</b> </h6>
                           <hr/>
                           <ul className="fa-ul">
-                            <li><span className="fa-li"><i className="material-icons">check</i></span><strong>Unlimited Users</strong></li>
-                            <li><span className="fa-li"><i className="material-icons">check</i></span>150GB Storage</li>
-                            <li><span className="fa-li"><i className="material-icons">check</i></span>Unlimited Public Projects</li>
-                            <li><span className="fa-li"><i className="material-icons">check</i></span>Community Access</li>
-                            <li><span className="fa-li"><i className="material-icons">check</i></span>Unlimited Private Projects</li>
-                            <li><span className="fa-li"><i className="material-icons">check</i></span>Dedicated Phone Support</li>
-                            <li><span className="fa-li"><i className="material-icons">check</i></span><strong>Unlimited</strong> Free Subdomains</li>
-                            <li><span className="fa-li"><i className="material-icons">check</i></span>Monthly Status Reports</li>
+                            <li><span className="fa-li"><i className="material-icons">check</i></span><strong>Lorem Ipsum 1</strong></li>
+                            <li><span className="fa-li"><i className="material-icons">check</i></span>Lorem Ipsum 2</li>
+                            <li><span className="fa-li"><i className="material-icons">check</i></span>Lorem Ipsum 3</li>
+                            <li><span className="fa-li"><i className="material-icons">check</i></span>Lorem Ipsum 4</li>
+                            <li><span className="fa-li"><i className="material-icons">check</i></span>Lorem Ipsum 5</li>
+                            <li><span className="fa-li"><i className="material-icons">check</i></span>Lorem Ipsum 6</li>
+                            <li><span className="fa-li"><i className="material-icons">check</i></span><strong>Unlimited</strong> Lorem Ipsum 7</li>
+                            <li><span className="fa-li"><i className="material-icons">check</i></span>Lorem Ipsum 8</li>
                           </ul>
                           <Link to='/bookingform/nano-ceramic-coating' >
-                            <button href="#" className="btn btn-block btn-primary text-uppercase">BOOK NOW</button>
+                            <button href="#" className="btn btn-block btn-danger text-uppercase">BOOK NOW</button>
                           </Link>
                         </div>
                       </div>
@@ -72,17 +72,17 @@ class CarDetailing extends Component {
                           <h6 className="card-price text-center"> <b>FULL DETAILING</b> </h6>
                           <hr/>
                           <ul className="fa-ul">
-                            <li><span className="fa-li"><i className="material-icons">check</i></span><strong>5 Users</strong></li>
-                            <li><span className="fa-li"><i className="material-icons">check</i></span>50GB Storage</li>
-                            <li><span className="fa-li"><i className="material-icons">check</i></span>Unlimited Public Projects</li>
-                            <li><span className="fa-li"><i className="material-icons">check</i></span>Community Access</li>
-                            <li><span className="fa-li"><i className="material-icons">check</i></span>Unlimited Private Projects</li>
-                            <li><span className="fa-li"><i className="material-icons">check</i></span>Dedicated Phone Support</li>
-                            <li><span className="fa-li"><i className="material-icons">check</i></span>Free Subdomain</li>
-                            <li className="text-muted"><span className="fa-li"><i className="fas fa-times"></i></span>Monthly Status Reports</li>
+                            <li><span className="fa-li"><i className="material-icons">check</i></span><strong>Lorem Ipsum 1</strong></li>
+                            <li><span className="fa-li"><i className="material-icons">check</i></span>Lorem Ipsum 2</li>
+                            <li><span className="fa-li"><i className="material-icons">check</i></span>Lorem Ipsum 3</li>
+                            <li><span className="fa-li"><i className="material-icons">check</i></span>Lorem Ipsum 4</li>
+                            <li><span className="fa-li"><i className="material-icons">check</i></span>Lorem Ipsum 5</li>
+                            <li><span className="fa-li"><i className="material-icons">check</i></span>Lorem Ipsum 6</li>
+                            <li><span className="fa-li"><i className="material-icons">check</i></span>Lorem Ipsum 7</li>
+                            <li className="text-muted"><span className="fa-li"><i className="fas fa-times"></i></span>Lorem Ipsum 8</li>
                           </ul>
                           <Link to='/bookingform/full-detailing'>
-                            <button href="#" className="btn btn-block btn-primary text-uppercase">BOOK NOW</button>
+                            <button href="#" className="btn btn-block btn-danger text-uppercase">BOOK NOW</button>
                           </Link>
                         </div>
                       </div>

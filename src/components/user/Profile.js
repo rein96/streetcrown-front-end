@@ -4,6 +4,7 @@ import { connect } from 'react-redux'
 import { updateAvatar, deleteAvatar, editProfile, addAddress, getAddresses, deleteAddress } from '../../actions/index' 
 // import axios from '../config/axios';
 
+import { URL } from '../../config/url'
 import avatar_default from '../../images/avatar_default.png'
 
 class Profile extends Component {
@@ -87,6 +88,11 @@ class Profile extends Component {
         this.props.deleteAddress(addressId, this.props.objectUser)
     }
 
+    localAvatarError = (e) => {
+        e.target.onerror = null; 
+        e.target.src= this.props.objectUser.avatar
+    }
+
     render() {
 
         if (this.props.objectUser.username === '') {
@@ -102,7 +108,16 @@ class Profile extends Component {
                         
                         <div className="row">
                             <div className="col">
-                                { avatar === null ? <img src={avatar_default} alt="avatar_default" style={ { width: "200px" } } /> : <img src={`http://localhost:2019/users/avatar/${avatar}`} style={ { width: "200px", borderRadius: "150px" } } alt="avatar" key={ new Date() } />  }
+                                { 
+                                    avatar === null ? 
+                                    <img src={avatar_default} alt="avatar_default" style={ { width: "200px" } } /> : 
+                                    
+                                    <img src={`${URL}/users/avatar/${avatar}`} 
+                                        style={ { width: "200px", borderRadius: "150px" } } 
+                                        alt="avatar" 
+                                        key={ new Date() }
+                                        onError={this.localAvatarError} />  
+                                }
                                 
 
                                 <input type='file' className="custom-file" ref={input => this.avatar = input} onChange={ () => this.uploadAvatar() }  /> 

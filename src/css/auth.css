@@ -6,3 +6,14 @@
 .radius4-custom {
     border-radius: 25px 35px 0px 0px;
 }
+
+
+.line-custom::before,
+.line-custom::after {
+    display: inline-block;
+    content: "";
+    border-top: .3rem solid black;
+    width: 4rem;
+    margin: 0 1rem;
+    transform: translateY(-1rem);
+}

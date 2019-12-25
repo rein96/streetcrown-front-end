@@ -4,11 +4,7 @@
 	color: #fff;
 	font-weight: 300;
 }
-body {
-	margin: 0;
- background: rgb(255,255,255);
- background: radial-gradient(#03a9f4, #004b6d);
-}
+
 header {
     text-align: center;
     overflow: hidden;

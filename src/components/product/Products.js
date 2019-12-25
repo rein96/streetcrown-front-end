@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
 
+import { URL } from '../../config/url'
 import { getProducts } from '../../actions/index'
 
 import '../../css/products.css'
@@ -27,7 +28,7 @@ class Products extends Component {
                 <div className="card col-11 col-sm-5 col-md-3 col-lg-3 m-3 shadow" key={product.id} style={ borderRadius }>
                     <center>
                     <Link to={`/productdetail/${product.id}`} >
-                    <img src={`http://localhost:2019/products/${product.image}`} className="card-img-top img-fluid shadow-lg mt-2 coba" alt="products" style={borderRadiusPict} />
+                    <img src={`${URL}/products/${product.image}`} className="card-img-top img-fluid shadow-lg mt-2 coba" alt="products" style={borderRadiusPict} />
                     </Link>
                     </center>
                     

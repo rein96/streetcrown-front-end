@@ -4,6 +4,7 @@ import axios from '../../config/axios';
 import { Link, withRouter } from 'react-router-dom'
 import Swal from 'sweetalert2'
 
+import { URL } from '../../config/url'
 import { addCart, getCarts, updateQuantity } from '../../actions/index'
 
 const imageStyle = {
@@ -137,7 +138,7 @@ class ProductDetail extends Component {
                     <div className="row m-5">
 
                         <div className="col">
-                            <img src={`http://localhost:2019/products/${image}`} style={imageStyle} />  
+                            <img src={`${URL}/products/${image}`} style={imageStyle} />  
                         </div>
 
                         <div className="col">
