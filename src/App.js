@@ -24,7 +24,7 @@ import EditProduct from './components/admin/EditProduct'
 import CarDetailing from './components/services/CarDetailing'
 import MotorcycleDetailing from './components/services/MotorcycleDetailing'
 import BookingForm from './components/services/BookingForm'
-import ScrollToTop from './components/ScrollToTop'
+// import ScrollToTop from './components/ScrollToTop'
 
 import { keepLogin } from './actions/index'
 import HomeModal from './components/home/HomeModal'
@@ -54,7 +54,7 @@ class App extends Component {
                 <Header />
 
                 <Switch>
-                    <ScrollToTop>
+                    {/* <ScrollToTop> */}
                         <Route path='/' exact component={Home}  />
                         {/* Auth */}
                         <Route path='/login' component={Login}  />
@@ -81,7 +81,7 @@ class App extends Component {
                         <Route path='/manageusers' component={ManageUsers} />
                         <Route path='/editproduct/:productID' component={EditProduct} />
 
-                    </ScrollToTop>
+                    {/* </ScrollToTop> */}
                 </Switch>
                 <Footer  />
                 <HomeModal />

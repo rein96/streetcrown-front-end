@@ -5,6 +5,7 @@ import Swal from 'sweetalert2'
 
 import quantityIcon from '../../images/quantity-icon.png'
 
+import { URL } from '../../config/url'
 import { getCarts, deleteCart, changeQuantity } from '../../actions/index'
 
 import '../../css/cart.css'
@@ -98,7 +99,7 @@ class Cart extends Component {
 
                             <div className="col-4 col-md-4">
                                 <Link to={`/productdetail/${cart.product_id}`} >
-                                    <img src={`http://localhost:2019/products/${cart.image}`}  className="card-img" alt={cart.product} style={{ width: "150px", borderRadius: '30px' }} />
+                                    <img src={`${URL}/products/${cart.image}`}  className="card-img" alt={cart.product} style={{ width: "150px", borderRadius: '30px' }} />
                                 </Link>
                             </div>
 

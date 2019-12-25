@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { Redirect, withRouter, Link } from 'react-router-dom'
 
+import { URL } from '../../config/url' 
 import { editProduct, editProductImage, deleteProductImage } from '../../actions/index'
 
 class EditProduct extends Component {
@@ -105,7 +106,7 @@ class EditProduct extends Component {
                         
                         <h1>Edit Product</h1>
                         <div>
-                            <img src={`http://localhost:2019/products/${image}`} style={imageStyle}  />
+                            <img src={`${URL}/products/${image}`} style={imageStyle}  />
                             <p> Upload to edit image <input type='file' className="custom-file" ref={input => this.productImage = input} onChange={ () => this.editProductImageBtn() } />  </p> 
                             
                         </div>

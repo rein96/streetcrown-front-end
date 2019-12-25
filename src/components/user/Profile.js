@@ -4,6 +4,7 @@ import { connect } from 'react-redux'
 import { updateAvatar, deleteAvatar, editProfile, addAddress, getAddresses, deleteAddress } from '../../actions/index' 
 // import axios from '../config/axios';
 
+import { URL } from '../../config/url'
 import avatar_default from '../../images/avatar_default.png'
 
 class Profile extends Component {
@@ -111,7 +112,7 @@ class Profile extends Component {
                                     avatar === null ? 
                                     <img src={avatar_default} alt="avatar_default" style={ { width: "200px" } } /> : 
                                     
-                                    <img src={`http://localhost:2019/users/avatar/${avatar}`} 
+                                    <img src={`${URL}/users/avatar/${avatar}`} 
                                         style={ { width: "200px", borderRadius: "150px" } } 
                                         alt="avatar" 
                                         key={ new Date() }

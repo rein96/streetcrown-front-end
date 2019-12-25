@@ -15,6 +15,7 @@ import {
     DropdownMenu,
     DropdownItem } from 'reactstrap';
 
+import { URL } from '../../config/url'    
 import { onLogout, getCarts } from '../../actions/index'
     
 import streetcrown_logo from '../../images/streetcrown-logo.png'
@@ -107,7 +108,7 @@ class Header extends React.Component {
 
                                   <img src={avatar_default} alt="avatar_default" style={ { width: "30px" } } /> : 
                                   
-                                  <img src={`http://localhost:2019/users/avatar/${this.props.objectUser.avatar}`} 
+                                  <img src={`${URL}/users/avatar/${this.props.objectUser.avatar}`} 
                                         style={ { width: "30px", borderRadius: "200px" } }   
                                         alt="avatar" 
                                         key={ new Date() }

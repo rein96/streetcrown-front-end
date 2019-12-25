@@ -1,6 +1,8 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
+
+import { URL } from '../../config/url' 
 import { addProduct, getProducts, deleteProduct, editProduct } from '../../actions/index'
 
 import Spinner from '../Spinner'
@@ -69,7 +71,7 @@ class ManageProducts extends Component {
                     <th scope="col"><p style={{ whiteSpace : "pre-line" }}>{description}</p></th>
                     <th scope="col">{price}</th>
                     <th scope="col">
-                        <img src={`http://localhost:2019/products/${image}`} style={{ width: "150px" }} />
+                        <img src={`${URL}/products/${image}`} style={{ width: "150px" }} />
                     </th>
                     <th scope="col">
                         {/* <button className="btn btn-warning" onClick={ async () => this.editProductModal(id, name, category, description, price, image)} data-toggle="modal" data-target="#editProductModal" >Edit</button> */}

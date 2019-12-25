@@ -4,6 +4,7 @@ import { Redirect } from 'react-router-dom'
 import Swal from 'sweetalert2'
 import payment from '../../images/payment.png'
 
+import { URL } from '../../config/url'
 import { getTransaction, uploadProof, specificTransaction, proofImageNotificationMail } from '../../actions/index'
 
 class TransactionUser extends Component {
@@ -94,7 +95,7 @@ class TransactionUser extends Component {
             return (
                 <tr key={transaction.product_id} >
                     <th scope="col">
-                        <img src={`http://localhost:2019/products/${transaction.image}`}  
+                        <img src={`${URL}/products/${transaction.image}`}  
                             className="card-img" 
                             alt={transaction.product_name} 
                             style={{ width: "100px" }}
@@ -153,7 +154,7 @@ class TransactionUser extends Component {
                             ) : ( // if the user has already uploaded, it will appear
                                 <div>
                                     <p> Your Proof Image </p>
-                                    <img src={`http://localhost:2019/proof/${proof_of_payment}`}  className="card-img" alt={proof_of_payment} style={{ width: "150px" }} />
+                                    <img src={`${URL}/proof/${proof_of_payment}`}  className="card-img" alt={proof_of_payment} style={{ width: "150px" }} />
                                 </div>
                             )}
 
