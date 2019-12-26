@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { Component, Fragment } from 'react'
 import { connect } from 'react-redux'
 import axios from '../../config/axios';
 import { Link, withRouter } from 'react-router-dom'
@@ -6,6 +6,7 @@ import Swal from 'sweetalert2'
 
 import { URL } from '../../config/url'
 import { addCart, getCarts, updateQuantity } from '../../actions/index'
+import Spinner from '../Spinner';
 
 const imageStyle = {
     width: '300px'
@@ -30,7 +31,8 @@ const backStyle = {
 class ProductDetail extends Component {
 
     state = {
-        selectedProduct : {}
+        selectedProduct : {},
+        loading: true
     }
 
     async componentWillMount() {
@@ -40,7 +42,8 @@ class ProductDetail extends Component {
         try{
             const res = await axios.get(`/singleproduct/${productID}`)
 
-            this.setState( { selectedProduct : res.data } )
+            this.setState( { selectedProduct : res.data, loading: false } )
+            // this.setState( { loading: true } )
             console.log('%c this.state.selectedProduct', 'color:orange; font-weight:bold;');
             console.log(this.state.selectedProduct)
         } catch(err) {
@@ -127,6 +130,8 @@ class ProductDetail extends Component {
 
     render() {
         const { id, name, price, description, category, image } = this.state.selectedProduct
+        const { loading } = this.state
+
         return (
             <div className="jumbotron" style={verticalCenter}>
                 
@@ -138,26 +143,33 @@ class ProductDetail extends Component {
                     <div className="row m-5">
 
                         <div className="col">
-                            <img src={`${URL}/products/${image}`} style={imageStyle} />  
+                            
+                            {loading ? <Spinner /> : <img src={`${URL}/products/${image}`} style={imageStyle} />}
                         </div>
 
                         <div className="col">
-                            <h2> {name} </h2>
-                            <h3 className={ 'badge badge-pill ' + ( category === 'Exterior' ? 'badge-primary' : ( category === 'Interior' ? 'badge-success' : 'badge-danger' ) ) } > {category} </h3>
 
-                            <h3>Rp {price} </h3>
-                            <br/><br/>
-                            
-                            <h3> Description </h3>
-                            <p style={{ whiteSpace : "pre-line" }} > {description} </p>
+                            {loading ? <Spinner/> : 
+                            <Fragment>
+                                <h2> {name} </h2>
+                                <h3 className={ 'badge badge-pill ' + ( category === 'Exterior' ? 'badge-primary' : ( category === 'Interior' ? 'badge-success' : 'badge-danger' ) ) } > {category} </h3>
 
-                            <br/>
-                            <h5> Quantity </h5>
-                            <input ref={input => this.quantity = input}  type='number' placeholder="Quantity" className="form-control mb-3" min="1" defaultValue={1}/>
+                                <h3>Rp {price} </h3>
+                                <br/><br/>
+                                
+                                <h3> Description </h3>
+                                {this.state.loading && <Spinner />}
+                                <p style={{ whiteSpace : "pre-line" }} > {description} </p>
 
-                            <button className="btn btn-danger btn-block" onClick={ () => this.addToCartButton() }> Add To Cart </button>
+                                <br/>
+                                <h5> Quantity </h5>
+                                <input ref={input => this.quantity = input}  type='number' placeholder="Quantity" className="form-control mb-3" min="1" defaultValue={1}/>
 
-                            <br/><br/>
+                                <button className="btn btn-danger btn-block" onClick={ () => this.addToCartButton() }> Add To Cart </button>
+
+                                <br/><br/>                              
+                            </Fragment>}
+
                         </div>
 
                     </div>  {/* end of row */}

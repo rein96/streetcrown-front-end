@@ -2,11 +2,13 @@ import React from 'react'
 
 const Spinner = () => {
     return (
-        <center>
-            <div className="spinner-border text-danger" role="status">
-                <span className="sr-only">Loading...</span>
+        <div>
+            <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', height: '100%', width: '100%' }}>
+                <div className="spinner-border text-danger mt-5 mb-5" role="status">
+                    <span className="sr-only">Loading...</span>
+                </div>
             </div>
-        </center>
+        </div>
     )
 }
 

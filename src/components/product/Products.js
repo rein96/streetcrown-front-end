@@ -6,20 +6,22 @@ import { URL } from '../../config/url'
 import { getProducts } from '../../actions/index'
 
 import '../../css/products.css'
+import Spinner from '../Spinner'
 
 class Products extends Component {
 
     state = {
         productArray : [],   //this array will be rendered
-        exteriorLength : 0
+        exteriorLength : 0,
+        loading: true
     }
 
     async componentDidMount() {
 
         const productArray = await this.props.getProducts()
-        this.setState( { productArray } )
 
-        console.log(this.state.productArray)
+        this.setState( { productArray, loading : false } );
+
     }
 
     renderListProduct = () => {
@@ -115,8 +117,6 @@ class Products extends Component {
     filterPrice = () => {
         let inputMin = parseInt(this.min.value)
         let inputMax = parseInt(this.max.value)
-        console.log(inputMin)
-        console.log(inputMax)
 
         // if there is a filter price (either min or max)
         if( inputMin > 0 || inputMax > 0 ) {
@@ -146,6 +146,14 @@ class Products extends Component {
     // Initial render react
     render() {
         let allLength = this.props.productsSTATE.length
+
+        if(this.state.loading) {
+            return (
+                <div style={{ height: '65vh' }}>
+                    <Spinner />
+                </div>
+            )
+        }
 
         return (
             // Category and Price Filter column
