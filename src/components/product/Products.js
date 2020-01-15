@@ -158,7 +158,7 @@ class Products extends Component {
         return (
             // Category and Price Filter column
             <div>
-                <div className="row">
+                <div className="row" style={{ justifyContent: 'center' }}>
                     <div className="col-sm-12 col-md-12 col-lg-2 mt-2 ">
                         <div className="card make-me-sticky">
                             <article className="card-group-item mt-3">
@@ -192,7 +192,7 @@ class Products extends Component {
                     </div>
 
                     {/* render getProducts() */}
-                    <div className="row col-10">
+                    <div className="row col-10 flex-center-center">
 
                         {this.renderListProduct()}
 

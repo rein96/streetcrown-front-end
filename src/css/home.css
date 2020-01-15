@@ -306,3 +306,9 @@ color: red;
 	background-color: #343A40
 }
 
+
+.flex-center-center {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
