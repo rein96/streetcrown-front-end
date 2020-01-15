@@ -7,10 +7,7 @@ import Swal from 'sweetalert2'
 import { URL } from '../../config/url'
 import { addCart, getCarts, updateQuantity } from '../../actions/index'
 import Spinner from '../Spinner';
-
-const imageStyle = {
-    width: '300px'
-}
+import './ProductDetail.scss'
 
 const verticalCenter = {
     // minHeight: '100%',  
@@ -140,11 +137,11 @@ class ProductDetail extends Component {
                 <Link to='/products' >
                     <i className="material-icons shadow" style={backStyle}>arrow_back</i>
                 </Link>
-                    <div className="row m-5">
+                    <div className="row">
 
-                        <div className="col">
+                        <div className="col"  style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                             
-                            {loading ? <Spinner /> : <img src={`${URL}/products/${image}`} style={imageStyle} />}
+                            {loading ? <Spinner /> : <img src={`${URL}/products/${image}`} className="image-productdetail" />}
                         </div>
 
                         <div className="col">
@@ -154,7 +151,7 @@ class ProductDetail extends Component {
                                 <h2> {name} </h2>
                                 <h3 className={ 'badge badge-pill ' + ( category === 'Exterior' ? 'badge-primary' : ( category === 'Interior' ? 'badge-success' : 'badge-danger' ) ) } > {category} </h3>
 
-                                <h3>Rp {price} </h3>
+                                <h3>Rp {price.toLocaleString("IN")} </h3>
                                 <br/><br/>
                                 
                                 <h3> Description </h3>
