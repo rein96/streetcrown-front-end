@@ -6,20 +6,22 @@ import { URL } from '../../config/url'
 import { getProducts } from '../../actions/index'
 
 import '../../css/products.css'
+import Spinner from '../Spinner'
 
 class Products extends Component {
 
     state = {
         productArray : [],   //this array will be rendered
-        exteriorLength : 0
+        exteriorLength : 0,
+        loading: true
     }
 
     async componentDidMount() {
 
         const productArray = await this.props.getProducts()
-        this.setState( { productArray } )
 
-        console.log(this.state.productArray)
+        this.setState( { productArray, loading : false } );
+
     }
 
     renderListProduct = () => {
@@ -115,8 +117,6 @@ class Products extends Component {
     filterPrice = () => {
         let inputMin = parseInt(this.min.value)
         let inputMax = parseInt(this.max.value)
-        console.log(inputMin)
-        console.log(inputMax)
 
         // if there is a filter price (either min or max)
         if( inputMin > 0 || inputMax > 0 ) {
@@ -147,10 +147,18 @@ class Products extends Component {
     render() {
         let allLength = this.props.productsSTATE.length
 
+        if(this.state.loading) {
+            return (
+                <div style={{ height: '65vh' }}>
+                    <Spinner />
+                </div>
+            )
+        }
+
         return (
             // Category and Price Filter column
             <div>
-                <div className="row">
+                <div className="row" style={{ justifyContent: 'center' }}>
                     <div className="col-sm-12 col-md-12 col-lg-2 mt-2 ">
                         <div className="card make-me-sticky">
                             <article className="card-group-item mt-3">
@@ -184,7 +192,7 @@ class Products extends Component {
                     </div>
 
                     {/* render getProducts() */}
-                    <div className="row col-10">
+                    <div className="row col-10 flex-center-center">
 
                         {this.renderListProduct()}
 

@@ -2,20 +2,26 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
 
-import { URL } from '../../config/url' 
+import { URL } from '../../config/url'
 import { addProduct, getProducts, deleteProduct, editProduct } from '../../actions/index'
 
 import Spinner from '../Spinner'
 
 class ManageProducts extends Component {
 
+    state = {
+        loading: false
+    }
+
     async componentDidMount() {
+        this.setState({ loading: true })
         await this.props.getProducts()
+        await this.setState({ loading: false })
     }
 
     categoryOptions = () => {
-        const categories = ['Exterior','Interior','Engine']
-        let result = categories.map( (category, index) => {
+        const categories = ['Exterior', 'Interior', 'Engine']
+        let result = categories.map((category, index) => {
             return (
                 <option key={index} value={category}>{category}</option>
             )
@@ -32,11 +38,11 @@ class ManageProducts extends Component {
         let productPicture = this.productPicture.files[0]
         console.log(productDescription)
 
-        if(productName.length === 0) { return alert('Please input the product name') }
-        if(productPrice.length === 0) { return alert('Please input the product price') }
-        if(productDescription.length === 0) { return alert('Please input the description') }
-        if(productPicture === undefined) { return alert('Please Choose File to upload a product image')}
-        if(productPicture.size > 1000000 ) { return alert('Maximal Product Image size is 1 MB') }
+        if (productName.length === 0) { return alert('Please input the product name') }
+        if (productPrice.length === 0) { return alert('Please input the product price') }
+        if (productDescription.length === 0) { return alert('Please input the description') }
+        if (productPicture === undefined) { return alert('Please Choose File to upload a product image') }
+        if (productPicture.size > 1000000) { return alert('Maximal Product Image size is 1 MB') }
 
         const formData = new FormData()
 
@@ -48,7 +54,8 @@ class ManageProducts extends Component {
         // console.log(productName, productCategory, productPrice, productDescription, productPicture )
 
         await this.props.addProduct(formData)
-        await this.props.getProducts()
+        const resdata = await this.props.getProducts()
+        
 
         this.productName.value = ''
         this.productPrice.value = ''
@@ -56,8 +63,8 @@ class ManageProducts extends Component {
     }
 
     deleteProductButton = async (productID) => {
-       await this.props.deleteProduct(productID)
-       await this.props.getProducts()
+        await this.props.deleteProduct(productID)
+        await this.props.getProducts()
     }
 
     renderProductList = () => {
@@ -68,7 +75,7 @@ class ManageProducts extends Component {
                     {/* <th scope="col">{product.id}</th> */}
                     <th scope="col"><p>{name}</p></th>
                     <th scope="col">{category}</th>
-                    <th scope="col"><p style={{ whiteSpace : "pre-line" }}>{description}</p></th>
+                    <th scope="col"><p style={{ whiteSpace: "pre-line" }}>{description}</p></th>
                     <th scope="col">{price}</th>
                     <th scope="col">
                         <img src={`${URL}/products/${image}`} style={{ width: "150px" }} />
@@ -79,7 +86,7 @@ class ManageProducts extends Component {
                             <button className="btn btn-warning" >Edit</button>
                         </Link>
 
-                        <button className="btn btn-danger"  onClick={ () => this.deleteProductButton(id)}>Delete</button>
+                        <button className="btn btn-danger" onClick={() => this.deleteProductButton(id)}>Delete</button>
                     </th>
                 </tr>
             )
@@ -97,87 +104,96 @@ class ManageProducts extends Component {
 
         return (
             <div>
-                
-                <br/> <center> <h2> Manage Products </h2> </center>
+
+                <br /> <center> <h2> Manage Products </h2> </center>
 
                 <div className="row mt-5">
                     <div className="col-sm-12 col-md-12 col-lg-4">
                         {/* Input Product */}
                         <h3 className=" text-center">Input Product</h3>
                         <div className="card">
-                                <header className="card-header bg-dark">
-                                    <h6 className="title text-white">Add Product</h6>
-                                </header>
-                                    <div className="filter-content">
-                                        <div className="card-body">
-                                            <div className="form-row">
+                            <header className="card-header bg-dark">
+                                <h6 className="title text-white">Add Product</h6>
+                            </header>
+                            <div className="filter-content">
+                                <div className="card-body">
+                                    <div className="form-row">
 
-                                                {/* <form onSubmit={this.pressEnterAddProduct}> */}
-                                                    Name :
+                                        {/* <form onSubmit={this.pressEnterAddProduct}> */}
+                                        Name :
                                                     <form className="input-group">
-                                                        <input placeholder="Product Name" ref={input => this.productName = input} className="form-control mb-2" type="text" required/>
-                                                    </form>
+                                            <input placeholder="Product Name" ref={input => this.productName = input} className="form-control mb-2" type="text" required />
+                                        </form>
 
-                                                    Category : 
+                                        Category :
                                                     <form className="input-group">
-                                                        <select className="custom-select" name="selectedCategory" ref={input => this.selectedCategory = input} >
-                                                            {this.categoryOptions()}
-                                                        </select>
-                                                    </form>
+                                            <select className="custom-select" name="selectedCategory" ref={input => this.selectedCategory = input} >
+                                                {this.categoryOptions()}
+                                            </select>
+                                        </form>
 
-                                                    Price :
+                                        Price :
                                                     <form className="input-group">
-                                                        <input placeholder="Product Price" ref={input => this.productPrice = input} className="form-control mb-2" type="number" required />
-                                                    </form>
+                                            <input placeholder="Product Price" ref={input => this.productPrice = input} className="form-control mb-2" type="number" required />
+                                        </form>
 
-                                                    Description :
+                                        Description :
                                                     <form className="input-group">
-                                                        <textarea placeholder="Product Description" ref={input => this.productDescription = input} className="form-control mb-2" type="text" style={{ height: "200px" }} required/>
-                                                    </form>
+                                            <textarea placeholder="Product Description" ref={input => this.productDescription = input} className="form-control mb-2" type="text" style={{ height: "200px" }} required />
+                                        </form>
 
-                                                    Picture :
-                                                    <input type='file' className="custom-file" ref={input => this.productPicture = input} required /> 
+                                        Picture :
+                                                    <input type='file' className="custom-file" ref={input => this.productPicture = input} required />
 
-                                                {/* </form> */}
+                                        {/* </form> */}
 
 
 
-                                                <button onClick={this.addProduct} className="btn btn-outline-danger btn-block mt-5">Add</button>
-                                        
-                                            </div>
-                                        </div>
+                                        { this.state.loading 
+                                            ? <Spinner /> 
+                                            : <button onClick={this.addProduct} className="btn btn-outline-danger btn-block mt-5">Add</button> 
+                                        }
+
                                     </div>
-                            </div> 
+                                </div>
+                            </div>
+                        </div>
 
                     </div> {/* end div col */}
 
-                    <div className="col"> 
+                    <div className="col">
 
                         {/* List Products */}
                         <h3 className=" text-center">Product List</h3>
-                        { this.props.productsSTATE.length === 0 && <Spinner /> }
-                        <table className="table table-hover mb-5">
-                            <thead>
-                                <tr>
-                                    {/* <th scope="col">ID</th> */}
-                                    <th scope="col">NAME</th>
-                                    <th scope="col">CATEGORY</th>
-                                    <th scope="col">DESC</th>
-                                    <th scope="col">PRICE</th>
-                                    <th scope="col">PICTURE</th>
-                                    <th scope="col">ACTION</th>
-                                </tr>
-                            </thead>
 
-                            <tbody>
-                                {/* render all products */}
-                                {this.renderProductList()}
+                        {this.props.productsSTATE.length === 0  
+                            ? <p><center>No Products</center></p> 
+                            : this.state.loading 
+                                ? <Spinner /> 
+                                :
+                                    <table className="table table-hover mb-5">
+                                        <thead>
+                                            <tr>
+                                                {/* <th scope="col">ID</th> */}
+                                                <th scope="col">NAME</th>
+                                                <th scope="col">CATEGORY</th>
+                                                <th scope="col">DESC</th>
+                                                <th scope="col">PRICE</th>
+                                                <th scope="col">PICTURE</th>
+                                                <th scope="col">ACTION</th>
+                                            </tr>
+                                        </thead>
 
-                            </tbody>
-                        </table>
+                                        <tbody>
+                                            {/* render all products */}
+                                            {this.renderProductList()}
+
+                                        </tbody>
+                                    </table>
+                        }
 
                     </div>      {/* end div col */}
-                    
+
                 </div>  {/* end div row */}
 
             </div>  // end div container
@@ -186,8 +202,8 @@ class ManageProducts extends Component {
 }
 
 const mapStateToProps = state => ({
-        productsSTATE: state.product.products,
-        objectUser: state.auth
+    productsSTATE: state.product.products,
+    objectUser: state.auth
 })
 
 export default connect(mapStateToProps, { addProduct, getProducts, deleteProduct, editProduct })(ManageProducts);
