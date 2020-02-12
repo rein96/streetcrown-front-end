@@ -197,9 +197,8 @@ footer{
 
 @media (max-width: 575px) {
 	.carousel-inner img {
-		height:300px !important;
-
-		width:100% !important;
+		height: 250px !important;
+		width: auto !important;
         min-width:100 !important;
 		height: auto;
 		margin: 0 auto;
